@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Adler University UTM Builder</title>
+    <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style> :root {
+            --adler-red: #b91c1c;
+            --adler-charcoal: #111827;
+            --adler-gray-100: #f3f4f6;
+            --adler-gray-200: #e5e7eb;
+            --adler-gray-400: #9ca3af;
+            --adler-gray-600: #4b5563;
+
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--adler-gray-100);
+            color: var(--adler-charcoal);
+            display: flex;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        .page,
+        .wrapper {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Top header */
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+
+        .site-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-mark {
+            width: 32px;
+            height: 32px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            padding: 0;
+        }
+
+        .brand-mark img.brand-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .brand-text-main {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .brand-text-sub {
+            font-size: 0.8rem;
+            color: var(--adler-gray-600);
+        }
+
+        .tool-title {
+            text-align: right;
+        }
+
+        .tool-title-main {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .tool-title-sub {
+            font-size: 0.85rem;
+            color: var(--adler-gray-600);
+        }
+
+        /* Card */
+        .card {
+            background: #ffffff;
+            padding: 20px 20px 18px;
+            border: 1px solid var(--adler-gray-200);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.4fr);
+            gap: 18px;
+        }
+
+        @media (max-width: 800px) {
+            body {
+                padding-top: 20px;
+            }
+
+            .grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .tool-title {
+                text-align: left;
+            }
+        }
+
+        .panel {
+            background: #ffffff;
+            border: 1px solid var(--adler-gray-200);
+            padding: 14px 14px 14px;
+        }
+
+        .panel-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--adler-gray-600);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .field-group {
+            margin-bottom: 12px;
+        }
+
+        .field-group.inline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: var(--adler-gray-600);
+        }
+
+        label span.req {
+            color: var(--adler-red);
+            margin-left: 2px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--adler-gray-200);
+            background: #ffffff;
+            color: var(--adler-charcoal);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.14s ease, box-shadow 0.14s ease,
+                background 0.14s ease;
+        }
+
+        input[type="text"]::placeholder {
+            color: var(--adler-gray-400);
+            font-size: 0.85rem;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--adler-red);
+            box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.18);
+            background: #ffffff;
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--adler-gray-600);
+            margin-top: 4px;
+        }
+
+        .error {
+            margin-top: 4px;
+            font-size: 0.75rem;
+            color: var(--adler-red);
+        }
+
+        /* Toggle */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 6px;
+            margin-top: 4px;
+        }
+
+        .toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--adler-gray-600);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle input {
+            display: none;
+        }
+
+        .toggle-pill {
+            width: 32px;
+            height: 18px;
+            border-radius: 999px;
+            background: var(--adler-gray-100);
+            border: 1px solid var(--adler-gray-400);
+            padding: 1px;
+            display: flex;
+            align-items: center;
+            transition: background 0.16s ease, border-color 0.16s ease;
+        }
+
+        .toggle-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 999px;
+            background: var(--adler-gray-400);
+            transform: translateX(0);
+            transition: transform 0.16s ease, background 0.16s ease;
+        }
+
+        .toggle input:checked+.toggle-pill {
+            background: #fee2e2;
+            border-color: var(--adler-red);
+        }
+
+        .toggle input:checked+.toggle-pill .toggle-thumb {
+            transform: translateX(12px);
+            background: var(--adler-red);
+        }
+
+        /* Buttons */
+        .button-row {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        button {
+            border: none;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: transform 0.12s ease, box-shadow 0.12s ease,
+                background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+        }
+
+        button.primary {
+            background: var(--adler-red);
+            color: #ffffff;
+            box-shadow: 0 10px 20px rgba(185, 28, 28, 0.25);
+        }
+
+        button.primary:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
+            box-shadow: 0 14px 26px rgba(185, 28, 28, 0.3);
+        }
+
+        button.secondary {
+            background: #ffffff;
+            color: var(--adler-gray-600);
+            border: 1px solid var(--adler-gray-200);
+        }
+
+        /* Output */
+        .output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chip-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            font-size: 0.75rem;
+        }
+
+        .chip {
+            border-radius: 999px;
+            padding: 4px 8px;
+            border: 1px solid var(--adler-gray-200);
+            background: var(--adler-gray-100);
+            color: var(--adler-gray-600);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chip-key {
+            color: var(--adler-charcoal);
+            font-weight: 500;
+        }
+
+        .output-box {
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--adler-gray-200);
+            padding: 10px 12px;
+            font-size: 0.85rem;
+            color: var(--adler-charcoal);
+            word-break: break-all;
+            min-height: 46px;
+            display: flex;
+            align-items: center;
+        }
+
+        .output-box.empty {
+            color: var(--adler-gray-400);
+        }
+
+        .status {
+            font-size: 0.8rem;
+            color: #059669;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .status.show {
+            opacity: 1;
+        }
+
+        a.preview-link {
+            font-size: 0.8rem;
+            color: var(--adler-red);
+            text-decoration: none;
+        }
+
+        a.preview-link:hover {
+            text-decoration: underline;
+        }
+
+        .footer-hint {
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--adler-gray-600);
+        }
+
+        .utility-tag {
+            margin-top: 12px;
+            font-size: 0.75rem;
+            color: var(--adler-gray-600);
+            text-align: right;
+        }
+
+        /* Tooltip */
+        .label-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tooltip-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+          top:-3px;
+        }
+
+        .tooltip-btn {
+            width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            border: 1px solid var(--adler-gray-200);
+            background: var(--adler-gray-100);
+            color: var(--adler-gray-600);
+            font-size: 0.75rem;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .tooltip-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.25);
+            border-color: var(--adler-red);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111827;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 8px 10px;
+            border-radius: 10px;
+            width: max-content;
+            max-width: 240px;
+            z-index: 50;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s ease;
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: #111827 transparent transparent transparent;
+        }
+
+        .tooltip-wrap:hover .tooltip,
+        .tooltip-wrap:focus-within .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        /* Counter warnings */
+        #contentCharWarning,
+        #urlCharWarning {
+            font-weight: 500;
+        }
+
+        #contentCharWarning {
+            color: #b45309;
+        }
+
+        #urlCharWarning.warning {
+            color: #b45309;
+        }
+
+        #urlCharWarning.danger {
+            color: var(--adler-red);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="card">
+            <header class="site-header">
+                <div class="site-brand">
+                    <div class="brand-mark">
+                        <img src="https://www.adler.edu/wp-content/uploads/2025/07/favicon-300x300.png" alt="Adler favicon" class="brand-icon" />
+                    </div>
+                    <div class="brand-text">
+                        <div class="brand-text-main">Adler University</div>
+                        <div class="brand-text-sub">Digital &amp; Web Tools</div>
+                    </div>
+                </div>
+                <div class="tool-title">
+                    <div class="tool-title-main">UTM Builder</div>
+                    <div class="tool-title-sub">Generate tracking URLs for Adler campaigns</div>
+                </div>
+            </header>
+            <div class="grid">
+                <!-- INPUT PANEL -->
+                <section class="panel">
+                    <div class="panel-title">
+                        <span>Campaign details</span>
+                    </div>
+                    <div class="field-group">
+                        <div class="label-row">
+                            <label for="baseUrl">Base URL <span class="req">*</span></label>
+                            <span class="tooltip-wrap">
+                                <button type="button" class="tooltip-btn" aria-label="Base URL info">?</button>
+                                <span class="tooltip">
+                                    The destination page the user will land on. Must start with https://adler.edu or a
+                                    valid subdomain.
+                                </span>
+                            </span>
+                        </div>
+                        <input type="text" id="baseUrl" value="https://adler.edu/" />
+                        <div id="urlError" class="error" style="display:none;"></div>
+                        <div class="hint">
+                            The domain should be <strong>https://adler.edu</strong> or
+                            <strong>https://subdomain.adler.edu</strong>.<br />You
+                            can add or edit the path, for example:
+                            <em>/programs/ma-counselling-psychology</em>.
+                        </div>
+                    </div>
+                    <div class="field-group inline">
+                        <div>
+                            <div class="label-row">
+                                <label for="source">utm_source <span class="req">*</span></label>
+                                <span class="tooltip-wrap">
+                                    <button type="button" class="tooltip-btn" aria-label="utm_source info">?</button>
+                                    <span class="tooltip">
+                                        Identifies who sent the traffic (platform, partner, vendor). Example: google,
+                                        facebook, newsletter.
+                                    </span>
+                                </span>
+                            </div>
+                            <input type="text" id="source" list="sourceOptions" placeholder="Select or create a new one" />
+                            <datalist id="sourceOptions"></datalist>
+                        </div>
+                        <div>
+                            <div class="label-row">
+                                <label for="medium">utm_medium <span class="req">*</span></label>
+                                <span class="tooltip-wrap">
+                                    <button type="button" class="tooltip-btn" aria-label="utm_medium info">?</button>
+                                    <span class="tooltip">
+                                        Identifies how traffic arrives (channel type). Example: paid_search, email,
+                                        paid_social.
+                                    </span>
+                                </span>
+                            </div>
+                            <input type="text" id="medium" list="mediumOptions" placeholder="Select or create a new one" />
+                            <datalist id="mediumOptions"></datalist>
+                        </div>
+                    </div>
+                    <div class="field-group inline">
+                        <div>
+                            <div class="label-row">
+                                <label for="campaign">utm_campaign <span class="req">*</span></label>
+                                <span class="tooltip-wrap">
+                                    <button type="button" class="tooltip-btn" aria-label="utm_campaign info">?</button>
+                                    <span class="tooltip">
+                                        Campaign name for reporting/grouping. Example: fall_2026_launch, open_house,
+                                        lead_nurture.
+                                    </span>
+                                </span>
+                            </div>
+                            <input type="text" id="campaign" list="campaignOptions" placeholder="Select or create a new one" />
+                            <datalist id="campaignOptions"></datalist>
+                        </div>
+                        <div>
+                            <div class="label-row">
+                                <label for="term">utm_term</label>
+                                <span class="tooltip-wrap">
+                                    <button type="button" class="tooltip-btn" aria-label="utm_term info">?</button>
+                                    <span class="tooltip">
+                                        Optional: keyword or audience segment. Commonly used for paid search keywords or
+                                        segmentation.
+                                    </span>
+                                </span>
+                            </div>
+                            <input type="text" id="term" placeholder="keyword or audience segment" />
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <div class="label-row">
+                            <label for="content">utm_content</label>
+                            <span class="tooltip-wrap">
+                                <button type="button" class="tooltip-btn" aria-label="utm_content info">?</button>
+                                <span class="tooltip">
+                                    Optional: variation/creative name. Example: banner_a, email_header_cta, button_blue.
+                                </span>
+                            </span>
+                        </div>
+                        <input type="text" id="content" placeholder="variation name like banner_a, button_blue" />
+                        <div class="footer-hint" style="margin-top: 6px;">
+                            <span id="contentCharCount">0 characters</span>
+                            <span id="contentCharWarning" style="display:none;"></span>
+                        </div>
+                    </div>
+                    <div class="toggle-row">
+                        <label class="toggle">
+                            <input type="checkbox" id="normalizeSwitch" checked />
+                            <span class="toggle-pill">
+                                <span class="toggle-thumb"></span>
+                            </span>
+                            <span>Normalize values (lowercase, spaces → underscores)</span>
+                        </label>
+                    </div>
+                    <div class="button-row">
+                        <button id="generateBtn" type="button" class="primary">
+                            <span>Generate UTM URL</span>
+                        </button>
+                        <button id="clearBtn" type="button" class="secondary">
+                            Clear
+                        </button>
+                    </div>
+                </section>
+                <!-- OUTPUT PANEL -->
+                <section class="panel">
+                    <div class="panel-title">
+                        <span>Generated URL</span>
+                        <span class="status" id="statusText">Copied!</span>
+                    </div>
+                    <div class="output-header">
+                        <div class="chip-row" id="chipRow"></div>
+                        <button id="copyBtn" type="button" class="secondary">
+                            Copy URL
+                        </button>
+                    </div>
+                    <div id="outputBox" class="output-box empty">
+                        Your UTM URL will appear here.
+                    </div>
+                    <div class="footer-hint">
+                        <span id="urlCharCount">Length: 0 characters</span>
+                        <span id="urlCharWarning" style="display:none;"></span>
+                    </div>
+                    <div style="margin-top: 8px; display:flex; justify-content: space-between; align-items:center; gap:8px;">
+                        <a id="previewLink" href="#" target="_blank" class="preview-link" style="display:none;">
+                            Open URL in new tab
+                        </a>
+                        <span class="hint">
+                            Tip: Keep sources/mediums consistent across all campaigns.
+                        </span>
+                    </div>
+                </section>
+            </div>
+            <div class="utility-tag">
+                Internal utility · Not for external marketing use.
+            </div>
+        </div>
+    </div>
+    <script>
+    const baseUrlEl = document.getElementById("baseUrl");
+    const sourceEl = document.getElementById("source");
+    const mediumEl = document.getElementById("medium");
+    const campaignEl = document.getElementById("campaign");
+    const termEl = document.getElementById("term");
+    const contentEl = document.getElementById("content");
+    const normalizeSwitch = document.getElementById("normalizeSwitch");
+
+    const urlErrorEl = document.getElementById("urlError");
+    const outputBox = document.getElementById("outputBox");
+    const chipRow = document.getElementById("chipRow");
+    const copyBtn = document.getElementById("copyBtn");
+    const generateBtn = document.getElementById("generateBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const previewLink = document.getElementById("previewLink");
+    const statusText = document.getElementById("statusText");
+
+    const contentCharCount = document.getElementById("contentCharCount");
+    const contentCharWarning = document.getElementById("contentCharWarning");
+
+    const urlCharCount = document.getElementById("urlCharCount");
+    const urlCharWarning = document.getElementById("urlCharWarning");
+
+    // Default options for dropdowns
+    const defaultSources = [
+        "google", "bing", "facebook", "instagram", "linkedin", "twitter", "youtube", "tiktok",
+        "newsletter", "prospect_email", "alumni_email", "partner_university", "community_partner",
+        "gradschoolscom", "studyportals", "print_brochure", "poster", "open_house_signage",
+        "fair_booth"
+    ];
+
+    const defaultMediums = [
+        "paid_search", "display", "paid_social", "organic_social", "email", "newsletter",
+        "referral", "listing", "affiliate", "internal_banner", "onsite_cta", "print", "event",
+        "out_of_home", "podcast", "sms"
+    ];
+
+    const defaultCampaigns = [
+        "fall_2025", "fall_2026_launch", "spring_2026", "webinar_series", "open_house",
+        "application_deadline", "lead_nurture", "multiview_program_promotion", "rebrand_launch",
+        "cbs_mental_health_minute_sponsorship"
+    ];
+
+    function getStoredOptions(key, defaults) {
+        const raw = localStorage.getItem(key);
+        if (!raw) return [...defaults];
+        try {
+            const parsed = JSON.parse(raw);
+            const merged = [...defaults, ...parsed];
+            return Array.from(new Set(merged));
+        } catch {
+            return [...defaults];
+        }
+    }
+
+    function storeOption(key, value) {
+        if (!value) return;
+        const trimmed = value.trim();
+        if (!trimmed) return;
+
+        const raw = localStorage.getItem(key);
+        let arr = [];
+        if (raw) {
+            try {
+                arr = JSON.parse(raw);
+            } catch {
+                arr = [];
+            }
+        }
+        if (!arr.includes(trimmed)) {
+            arr.push(trimmed);
+            localStorage.setItem(key, JSON.stringify(arr));
+        }
+    }
+
+    function renderDatalist(datalistId, options) {
+        const dl = document.getElementById(datalistId);
+        if (!dl) return;
+        dl.innerHTML = "";
+        options.forEach((opt) => {
+            const o = document.createElement("option");
+            o.value = opt;
+            dl.appendChild(o);
+        });
+    }
+
+    function normalizeValue(value) {
+        if (!value) return "";
+        const trimmed = value.trim();
+        if (!normalizeSwitch.checked) return trimmed;
+        return trimmed.toLowerCase().replace(/\s+/g, "_");
+    }
+
+    function isLikelyUrl(str) {
+        return /^https?:\/\//i.test(str.trim());
+    }
+
+    function updateContentCharCount() {
+        const raw = contentEl.value || "";
+        const val = normalizeValue(raw);
+        const length = val.length;
+
+        contentCharCount.textContent = `${length} characters`;
+
+        if (length >= 100) {
+            contentCharWarning.style.display = "inline";
+            contentCharWarning.textContent = "Caution: 100+ characters may reduce reporting consistency.";
+        } else {
+            contentCharWarning.style.display = "none";
+            contentCharWarning.textContent = "";
+        }
+    }
+
+    function updateUrlCharCount(url) {
+        const length = url ? url.length : 0;
+        urlCharCount.textContent = `Length: ${length} characters`;
+
+        urlCharWarning.style.display = "none";
+        urlCharWarning.className = "";
+        urlCharWarning.textContent = "";
+
+        if (length >= 2000) {
+            urlCharWarning.style.display = "inline";
+            urlCharWarning.classList.add("danger");
+            urlCharWarning.textContent = "Warning: URL may break in some platforms (2000+ chars).";
+        } else if (length >= 1800) {
+            urlCharWarning.style.display = "inline";
+            urlCharWarning.classList.add("warning");
+            urlCharWarning.textContent = "Caution: URL is getting long (1800+ chars).";
+        }
+    }
+
+    function buildUtmUrl() {
+        const base = baseUrlEl.value.trim();
+        const source = normalizeValue(sourceEl.value);
+        const medium = normalizeValue(mediumEl.value);
+        const campaign = normalizeValue(campaignEl.value);
+        const term = normalizeValue(termEl.value);
+        const content = normalizeValue(contentEl.value);
+
+        urlErrorEl.style.display = "none";
+        urlErrorEl.textContent = "";
+
+        if (!base) {
+            urlErrorEl.textContent = "Base URL is required.";
+            urlErrorEl.style.display = "block";
+            return "";
+        }
+        if (!isLikelyUrl(base)) {
+            urlErrorEl.textContent = "Base URL should start with http:// or https://";
+            urlErrorEl.style.display = "block";
+            return "";
+        }
+        if (!source || !medium || !campaign) {
+            urlErrorEl.textContent = "utm_source, utm_medium, and utm_campaign are required.";
+            urlErrorEl.style.display = "block";
+            return "";
+        }
+
+        const params = new URLSearchParams();
+        params.set("utm_source", source);
+        params.set("utm_medium", medium);
+        params.set("utm_campaign", campaign);
+        if (term) params.set("utm_term", term);
+        if (content) params.set("utm_content", content);
+
+        let finalUrl;
+        try {
+            const urlObj = new URL(base);
+            const existing = new URLSearchParams(urlObj.search);
+            for (const [key, value] of existing.entries()) {
+                params.append(key, value);
+            }
+            urlObj.search = params.toString();
+            finalUrl = urlObj.toString();
+        } catch {
+            const joiner = base.includes("?") ? "&" : "?";
+            finalUrl = base + joiner + params.toString();
+        }
+
+        storeOption("utm_sources", source);
+        storeOption("utm_mediums", medium);
+        storeOption("utm_campaigns", campaign);
+
+        renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
+        renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
+        renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
+
+        chipRow.innerHTML = "";
+        const chips = [
+            ["source", source],
+            ["medium", medium],
+            ["campaign", campaign],
+            ["term", term],
+            ["content", content],
+        ].filter(([, v]) => v);
+
+        chips.forEach(([k, v]) => {
+            const chip = document.createElement("span");
+            chip.className = "chip";
+            chip.innerHTML = `<span class="chip-key">${k}:</span><span>${v}</span>`;
+            chipRow.appendChild(chip);
+        });
+
+        outputBox.textContent = finalUrl;
+        outputBox.classList.remove("empty");
+        previewLink.href = finalUrl;
+        previewLink.style.display = "inline";
+
+        updateUrlCharCount(finalUrl);
+
+        return finalUrl;
+    }
+
+    function copyToClipboard(text) {
+        if (!text) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(
+                () => showStatus(),
+                () => fallbackCopy(text)
+            );
+        } else {
+            fallbackCopy(text);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        temp.setAttribute("readonly", "");
+        temp.style.position = "absolute";
+        temp.style.left = "-9999px";
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+            document.execCommand("copy");
+        } catch (e) {
+            console.error("Copy failed", e);
+        }
+        document.body.removeChild(temp);
+        showStatus();
+    }
+
+    function showStatus() {
+        statusText.classList.add("show");
+        setTimeout(() => {
+            statusText.classList.remove("show");
+        }, 1400);
+    }
+
+    // Initialize dropdowns
+    renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
+    renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
+    renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
+
+    // Event listeners
+    generateBtn.addEventListener("click", () => buildUtmUrl());
+    copyBtn.addEventListener("click", () => {
+        const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
+        if (!current) {
+            const url = buildUtmUrl();
+            if (url) copyToClipboard(url);
+        } else {
+            copyToClipboard(current);
+        }
+    });
+
+    clearBtn.addEventListener("click", () => {
+        baseUrlEl.value = "https://adler.edu/";
+        sourceEl.value = "";
+        mediumEl.value = "";
+        campaignEl.value = "";
+        termEl.value = "";
+        contentEl.value = "";
+        chipRow.innerHTML = "";
+        outputBox.textContent = "Your UTM URL will appear here.";
+        outputBox.classList.add("empty");
+        previewLink.style.display = "none";
+        urlErrorEl.style.display = "none";
+        urlErrorEl.textContent = "";
+
+        updateContentCharCount();
+        updateUrlCharCount("");
+    });
+
+    [baseUrlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl].forEach((el) => {
+        el.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                buildUtmUrl();
+            }
+        });
+    });
+
+    // Content counter live updates
+    contentEl.addEventListener("input", updateContentCharCount);
+    normalizeSwitch.addEventListener("change", updateContentCharCount);
+
+    // Initialize counters
+    updateContentCharCount();
+    updateUrlCharCount("");
+    </script>
+</body>
+
+</html>
