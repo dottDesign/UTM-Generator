@@ -6,7 +6,8 @@
     <title>Adler University UTM Builder</title>
     <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style> :root {
+    <style>
+        :root {
             --adler-red: #b91c1c;
             --adler-charcoal: #111827;
             --adler-gray-100: #f3f4f6;
@@ -403,7 +404,7 @@
             position: relative;
             display: inline-flex;
             align-items: center;
-          top:-3px;
+            top: -3px;
         }
 
         .tooltip-btn {
@@ -622,6 +623,7 @@
                         </button>
                     </div>
                 </section>
+
                 <!-- OUTPUT PANEL -->
                 <section class="panel">
                     <div class="panel-title">
@@ -651,313 +653,338 @@
                     </div>
                 </section>
             </div>
+
             <div class="utility-tag">
                 Internal utility · Not for external marketing use.
             </div>
         </div>
     </div>
+
     <script>
-    const baseUrlEl = document.getElementById("baseUrl");
-    const sourceEl = document.getElementById("source");
-    const mediumEl = document.getElementById("medium");
-    const campaignEl = document.getElementById("campaign");
-    const termEl = document.getElementById("term");
-    const contentEl = document.getElementById("content");
-    const normalizeSwitch = document.getElementById("normalizeSwitch");
+        const baseUrlEl = document.getElementById("baseUrl");
+        const sourceEl = document.getElementById("source");
+        const mediumEl = document.getElementById("medium");
+        const campaignEl = document.getElementById("campaign");
+        const termEl = document.getElementById("term");
+        const contentEl = document.getElementById("content");
+        const normalizeSwitch = document.getElementById("normalizeSwitch");
 
-    const urlErrorEl = document.getElementById("urlError");
-    const outputBox = document.getElementById("outputBox");
-    const chipRow = document.getElementById("chipRow");
-    const copyBtn = document.getElementById("copyBtn");
-    const generateBtn = document.getElementById("generateBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const previewLink = document.getElementById("previewLink");
-    const statusText = document.getElementById("statusText");
+        const urlErrorEl = document.getElementById("urlError");
+        const outputBox = document.getElementById("outputBox");
+        const chipRow = document.getElementById("chipRow");
+        const copyBtn = document.getElementById("copyBtn");
+        const generateBtn = document.getElementById("generateBtn");
+        const clearBtn = document.getElementById("clearBtn");
+        const previewLink = document.getElementById("previewLink");
+        const statusText = document.getElementById("statusText");
 
-    const contentCharCount = document.getElementById("contentCharCount");
-    const contentCharWarning = document.getElementById("contentCharWarning");
+        const contentCharCount = document.getElementById("contentCharCount");
+        const contentCharWarning = document.getElementById("contentCharWarning");
 
-    const urlCharCount = document.getElementById("urlCharCount");
-    const urlCharWarning = document.getElementById("urlCharWarning");
+        const urlCharCount = document.getElementById("urlCharCount");
+        const urlCharWarning = document.getElementById("urlCharWarning");
 
-    // Default options for dropdowns
-    const defaultSources = [
-        "google", "bing", "facebook", "instagram", "linkedin", "twitter", "youtube", "tiktok",
-        "newsletter", "prospect_email", "alumni_email", "partner_university", "community_partner",
-        "gradschoolscom", "studyportals", "print_brochure", "poster", "open_house_signage",
-        "fair_booth"
-    ];
+        // Default options for dropdowns
+        const defaultSources = [
+            "google", "bing", "facebook", "instagram", "linkedin", "twitter", "youtube", "tiktok",
+            "newsletter", "prospect_email", "alumni_email", "partner_university", "community_partner",
+            "gradschoolscom", "studyportals", "print_brochure", "poster", "open_house_signage",
+            "fair_booth"
+        ];
 
-    const defaultMediums = [
-        "paid_search", "display", "paid_social", "organic_social", "email", "newsletter",
-        "referral", "listing", "affiliate", "internal_banner", "onsite_cta", "print", "event",
-        "out_of_home", "podcast", "sms"
-    ];
+        const defaultMediums = [
+            "paid_search", "display", "paid_social", "organic_social", "email", "newsletter",
+            "referral", "listing", "affiliate", "internal_banner", "onsite_cta", "print", "event",
+            "out_of_home", "podcast", "sms"
+        ];
 
-    const defaultCampaigns = [
-        "fall_2025", "fall_2026_launch", "spring_2026", "webinar_series", "open_house",
-        "application_deadline", "lead_nurture", "multiview_program_promotion", "rebrand_launch",
-        "cbs_mental_health_minute_sponsorship"
-    ];
+        const defaultCampaigns = [
+            "fall_2025", "fall_2026_launch", "spring_2026", "webinar_series", "open_house",
+            "application_deadline", "lead_nurture", "multiview_program_promotion", "rebrand_launch",
+            "cbs_mental_health_minute_sponsorship"
+        ];
 
-    function getStoredOptions(key, defaults) {
-        const raw = localStorage.getItem(key);
-        if (!raw) return [...defaults];
-        try {
-            const parsed = JSON.parse(raw);
-            const merged = [...defaults, ...parsed];
-            return Array.from(new Set(merged));
-        } catch {
-            return [...defaults];
-        }
-    }
-
-    function storeOption(key, value) {
-        if (!value) return;
-        const trimmed = value.trim();
-        if (!trimmed) return;
-
-        const raw = localStorage.getItem(key);
-        let arr = [];
-        if (raw) {
+        function getStoredOptions(key, defaults) {
+            const raw = localStorage.getItem(key);
+            if (!raw) return [...defaults];
             try {
-                arr = JSON.parse(raw);
+                const parsed = JSON.parse(raw);
+                const merged = [...defaults, ...parsed];
+                return Array.from(new Set(merged));
             } catch {
-                arr = [];
+                return [...defaults];
             }
         }
-        if (!arr.includes(trimmed)) {
-            arr.push(trimmed);
-            localStorage.setItem(key, JSON.stringify(arr));
-        }
-    }
 
-    function renderDatalist(datalistId, options) {
-        const dl = document.getElementById(datalistId);
-        if (!dl) return;
-        dl.innerHTML = "";
-        options.forEach((opt) => {
-            const o = document.createElement("option");
-            o.value = opt;
-            dl.appendChild(o);
-        });
-    }
+        function storeOption(key, value) {
+            if (!value) return;
+            const trimmed = value.trim();
+            if (!trimmed) return;
 
-    function normalizeValue(value) {
-        if (!value) return "";
-        const trimmed = value.trim();
-        if (!normalizeSwitch.checked) return trimmed;
-        return trimmed.toLowerCase().replace(/\s+/g, "_");
-    }
-
-    function isLikelyUrl(str) {
-        return /^https?:\/\//i.test(str.trim());
-    }
-
-    function updateContentCharCount() {
-        const raw = contentEl.value || "";
-        const val = normalizeValue(raw);
-        const length = val.length;
-
-        contentCharCount.textContent = `${length} characters`;
-
-        if (length >= 100) {
-            contentCharWarning.style.display = "inline";
-            contentCharWarning.textContent = "Caution: 100+ characters may reduce reporting consistency.";
-        } else {
-            contentCharWarning.style.display = "none";
-            contentCharWarning.textContent = "";
-        }
-    }
-
-    function updateUrlCharCount(url) {
-        const length = url ? url.length : 0;
-        urlCharCount.textContent = `Length: ${length} characters`;
-
-        urlCharWarning.style.display = "none";
-        urlCharWarning.className = "";
-        urlCharWarning.textContent = "";
-
-        if (length >= 2000) {
-            urlCharWarning.style.display = "inline";
-            urlCharWarning.classList.add("danger");
-            urlCharWarning.textContent = "Warning: URL may break in some platforms (2000+ chars).";
-        } else if (length >= 1800) {
-            urlCharWarning.style.display = "inline";
-            urlCharWarning.classList.add("warning");
-            urlCharWarning.textContent = "Caution: URL is getting long (1800+ chars).";
-        }
-    }
-
-    function buildUtmUrl() {
-        const base = baseUrlEl.value.trim();
-        const source = normalizeValue(sourceEl.value);
-        const medium = normalizeValue(mediumEl.value);
-        const campaign = normalizeValue(campaignEl.value);
-        const term = normalizeValue(termEl.value);
-        const content = normalizeValue(contentEl.value);
-
-        urlErrorEl.style.display = "none";
-        urlErrorEl.textContent = "";
-
-        if (!base) {
-            urlErrorEl.textContent = "Base URL is required.";
-            urlErrorEl.style.display = "block";
-            return "";
-        }
-        if (!isLikelyUrl(base)) {
-            urlErrorEl.textContent = "Base URL should start with http:// or https://";
-            urlErrorEl.style.display = "block";
-            return "";
-        }
-        if (!source || !medium || !campaign) {
-            urlErrorEl.textContent = "utm_source, utm_medium, and utm_campaign are required.";
-            urlErrorEl.style.display = "block";
-            return "";
-        }
-
-        const params = new URLSearchParams();
-        params.set("utm_source", source);
-        params.set("utm_medium", medium);
-        params.set("utm_campaign", campaign);
-        if (term) params.set("utm_term", term);
-        if (content) params.set("utm_content", content);
-
-        let finalUrl;
-        try {
-            const urlObj = new URL(base);
-            const existing = new URLSearchParams(urlObj.search);
-            for (const [key, value] of existing.entries()) {
-                params.append(key, value);
+            const raw = localStorage.getItem(key);
+            let arr = [];
+            if (raw) {
+                try {
+                    arr = JSON.parse(raw);
+                } catch {
+                    arr = [];
+                }
             }
-            urlObj.search = params.toString();
-            finalUrl = urlObj.toString();
-        } catch {
-            const joiner = base.includes("?") ? "&" : "?";
-            finalUrl = base + joiner + params.toString();
+            if (!arr.includes(trimmed)) {
+                arr.push(trimmed);
+                localStorage.setItem(key, JSON.stringify(arr));
+            }
         }
 
-        storeOption("utm_sources", source);
-        storeOption("utm_mediums", medium);
-        storeOption("utm_campaigns", campaign);
+        function renderDatalist(datalistId, options) {
+            const dl = document.getElementById(datalistId);
+            if (!dl) return;
+            dl.innerHTML = "";
+            options.forEach((opt) => {
+                const o = document.createElement("option");
+                o.value = opt;
+                dl.appendChild(o);
+            });
+        }
 
+        function normalizeValue(value) {
+            if (!value) return "";
+            const trimmed = value.trim();
+            if (!normalizeSwitch.checked) return trimmed;
+            return trimmed.toLowerCase().replace(/\s+/g, "_");
+        }
+
+        function isLikelyUrl(str) {
+            return /^https?:\/\//i.test(str.trim());
+        }
+
+        // Enforce adler.edu or any subdomain *.adler.edu
+        function isAdlerDomain(urlString) {
+            try {
+                const urlObj = new URL(urlString);
+                return urlObj.hostname === "adler.edu" || urlObj.hostname.endsWith(".adler.edu");
+            } catch {
+                return false;
+            }
+        }
+
+        function updateContentCharCount() {
+            const raw = contentEl.value || "";
+            const val = normalizeValue(raw);
+            const length = val.length;
+
+            contentCharCount.textContent = `${length} characters`;
+
+            if (length >= 100) {
+                contentCharWarning.style.display = "inline";
+                contentCharWarning.textContent = "Caution: 100+ characters may reduce reporting consistency.";
+            } else {
+                contentCharWarning.style.display = "none";
+                contentCharWarning.textContent = "";
+            }
+        }
+
+        function updateUrlCharCount(url) {
+            const length = url ? url.length : 0;
+            urlCharCount.textContent = `Length: ${length} characters`;
+
+            urlCharWarning.style.display = "none";
+            urlCharWarning.className = "";
+            urlCharWarning.textContent = "";
+
+            if (length >= 2000) {
+                urlCharWarning.style.display = "inline";
+                urlCharWarning.classList.add("danger");
+                urlCharWarning.textContent = "Warning: URL may break in some platforms (2000+ chars).";
+            } else if (length >= 1800) {
+                urlCharWarning.style.display = "inline";
+                urlCharWarning.classList.add("warning");
+                urlCharWarning.textContent = "Caution: URL is getting long (1800+ chars).";
+            }
+        }
+
+        function buildUtmUrl() {
+            const base = baseUrlEl.value.trim();
+            const source = normalizeValue(sourceEl.value);
+            const medium = normalizeValue(mediumEl.value);
+            const campaign = normalizeValue(campaignEl.value);
+            const term = normalizeValue(termEl.value);
+            const content = normalizeValue(contentEl.value);
+
+            urlErrorEl.style.display = "none";
+            urlErrorEl.textContent = "";
+
+            if (!base) {
+                urlErrorEl.textContent = "Base URL is required.";
+                urlErrorEl.style.display = "block";
+                return "";
+            }
+
+            if (!isLikelyUrl(base)) {
+                urlErrorEl.textContent = "Base URL must start with http:// or https://";
+                urlErrorEl.style.display = "block";
+                return "";
+            }
+
+            // NEW: Adler domain enforcement
+            if (!isAdlerDomain(base)) {
+                urlErrorEl.textContent = "Base URL must be on the adler.edu domain or a valid subdomain (e.g., https://subdomain.adler.edu).";
+                urlErrorEl.style.display = "block";
+                return "";
+            }
+
+            if (!source || !medium || !campaign) {
+                urlErrorEl.textContent = "utm_source, utm_medium, and utm_campaign are required.";
+                urlErrorEl.style.display = "block";
+                return "";
+            }
+
+            const params = new URLSearchParams();
+            params.set("utm_source", source);
+            params.set("utm_medium", medium);
+            params.set("utm_campaign", campaign);
+            if (term) params.set("utm_term", term);
+            if (content) params.set("utm_content", content);
+
+            let finalUrl;
+            try {
+                const urlObj = new URL(base);
+                const existing = new URLSearchParams(urlObj.search);
+
+                // Preserve existing query params by appending them after the UTM params
+                for (const [key, value] of existing.entries()) {
+                    params.append(key, value);
+                }
+
+                urlObj.search = params.toString();
+                finalUrl = urlObj.toString();
+            } catch {
+                const joiner = base.includes("?") ? "&" : "?";
+                finalUrl = base + joiner + params.toString();
+            }
+
+            storeOption("utm_sources", source);
+            storeOption("utm_mediums", medium);
+            storeOption("utm_campaigns", campaign);
+
+            renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
+            renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
+            renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
+
+            chipRow.innerHTML = "";
+            const chips = [
+                ["source", source],
+                ["medium", medium],
+                ["campaign", campaign],
+                ["term", term],
+                ["content", content],
+            ].filter(([, v]) => v);
+
+            chips.forEach(([k, v]) => {
+                const chip = document.createElement("span");
+                chip.className = "chip";
+                chip.innerHTML = `<span class="chip-key">${k}:</span><span>${v}</span>`;
+                chipRow.appendChild(chip);
+            });
+
+            outputBox.textContent = finalUrl;
+            outputBox.classList.remove("empty");
+            previewLink.href = finalUrl;
+            previewLink.style.display = "inline";
+
+            updateUrlCharCount(finalUrl);
+
+            return finalUrl;
+        }
+
+        function copyToClipboard(text) {
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(
+                    () => showStatus(),
+                    () => fallbackCopy(text)
+                );
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const temp = document.createElement("textarea");
+            temp.value = text;
+            temp.setAttribute("readonly", "");
+            temp.style.position = "absolute";
+            temp.style.left = "-9999px";
+            document.body.appendChild(temp);
+            temp.select();
+            try {
+                document.execCommand("copy");
+            } catch (e) {
+                console.error("Copy failed", e);
+            }
+            document.body.removeChild(temp);
+            showStatus();
+        }
+
+        function showStatus() {
+            statusText.classList.add("show");
+            setTimeout(() => {
+                statusText.classList.remove("show");
+            }, 1400);
+        }
+
+        // Initialize dropdowns
         renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
         renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
         renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
 
-        chipRow.innerHTML = "";
-        const chips = [
-            ["source", source],
-            ["medium", medium],
-            ["campaign", campaign],
-            ["term", term],
-            ["content", content],
-        ].filter(([, v]) => v);
+        // Event listeners
+        generateBtn.addEventListener("click", () => buildUtmUrl());
 
-        chips.forEach(([k, v]) => {
-            const chip = document.createElement("span");
-            chip.className = "chip";
-            chip.innerHTML = `<span class="chip-key">${k}:</span><span>${v}</span>`;
-            chipRow.appendChild(chip);
-        });
-
-        outputBox.textContent = finalUrl;
-        outputBox.classList.remove("empty");
-        previewLink.href = finalUrl;
-        previewLink.style.display = "inline";
-
-        updateUrlCharCount(finalUrl);
-
-        return finalUrl;
-    }
-
-    function copyToClipboard(text) {
-        if (!text) return;
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(
-                () => showStatus(),
-                () => fallbackCopy(text)
-            );
-        } else {
-            fallbackCopy(text);
-        }
-    }
-
-    function fallbackCopy(text) {
-        const temp = document.createElement("textarea");
-        temp.value = text;
-        temp.setAttribute("readonly", "");
-        temp.style.position = "absolute";
-        temp.style.left = "-9999px";
-        document.body.appendChild(temp);
-        temp.select();
-        try {
-            document.execCommand("copy");
-        } catch (e) {
-            console.error("Copy failed", e);
-        }
-        document.body.removeChild(temp);
-        showStatus();
-    }
-
-    function showStatus() {
-        statusText.classList.add("show");
-        setTimeout(() => {
-            statusText.classList.remove("show");
-        }, 1400);
-    }
-
-    // Initialize dropdowns
-    renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
-    renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
-    renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
-
-    // Event listeners
-    generateBtn.addEventListener("click", () => buildUtmUrl());
-    copyBtn.addEventListener("click", () => {
-        const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
-        if (!current) {
-            const url = buildUtmUrl();
-            if (url) copyToClipboard(url);
-        } else {
-            copyToClipboard(current);
-        }
-    });
-
-    clearBtn.addEventListener("click", () => {
-        baseUrlEl.value = "https://adler.edu/";
-        sourceEl.value = "";
-        mediumEl.value = "";
-        campaignEl.value = "";
-        termEl.value = "";
-        contentEl.value = "";
-        chipRow.innerHTML = "";
-        outputBox.textContent = "Your UTM URL will appear here.";
-        outputBox.classList.add("empty");
-        previewLink.style.display = "none";
-        urlErrorEl.style.display = "none";
-        urlErrorEl.textContent = "";
-
-        updateContentCharCount();
-        updateUrlCharCount("");
-    });
-
-    [baseUrlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl].forEach((el) => {
-        el.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                buildUtmUrl();
+        copyBtn.addEventListener("click", () => {
+            const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
+            if (!current) {
+                const url = buildUtmUrl();
+                if (url) copyToClipboard(url);
+            } else {
+                copyToClipboard(current);
             }
         });
-    });
 
-    // Content counter live updates
-    contentEl.addEventListener("input", updateContentCharCount);
-    normalizeSwitch.addEventListener("change", updateContentCharCount);
+        clearBtn.addEventListener("click", () => {
+            baseUrlEl.value = "https://adler.edu/";
+            sourceEl.value = "";
+            mediumEl.value = "";
+            campaignEl.value = "";
+            termEl.value = "";
+            contentEl.value = "";
+            chipRow.innerHTML = "";
+            outputBox.textContent = "Your UTM URL will appear here.";
+            outputBox.classList.add("empty");
+            previewLink.style.display = "none";
+            urlErrorEl.style.display = "none";
+            urlErrorEl.textContent = "";
 
-    // Initialize counters
-    updateContentCharCount();
-    updateUrlCharCount("");
+            updateContentCharCount();
+            updateUrlCharCount("");
+        });
+
+        [baseUrlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl].forEach((el) => {
+            el.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    buildUtmUrl();
+                }
+            });
+        });
+
+        // Content counter live updates
+        contentEl.addEventListener("input", updateContentCharCount);
+        normalizeSwitch.addEventListener("change", updateContentCharCount);
+
+        // Initialize counters
+        updateContentCharCount();
+        updateUrlCharCount("");
     </script>
 </body>
 
