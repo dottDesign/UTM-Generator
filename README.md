@@ -174,25 +174,6 @@ Always use the **full generated URL** so GA4 tracking works correctly.
 
 ---
 
-## /docs Folder Structure
-
-Add screenshots to the repository using the following structure:
-
-
-/docs
-step-1-base-url.png
-step-2-source.png
-step-3-medium.png
-step-4-campaign.png
-step-5-optional-fields.png
-step-6-generated-url.png
-
-
-
-Screenshots should clearly highlight the active field using boxes or callouts.
-
----
-
 ## Need Help?
 
 If you are unsure which values to use:
