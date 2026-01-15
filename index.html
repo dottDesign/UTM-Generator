@@ -176,7 +176,9 @@
       margin-left: 2px;
     }
 
-    input[type="text"] {
+    /* Updated to style select exactly like inputs */
+    input[type="text"],
+    select {
       width: 100%;
       padding: 8px 10px;
       border-radius: var(--radius-md);
@@ -193,10 +195,36 @@
       font-size: 0.85rem;
     }
 
-    input[type="text"]:focus {
+    input[type="text"]:focus,
+    select:focus {
       border-color: var(--adler-red);
       box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.18);
       background: #ffffff;
+    }
+
+    /* Select: remove native chrome and add a consistent caret */
+    select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: none;
+      cursor: pointer;
+    }
+
+    .select-wrap {
+      position: relative;
+    }
+
+    .select-wrap::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--adler-gray-400);
     }
 
     .hint {
@@ -213,7 +241,7 @@
 
     /* Toggle */
     .toggle-row {
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
@@ -304,10 +332,12 @@
       color: var(--adler-gray-600);
       border: 1px solid var(--adler-gray-200);
     }
-    .teams-send{
-       padding: 30px;
-    text-align: center; 
+
+    .teams-send {
+      padding: 30px;
+      text-align: center;
     }
+
     /* Output */
     .output-header {
       display: flex;
@@ -548,6 +578,8 @@
               <input type="text" id="source" list="sourceOptions" placeholder="Select or create a new one" />
               <datalist id="sourceOptions"></datalist>
             </div>
+
+            <!-- MEDIUM: locked dropdown styled to match inputs -->
             <div>
               <div class="label-row">
                 <label for="medium">utm_medium <span class="req">*</span></label>
@@ -558,8 +590,9 @@
                   </span>
                 </span>
               </div>
-              <input type="text" id="medium" list="mediumOptions" placeholder="Select or create a new one" />
-              <datalist id="mediumOptions"></datalist>
+              <div class="select-wrap">
+                <select id="medium" required></select>
+              </div>
             </div>
           </div>
 
@@ -608,7 +641,7 @@
             </div>
           </div>
 
-          <!-- NEW: EMAIL FIELD -->
+          <!-- EMAIL FIELD -->
           <div class="field-group">
             <div class="label-row">
               <label for="senderEmail">Your email address <span class="req">*</span></label>
@@ -671,13 +704,12 @@
             </a>
 
             <span class="hint">Tip: Keep sources/mediums consistent across all campaigns.</span>
-
-         
           </div>
-             <div class="teams-send">
-              <button id="sendBtn" type="button" class="primary">Send Teams message</button>
-              <div id="result" style="margin-top:10px; display:none;"></div>
-            </div>
+
+          <div class="teams-send">
+            <button id="sendBtn" type="button" class="primary">Send Teams message</button>
+            <div id="result" style="margin-top:10px; display:none;"></div>
+          </div>
         </section>
       </div>
 
@@ -690,7 +722,7 @@
   <script>
     const baseUrlEl = document.getElementById("baseUrl");
     const sourceEl = document.getElementById("source");
-    const mediumEl = document.getElementById("medium");
+    const mediumEl = document.getElementById("medium"); // now a <select>
     const campaignEl = document.getElementById("campaign");
     const termEl = document.getElementById("term");
     const contentEl = document.getElementById("content");
@@ -719,53 +751,54 @@
 
     // Default options for dropdowns
     const defaultSources = [
-        "alumni_email",
-        "bing",
-        "community_partner",
-        "facebook",
-        "fair_booth",
-        "google",
-        "gradschoolscom",
-        "instagram",
-        "linkedin",
-        "newsletter",
-        "open_house_signage",
-        "partner_university",
-        "poster",
-        "print_brochure",
-        "prospect_email",
-        "studyportals",
-        "tiktok",
-        "twitter",
-        "youtube"
+      "alumni_email",
+      "bing",
+      "community_partner",
+      "facebook",
+      "fair_booth",
+      "google",
+      "gradschoolscom",
+      "instagram",
+      "linkedin",
+      "newsletter",
+      "open_house_signage",
+      "partner_university",
+      "poster",
+      "print_brochure",
+      "prospect_email",
+      "studyportals",
+      "tiktok",
+      "twitter",
+      "youtube"
     ];
 
+    // Medium is now locked: users must choose one of these (plus any previously stored values).
     const defaultMediums = [
-        "cpc",
-        "display",
-        "email",
-        "event",
-        "offline",
-        "paid_social",
-        "qr",
-        "referral",
-        "sms",
-        "social",
-        "video",
-        "website"
+      "cpc",
+      "display",
+      "email",
+      "event",
+      "offline",
+      "paid_social",
+      "qr",
+      "referral",
+      "sms",
+      "social",
+      "video",
+      "website"
     ];
 
     const defaultCampaigns = [
-        "application_deadline",
-        "cbs_mental_health_minute_sponsorship",
-        "fall_2025",
-        "fall_2026_launch",
-        "lead_nurture",
-        "multiview_program_promotion",
-        "open_house",
-        "rebrand_launch",
-        "spring_2026",
-        "webinar_series"
+      "application_deadline",
+      "cbs_mental_health_minute_sponsorship",
+      "fall_2025",
+      "fall_2026_launch",
+      "lead_nurture",
+      "multiview_program_promotion",
+      "open_house",
+      "rebrand_launch",
+      "spring_2026",
+      "webinar_series"
     ];
 
     function getStoredOptions(key, defaults) {
@@ -804,6 +837,28 @@
         const o = document.createElement("option");
         o.value = opt;
         dl.appendChild(o);
+      });
+    }
+
+    // New: render a locked select (prevents custom typing)
+    function renderSelect(selectId, options, placeholderText) {
+      const sel = document.getElementById(selectId);
+      if (!sel) return;
+
+      sel.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = placeholderText;
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      sel.appendChild(placeholder);
+
+      options.forEach((opt) => {
+        const o = document.createElement("option");
+        o.value = opt;
+        o.textContent = opt;
+        sel.appendChild(o);
       });
     }
 
@@ -885,7 +940,10 @@
     function buildUtmUrl() {
       const base = baseUrlEl.value.trim();
       const source = normalizeValue(sourceEl.value);
+
+      // medium is now selected from a locked dropdown
       const medium = normalizeValue(mediumEl.value);
+
       const campaign = normalizeValue(campaignEl.value);
       const term = normalizeValue(termEl.value);
       const content = normalizeValue(contentEl.value);
@@ -942,11 +1000,11 @@
       }
 
       storeOption("utm_sources", source);
-      storeOption("utm_mediums", medium);
+      // Removed: storeOption("utm_mediums", medium); // locked list, no user-added mediums
       storeOption("utm_campaigns", campaign);
 
       renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
-      renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
+      renderSelect("medium", getStoredOptions("utm_mediums", defaultMediums), "Select a medium");
       renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
 
       chipRow.innerHTML = "";
@@ -1065,7 +1123,7 @@
 
     // Initialize dropdowns
     renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
-    renderDatalist("mediumOptions", getStoredOptions("utm_mediums", defaultMediums));
+    renderSelect("medium", getStoredOptions("utm_mediums", defaultMediums), "Select a medium");
     renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
 
     // Prefill stored email
@@ -1088,7 +1146,7 @@
     clearBtn.addEventListener("click", () => {
       baseUrlEl.value = "https://adler.edu/";
       sourceEl.value = "";
-      mediumEl.value = "";
+      mediumEl.value = ""; // selects placeholder
       campaignEl.value = "";
       termEl.value = "";
       contentEl.value = "";
@@ -1107,7 +1165,7 @@
 
     sendBtn.addEventListener("click", sendTeamsMsg);
 
-    [baseUrlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl, senderEmailEl].forEach((el) => {
+    [baseUrlEl, sourceEl, mediumEl, mediumEl, campaignEl, termEl, contentEl, senderEmailEl].forEach((el) => {
       el.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
           e.preventDefault();
