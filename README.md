@@ -1,87 +1,201 @@
-# Adler University — UTM Builder (Internal Tool)
+# Adler UTM Generator – How to Use
 
-A lightweight, single-file UTM URL builder designed for Adler University Marketing & Communications teams. This tool standardizes UTM parameter creation, encourages consistent naming, and provides helpful UI enhancements such as tooltips and character counters.
+This guide explains how to create standardized, GA4-aligned tracking URLs using the Adler UTM Generator.
 
-Built as a standalone HTML file (no build step, no dependencies). Intended for internal use only.
-
----
-
-## Features
-
-### UTM URL Generation
-- Generates URLs with:
-  - `utm_source` *(required)*
-  - `utm_medium` *(required)*
-  - `utm_campaign` *(required)*
-  - `utm_term` *(optional)*
-  - `utm_content` *(optional)*
-- Supports URLs that already contain query parameters.
-
-### Normalization Toggle
-- Optional "Normalize values" switch:
-  - Converts values to lowercase
-  - Converts spaces to underscores  
-  Example: `Paid Search` → `paid_search`
-
-### Dropdown Suggestions (Persistent)
-- `utm_source`, `utm_medium`, and `utm_campaign` include datalist suggestions.
-- New entries are automatically stored in `localStorage` and shown in the dropdown next time.
-
-### Tooltips (Field Help)
-Tooltips are available for:
-- Base URL
-- `utm_source`
-- `utm_medium`
-- `utm_campaign`
-- `utm_term`
-- `utm_content`
-
-Tooltips appear on hover or keyboard focus and are designed for accessibility.
-
-### Character Counters & Warnings
-#### `utm_content` length counter
-- Displays a live character count.
-- Warning appears when `utm_content` is **100+ characters** (soft warning, does not block generation).
-
-#### Full URL length counter
-- Displays total generated URL length.
-- Warnings:
-  - **1800+ characters:** caution (getting long)
-  - **2000+ characters:** warning (may break in some platforms)
-
-This helps reduce link issues in email clients, QR codes, and ad platforms.
-
-### Copy + Preview
-- One-click "Copy URL" button
-- "Open URL in new tab" preview link appears after generation
-- "Copied!" status indicator confirms clipboard copy
+Tool URL:  
+https://dottdesign.github.io/UTM-Generator/
 
 ---
 
-## Demo / Preview
+## How UTMs Map to GA4
 
-Since this is a single HTML file, you can preview it immediately:
-
-1. Download or clone this repository
-2. Open `index.html` in your browser
-
-No server required.
-
----
-
-## Installation
-
-### Option A — Basic Use (Recommended for internal teams)
-1. Download `index.html`
-2. Open it in any modern browser
-
-### Option B — Host Internally (Intranet / SharePoint / Web Server)
-You may host the tool on an internal Adler web server or intranet page.  
-This is recommended if multiple teams need access and you want consistency.
+| UTM Parameter | GA4 Dimension Name        | Purpose |
+|--------------|---------------------------|--------|
+| utm_source   | Session source            | Where traffic originates |
+| utm_medium   | Session medium            | How traffic arrives |
+| utm_campaign | Session campaign          | Why the link exists |
+| utm_content  | Session manual ad content | Differentiates links |
+| utm_term     | Session manual term       | Paid search keyword |
 
 ---
 
-## File Structure
+## Step 1. Enter the Base URL
 
-This repository is intentionally minimal:
+Paste the full webpage URL you want to track.
 
+Example: https://www.adler.edu/programs/ma-psychology/
+
+
+**Best practices**
+- Always include `https://`
+- Use the final destination page, not a redirect
+
+![Base URL field highlighted](docs/step-1-base-url.png)
+
+---
+
+## Step 2. Choose Your UTM Source
+
+Identifies **where** the traffic comes from.
+
+### Standard Adler Sources
+
+| Channel Type | Value |
+|-------------|-------|
+| Google Ads | google |
+| Facebook | facebook |
+| Instagram | instagram |
+| LinkedIn | linkedin |
+| Email | email |
+| QR Code | qr |
+| Organic Social | organic-social |
+
+![UTM Source field](docs/step-2-source.png)
+
+---
+
+## Step 3. Choose Your UTM Medium
+
+Describes **how** the traffic arrives.
+
+### Standard Adler Mediums
+
+| Use Case | Value |
+|--------|------|
+| Email campaigns | email |
+| Paid social | paid-social |
+| Organic social | social |
+| Paid search | cpc |
+| Display ads | display |
+| QR codes | offline |
+
+![UTM Medium field](docs/step-3-medium.png)
+
+---
+
+## Step 4. Set the Campaign Name
+
+Identifies **why** the link exists.
+
+### Campaign Naming Formula
+initiative_term_year
+
+
+
+### Real Adler Examples
+- `fall_2026_applications`
+- `spring_2026_open_house`
+- `faculty_research_webinar`
+- `chicago_clinic_awareness`
+
+![Campaign field filled in](docs/step-4-campaign.png)
+
+---
+
+## Step 5. Optional Fields
+
+Use these only when additional detail is required.
+
+### UTM Content
+Maps to **GA4: Session manual ad content**
+
+Used to differentiate multiple links pointing to the same URL.
+
+| Placement Example | Value |
+|------------------|------|
+| Hero CTA button | hero_cta |
+| Footer link | footer_link |
+| Inline text link | inline_text |
+| Image banner | image_banner |
+
+### UTM Term
+Maps to **GA4: Session manual term**
+
+Primarily used for paid search keywords.
+
+Example: trauma_psychology_program
+
+
+
+![Optional fields section](docs/step-5-optional-fields.png)
+
+---
+
+## Step 6. Copy the Generated URL
+
+The tool automatically builds the tracking URL.
+
+Example output:
+https://www.adler.edu/programs/ma-psychology/
+?utm_source=facebook
+&utm_medium=paid-social
+&utm_campaign=fall_2026_applications
+&utm_content=hero_cta
+
+
+
+
+![Generated URL with Copy button](docs/step-6-generated-url.png)
+
+---
+
+## Step 7. Use the URL
+
+Paste the generated link into:
+- Emails
+- Paid ads
+- Social posts
+- QR codes
+- Digital signage
+
+Always use the **full generated URL** so GA4 tracking works correctly.
+
+---
+
+## Adler UTM Naming Standards
+
+| Rule | Requirement |
+|----|------------|
+| Case | Lowercase only |
+| Spacing | Use underscores, never spaces |
+| Characters | Letters, numbers, underscores only |
+| Consistency | Same values across teams |
+| Internal Links | Never use UTMs internally |
+
+---
+
+## Common Mistakes to Avoid
+
+- Changing naming conventions mid-campaign
+- Using spaces or special characters
+- Using UTMs on internal site links
+- Mixing paid and organic mediums
+- Editing URLs after generation
+
+---
+
+## /docs Folder Structure
+
+Add screenshots to the repository using the following structure:
+
+
+/docs
+step-1-base-url.png
+step-2-source.png
+step-3-medium.png
+step-4-campaign.png
+step-5-optional-fields.png
+step-6-generated-url.png
+
+
+
+Screenshots should clearly highlight the active field using boxes or callouts.
+
+---
+
+## Need Help?
+
+If you are unsure which values to use:
+- Reference this README
+- Review GA4 campaign reports
+- Contact webmaster@adler.edu before publishing
