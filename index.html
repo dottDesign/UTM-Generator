@@ -10,7 +10,7 @@
 
   <style>
     :root {
-      --adler-red: #b91c1c;
+      --adler-red: #8b0303;
       --adler-charcoal: #111827;
       --adler-gray-100: #f3f4f6;
       --adler-gray-200: #e5e7eb;
@@ -475,7 +475,6 @@
       color: #ffffff;
       font-size: 0.75rem;
       padding: 8px 10px;
-      border-radius: 10px;
       width: max-content;
       max-width: 240px;
       z-index: 50;
@@ -532,7 +531,6 @@
   background: #ffffff;
   border: 1px solid var(--adler-gray-200);
   box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
-  border-radius: var(--radius-lg);
   padding: 18px 18px 10px;
 }
 
@@ -586,7 +584,6 @@
 
 .doc-panel {
   border: 1px solid var(--adler-gray-200);
-  border-radius: var(--radius-lg);
   padding: 14px;
   background: #ffffff;
 }
@@ -644,7 +641,6 @@
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
-  border-radius: 12px;
   border: 1px solid var(--adler-gray-200);
   margin: 10px 0 0;
   font-size: 0.88rem;
@@ -653,8 +649,9 @@
 .doc-table th,
 .doc-table td {
   padding: 10px 10px;
-  border-bottom: 1px solid var(--adler-gray-200);
+  border: 1px solid var(--adler-gray-200);
   vertical-align: top;
+      text-align: left;
 }
 
 .doc-table th {
@@ -672,7 +669,6 @@
 
 .step {
   border: 1px solid var(--adler-gray-200);
-  border-radius: var(--radius-lg);
   padding: 12px;
   background: #ffffff;
   margin-bottom: 10px;
@@ -692,9 +688,9 @@
   width: 26px;
   height: 26px;
   border-radius: 999px;
-  background: #fee2e2;
+  background: var(--adler-red);
   border: 1px solid rgba(185, 28, 28, 0.25);
-  color: var(--adler-red);
+  color: #fff;
   font-weight: 700;
   font-size: 0.85rem;
   flex: 0 0 auto;
@@ -709,7 +705,6 @@
   font-size: 0.88rem;
   background: var(--adler-gray-100);
   border: 1px solid var(--adler-gray-200);
-  border-radius: 10px;
   padding: 0px 10px;
   display: block;
   color: var(--adler-charcoal);
@@ -946,7 +941,9 @@
           <p>Paste the final destination page you want to track.</p>
           <span class="mono">Example: https://www.adler.edu/programs/ma-psychology/</span>
           <div class="hint" style="margin-top:8px;">
-            Best practices: Always include <strong>https://</strong> and avoid redirects.
+            Best practices: Always include <strong>https://</strong> and avoid redirects. <br/>
+            The domain needs to be https://adler.edu/<strong>path_name</strong>  or    https://<strong>sub_domain</strong>.adler.edu
+            
           </div>
         </div>
 
