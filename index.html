@@ -302,7 +302,8 @@
       gap: 8px;
     }
 
-    button {
+    button,
+    a.button_primary {
       border: none;
       font-size: 0.9rem;
       padding: 8px 16px;
@@ -315,10 +316,12 @@
       transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
     }
 
-    button.primary {
+    button.primary,
+    a.button_primary {
       background: var(--adler-red);
       color: #ffffff;
       box-shadow: 0 10px 20px rgba(185, 28, 28, 0.25);
+      text-decoration: none;
     }
 
     button.primary:hover {
@@ -335,7 +338,9 @@
 
     .teams-send {
       padding: 30px;
-      text-align: center;
+    text-align: center;
+    float: left;
+    width: 50%;
     }
 
     /* Output */
@@ -515,6 +520,201 @@
     #urlCharWarning.danger {
       color: var(--adler-red);
     }
+
+    /* README / Documentation section */
+.readme-wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 18px auto 0;
+}
+
+.readme-card {
+  background: #ffffff;
+  border: 1px solid var(--adler-gray-200);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 10px;
+}
+
+.readme-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.readme-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.readme-subtitle {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--adler-gray-600);
+}
+
+.readme-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.readme-actions a {
+  text-decoration: none;
+}
+
+.readme-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+  .readme-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .readme-actions {
+    justify-content: flex-start;
+  }
+}
+
+.doc-panel {
+  border: 1px solid var(--adler-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  background: #ffffff;
+}
+
+.doc-panel h3 {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--adler-gray-600);
+}
+
+.doc-panel h4 {
+  margin: 14px 0 6px;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--adler-charcoal);
+}
+
+.doc-panel p {
+  margin: 0 0 10px;
+  color: var(--adler-charcoal);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.doc-panel ul {
+  margin: 0 0 10px 18px;
+  padding: 0;
+  color: var(--adler-charcoal);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.doc-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  border: 1px solid var(--adler-gray-200);
+  background: var(--adler-gray-100);
+  color: var(--adler-gray-600);
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.doc-kicker strong {
+  color: var(--adler-charcoal);
+  font-weight: 600;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--adler-gray-200);
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+}
+
+.doc-table th,
+.doc-table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--adler-gray-200);
+  vertical-align: top;
+}
+
+.doc-table th {
+  background: var(--adler-gray-100);
+  color: var(--adler-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.doc-table tr:last-child td {
+  border-bottom: none;
+}
+
+.step {
+  border: 1px solid var(--adler-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.step-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #fee2e2;
+  border: 1px solid rgba(185, 28, 28, 0.25);
+  color: var(--adler-red);
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex: 0 0 auto;
+}
+
+.step-title h4 {
+  margin: 0;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.88rem;
+  background: var(--adler-gray-100);
+  border: 1px solid var(--adler-gray-200);
+  border-radius: 10px;
+  padding: 0px 10px;
+  display: block;
+  color: var(--adler-charcoal);
+}
+
   </style>
 </head>
 
@@ -710,6 +910,12 @@
             <button id="sendBtn" type="button" class="primary">Send Teams message</button>
             <div id="result" style="margin-top:10px; display:none;"></div>
           </div>
+
+          <div class="teams-send">
+
+              <a href="https://adleruniversity.sharepoint.com/:x:/s/MarketingandCommunicationsTeam/IQBFa7-hQmn_Q6ai0NK7OpyiAWXrCqk9AP3YOFNbgZOJ1K4?e=Fr8Kba" target="_blank" class="button_primary">Add to Spreadsheet</a>
+
+          </div>
         </section>
       </div>
 
@@ -717,6 +923,187 @@
         Internal utility · Not for external marketing use.
       </div>
     </div>
+    <section class="readme-wrap" aria-label="UTM Generator Documentation">
+  <div class="readme-card">
+    <div class="readme-header">
+      <div>
+        <h2 class="readme-title">How to Use</h2>
+  
+      </div>
+
+    </div>
+
+    <div class="readme-grid">
+      <!-- LEFT: Steps -->
+      <div class="doc-panel">
+        <h3>Workflow</h3>
+
+        <div class="step" id="doc-step-1">
+          <div class="step-title">
+            <span class="step-num">1</span>
+            <h4>Enter the Base URL</h4>
+          </div>
+          <p>Paste the final destination page you want to track.</p>
+          <span class="mono">Example: https://www.adler.edu/programs/ma-psychology/</span>
+          <div class="hint" style="margin-top:8px;">
+            Best practices: Always include <strong>https://</strong> and avoid redirects.
+          </div>
+        </div>
+
+        <div class="step" id="doc-step-2">
+          <div class="step-title">
+            <span class="step-num">2</span>
+            <h4>Choose your UTM Source</h4>
+          </div>
+          <p>Identifies where the traffic comes from (platform, partner, vendor).</p>
+          <table class="doc-table" aria-label="Standard Adler Sources">
+            <thead>
+              <tr><th>Channel Type</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Google Ads</td><td><span class="mono" style="display:inline;">google</span></td></tr>
+              <tr><td>Facebook</td><td><span class="mono" style="display:inline;">facebook</span></td></tr>
+              <tr><td>Instagram</td><td><span class="mono" style="display:inline;">instagram</span></td></tr>
+              <tr><td>LinkedIn</td><td><span class="mono" style="display:inline;">linkedin</span></td></tr>
+              <tr><td>Email</td><td><span class="mono" style="display:inline;">email</span></td></tr>
+              <tr><td>QR Code</td><td><span class="mono" style="display:inline;">qr</span></td></tr>
+              <tr><td>Organic Social</td><td><span class="mono" style="display:inline;">organic-social</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="step" id="doc-step-3">
+          <div class="step-title">
+            <span class="step-num">3</span>
+            <h4>Choose your UTM Medium</h4>
+          </div>
+          <p>Describes how the traffic arrives (channel type).</p>
+          <table class="doc-table" aria-label="Standard Adler Mediums">
+            <thead>
+              <tr><th>Use Case</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Email campaigns</td><td><span class="mono" style="display:inline;">email</span></td></tr>
+              <tr><td>Paid social</td><td><span class="mono" style="display:inline;">paid-social</span></td></tr>
+              <tr><td>Organic social</td><td><span class="mono" style="display:inline;">social</span></td></tr>
+              <tr><td>Paid search</td><td><span class="mono" style="display:inline;">cpc</span></td></tr>
+              <tr><td>Display ads</td><td><span class="mono" style="display:inline;">display</span></td></tr>
+              <tr><td>QR codes</td><td><span class="mono" style="display:inline;">offline</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="step" id="doc-step-4">
+          <div class="step-title">
+            <span class="step-num">4</span>
+            <h4>Set the Campaign Name</h4>
+          </div>
+          <p>Identifies why the link exists.</p>
+          <div class="doc-kicker"><strong>Naming formula:</strong> initiative_term_year</div>
+          <ul>
+            <li><span class="mono" style="display:inline;">fall_2026_applications</span></li>
+            <li><span class="mono" style="display:inline;">spring_2026_open_house</span></li>
+            <li><span class="mono" style="display:inline;">faculty_research_webinar</span></li>
+            <li><span class="mono" style="display:inline;">chicago_clinic_awareness</span></li>
+          </ul>
+        </div>
+
+        <div class="step" id="doc-step-5">
+          <div class="step-title">
+            <span class="step-num">5</span>
+            <h4>Optional Fields</h4>
+          </div>
+          <p>Use only when extra detail is required.</p>
+
+          <h4 style="margin-top:10px;">UTM Content</h4>
+          <p>Differentiates multiple links pointing to the same URL.</p>
+          <table class="doc-table" aria-label="UTM Content Examples">
+            <thead>
+              <tr><th>Placement</th><th>Example Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Hero CTA button</td><td><span class="mono" style="display:inline;">hero_cta</span></td></tr>
+              <tr><td>Footer link</td><td><span class="mono" style="display:inline;">footer_link</span></td></tr>
+              <tr><td>Inline text link</td><td><span class="mono" style="display:inline;">inline_text</span></td></tr>
+              <tr><td>Image banner</td><td><span class="mono" style="display:inline;">image_banner</span></td></tr>
+            </tbody>
+          </table>
+
+          <h4>UTM Term</h4>
+          <p>Primarily used for paid search keywords.</p>
+          <span class="mono">Example: trauma_psychology_program</span>
+        </div>
+
+        <div class="step" id="doc-step-6">
+          <div class="step-title">
+            <span class="step-num">6</span>
+            <h4>Copy the Generated URL</h4>
+          </div>
+          <ol>
+            <li>The tool builds the tracking URL for you. Use the Copy button to paste into your channel.</li>
+            <li>Send a message in Teams</li>
+            <li>Add the generated UTM to the spreadsheet</li>
+          </ol>
+        </div>
+
+    
+      </div>
+
+      <!-- RIGHT: Standards + Mistakes + Help -->
+      <aside class="doc-panel">
+        <h3>Standards</h3>
+
+        <table class="doc-table" aria-label="Adler UTM Naming Standards">
+          <thead>
+            <tr><th>Rule</th><th>Requirement</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Case</td><td>Lowercase only</td></tr>
+            <tr><td>Spacing</td><td>Use underscores, never spaces</td></tr>
+            <tr><td>Characters</td><td>Letters, numbers, underscores only</td></tr>
+            <tr><td>Consistency</td><td>Same values across teams</td></tr>
+            <tr><td>Internal Links</td><td>Never use UTMs internally</td></tr>
+          </tbody>
+        </table>
+
+        <h4>How UTMs Map to GA4</h4>
+        <table class="doc-table" aria-label="UTM to GA4 Mapping">
+          <thead>
+            <tr><th>UTM</th><th>GA4 Dimension</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="mono" style="display:inline;">utm_source</span></td><td>Session source</td><td>Where traffic originates</td></tr>
+            <tr><td><span class="mono" style="display:inline;">utm_medium</span></td><td>Session medium</td><td>How traffic arrives</td></tr>
+            <tr><td><span class="mono" style="display:inline;">utm_campaign</span></td><td>Session campaign</td><td>Why the link exists</td></tr>
+            <tr><td><span class="mono" style="display:inline;">utm_content</span></td><td>Session manual ad content</td><td>Differentiates links</td></tr>
+            <tr><td><span class="mono" style="display:inline;">utm_term</span></td><td>Session manual term</td><td>Paid search keyword</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Common Mistakes to Avoid</h4>
+        <ul>
+          <li>Changing naming conventions mid-campaign</li>
+          <li>Using spaces or special characters</li>
+          <li>Using UTMs on internal site links</li>
+          <li>Mixing paid and organic mediums</li>
+          <li>Editing URLs after generation</li>
+        </ul>
+
+        <h4>Need Help?</h4>
+        <p>If you are unsure which values to use:</p>
+        <ul>
+          <li>Reference this guide</li>
+          <li>Contact <span class="mono" style="display:inline;">webmaster@adler.edu</span> before publishing</li>
+        </ul>
+
+        <div class="hint" style="margin-top:10px;">
+          Tip: Keep sources and mediums consistent across all campaigns for clean reporting.
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
   </div>
 
   <script>
@@ -999,7 +1386,7 @@
         finalUrl = base + joiner + params.toString();
       }
 
-      storeOption("utm_sources", source);
+      // storeOption("utm_sources", source);
       // Removed: storeOption("utm_mediums", medium); // locked list, no user-added mediums
       storeOption("utm_campaigns", campaign);
 
@@ -1123,7 +1510,7 @@
 
     // Initialize dropdowns
     renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
-    renderSelect("medium", getStoredOptions("utm_mediums", defaultMediums), "Select a medium");
+    renderSelect("medium", defaultMediums, "Select a medium");
     renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
 
     // Prefill stored email
