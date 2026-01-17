@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Adler University UTM Builder</title>
-  <link rel="icon" type="image/x-icon"
-    href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png" />
+  <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
@@ -176,7 +175,6 @@
       margin-left: 2px;
     }
 
-    /* Updated to style select exactly like inputs */
     input[type="text"],
     select {
       width: 100%;
@@ -239,61 +237,6 @@
       color: var(--adler-red);
     }
 
-    /* Toggle */
-    .toggle-row {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 6px;
-      margin-top: 4px;
-    }
-
-    .toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      color: var(--adler-gray-600);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .toggle input {
-      display: none;
-    }
-
-    .toggle-pill {
-      width: 32px;
-      height: 18px;
-      border-radius: 999px;
-      background: var(--adler-gray-100);
-      border: 1px solid var(--adler-gray-400);
-      padding: 1px;
-      display: flex;
-      align-items: center;
-      transition: background 0.16s ease, border-color 0.16s ease;
-    }
-
-    .toggle-thumb {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background: var(--adler-gray-400);
-      transform: translateX(0);
-      transition: transform 0.16s ease, background 0.16s ease;
-    }
-
-    .toggle input:checked+.toggle-pill {
-      background: #fee2e2;
-      border-color: var(--adler-red);
-    }
-
-    .toggle input:checked+.toggle-pill .toggle-thumb {
-      transform: translateX(12px);
-      background: var(--adler-red);
-    }
-
     /* Buttons */
     .button-row {
       margin-top: 10px;
@@ -338,9 +281,9 @@
 
     .teams-send {
       padding: 30px;
-    text-align: center;
-    float: left;
-    width: 50%;
+      text-align: center;
+      float: left;
+      width: 50%;
     }
 
     /* Output */
@@ -521,195 +464,269 @@
     }
 
     /* README / Documentation section */
-.readme-wrap {
-  width: 100%;
-  max-width: 1200px;
-  margin: 18px auto 0;
-}
+    .readme-wrap {
+      width: 100%;
+      max-width: 1200px;
+      margin: 18px auto 0;
+    }
 
-.readme-card {
-  background: #ffffff;
-  border: 1px solid var(--adler-gray-200);
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
-  padding: 18px 18px 10px;
-}
+    .readme-card {
+      background: #ffffff;
+      border: 1px solid var(--adler-gray-200);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+      padding: 18px 18px 10px;
+    }
 
-.readme-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
-}
+    .readme-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
 
-.readme-title {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 650;
-  letter-spacing: 0.02em;
-}
+    .readme-title {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+    }
 
-.readme-subtitle {
-  margin-top: 4px;
-  font-size: 0.85rem;
-  color: var(--adler-gray-600);
-}
+    .readme-subtitle {
+      margin-top: 4px;
+      font-size: 0.85rem;
+      color: var(--adler-gray-600);
+    }
 
-.readme-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
+    .readme-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
 
-.readme-actions a {
-  text-decoration: none;
-}
+    .readme-actions a {
+      text-decoration: none;
+    }
 
-.readme-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 14px;
-  margin-top: 12px;
-}
+    .readme-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
 
-@media (max-width: 900px) {
-  .readme-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .readme-actions {
-    justify-content: flex-start;
-  }
-}
+    @media (max-width: 900px) {
+      .readme-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
 
-.doc-panel {
-  border: 1px solid var(--adler-gray-200);
-  padding: 14px;
-  background: #ffffff;
-}
+      .readme-actions {
+        justify-content: flex-start;
+      }
+    }
 
-.doc-panel h3 {
-  margin: 0 0 10px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--adler-gray-600);
-}
+    .doc-panel {
+      border: 1px solid var(--adler-gray-200);
+      padding: 14px;
+      background: #ffffff;
+    }
 
-.doc-panel h4 {
-  margin: 14px 0 6px;
-  font-size: 0.92rem;
-  font-weight: 650;
-  color: var(--adler-charcoal);
-}
+    .doc-panel h3 {
+      margin: 0 0 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--adler-gray-600);
+    }
 
-.doc-panel p {
-  margin: 0 0 10px;
-  color: var(--adler-charcoal);
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
+    .doc-panel h4 {
+      margin: 14px 0 6px;
+      font-size: 0.92rem;
+      font-weight: 650;
+      color: var(--adler-charcoal);
+    }
 
-.doc-panel ul {
-  margin: 0 0 10px 18px;
-  padding: 0;
-  color: var(--adler-charcoal);
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
+    .doc-panel p {
+      margin: 0 0 10px;
+      color: var(--adler-charcoal);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
 
-.doc-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border-radius: 999px;
-  padding: 6px 10px;
-  border: 1px solid var(--adler-gray-200);
-  background: var(--adler-gray-100);
-  color: var(--adler-gray-600);
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-}
+    .doc-panel ul,
+    .doc-panel ol {
+      margin: 0 0 10px 18px;
+      padding: 0;
+      color: var(--adler-charcoal);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
 
-.doc-kicker strong {
-  color: var(--adler-charcoal);
-  font-weight: 600;
-}
+    .doc-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid var(--adler-gray-200);
+      background: var(--adler-gray-100);
+      color: var(--adler-gray-600);
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
 
-.doc-table {
-  width: 100%;
-  border-collapse: collapse;
-  overflow: hidden;
-  border: 1px solid var(--adler-gray-200);
-  margin: 10px 0 0;
-  font-size: 0.88rem;
-}
+    .doc-kicker strong {
+      color: var(--adler-charcoal);
+      font-weight: 600;
+    }
 
-.doc-table th,
-.doc-table td {
-  padding: 10px 10px;
-  border: 1px solid var(--adler-gray-200);
-  vertical-align: top;
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--adler-gray-200);
+      margin: 10px 0 0;
+      font-size: 0.88rem;
+    }
+
+    .doc-table th,
+    .doc-table td {
+      padding: 10px 10px;
+      border: 1px solid var(--adler-gray-200);
+      vertical-align: top;
       text-align: left;
-}
+    }
 
-.doc-table th {
-  background: var(--adler-gray-100);
-  color: var(--adler-gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.72rem;
-  font-weight: 700;
-}
+    .doc-table th {
+      background: var(--adler-gray-100);
+      color: var(--adler-gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
 
-.doc-table tr:last-child td {
-  border-bottom: none;
-}
+    /* Accordion steps */
+    .step {
+      border: 1px solid var(--adler-gray-200);
+      padding: 12px;
+      background: #ffffff;
+      margin-bottom: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: box-shadow 0.14s ease, border-color 0.14s ease;
+    }
 
-.step {
-  border: 1px solid var(--adler-gray-200);
-  padding: 12px;
-  background: #ffffff;
-  margin-bottom: 10px;
-}
+    .step:hover {
+      border-color: var(--adler-gray-400);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+    }
 
-.step-title {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 6px;
-}
+    .step[aria-expanded="true"] {
+      border-color: rgba(139, 3, 3, 0.35);
+      box-shadow: 0 12px 24px rgba(139, 3, 3, 0.08);
+    }
 
-.step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: var(--adler-red);
-  border: 1px solid rgba(185, 28, 28, 0.25);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.85rem;
-  flex: 0 0 auto;
-}
+    .step-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 0;
+    }
 
-.step-title h4 {
-  margin: 0;
-}
+    .step-title-left {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
+    }
 
-.mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.88rem;
-  background: var(--adler-gray-100);
-  border: 1px solid var(--adler-gray-200);
-  padding: 0px 10px;
-  display: block;
-  color: var(--adler-charcoal);
-}
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: var(--adler-red);
+      border: 1px solid rgba(185, 28, 28, 0.25);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex: 0 0 auto;
+    }
 
+    .step-title h4 {
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .step-caret {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      justify-content: center;
+      border: 1px solid var(--adler-gray-200);
+      background: var(--adler-gray-100);
+      color: var(--adler-gray-600);
+      transition: transform 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+    }
+
+    .step[aria-expanded="true"] .step-caret {
+      transform: rotate(180deg);
+      border-color: rgba(139, 3, 3, 0.35);
+      background: #fee2e2;
+      color: var(--adler-red);
+    }
+
+    .step-content {
+      margin-top: 10px;
+      display: none;
+    }
+
+    .step[aria-expanded="true"] .step-content {
+      display: block;
+    }
+
+    .step-summary {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--adler-gray-600);
+      line-height: 1.35;
+      display: none;
+    }
+
+    .step[aria-expanded="true"] .step-summary {
+      display: none;
+    }
+
+    .step:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(139, 3, 3, 0.22);
+      border-color: rgba(139, 3, 3, 0.45);
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.88rem;
+      background: var(--adler-gray-100);
+      border: 1px solid var(--adler-gray-200);
+      padding: 0px 10px;
+      display: inline-block;
+      color: var(--adler-charcoal);
+    }
+
+    .mono.block {
+      display: block;
+      padding: 8px 10px;
+    }
   </style>
 </head>
 
@@ -774,7 +791,6 @@
               <datalist id="sourceOptions"></datalist>
             </div>
 
-            <!-- MEDIUM: locked dropdown styled to match inputs -->
             <div>
               <div class="label-row">
                 <label for="medium">utm_medium <span class="req">*</span></label>
@@ -836,7 +852,6 @@
             </div>
           </div>
 
-          <!-- EMAIL FIELD -->
           <div class="field-group">
             <div class="label-row">
               <label for="senderEmail">Your email address <span class="req">*</span></label>
@@ -850,16 +865,6 @@
             <input type="text" id="senderEmail" placeholder="name@adler.edu" autocomplete="email" />
             <div id="emailError" class="error" style="display:none;"></div>
             <div class="hint">Use your Adler email (example: name@adler.edu).</div>
-          </div>
-
-          <div class="toggle-row">
-            <label class="toggle">
-              <input type="checkbox" id="normalizeSwitch" checked />
-              <span class="toggle-pill">
-                <span class="toggle-thumb"></span>
-              </span>
-              <span>Normalize values (lowercase, spaces → underscores)</span>
-            </label>
           </div>
 
           <div class="button-row">
@@ -907,9 +912,8 @@
           </div>
 
           <div class="teams-send">
-
-              <a href="https://adleruniversity.sharepoint.com/:x:/s/MarketingandCommunicationsTeam/IQBFa7-hQmn_Q6ai0NK7OpyiAWXrCqk9AP3YOFNbgZOJ1K4?e=Fr8Kba" target="_blank" class="button_primary">Add to Spreadsheet</a>
-
+            <a href="https://adleruniversity.sharepoint.com/:x:/s/MarketingandCommunicationsTeam/IQBFa7-hQmn_Q6ai0NK7OpyiAWXrCqk9AP3YOFNbgZOJ1K4?e=Fr8Kba"
+              target="_blank" class="button_primary">Add to Spreadsheet</a>
           </div>
         </section>
       </div>
@@ -918,654 +922,849 @@
         Internal utility · Not for external marketing use.
       </div>
     </div>
+
+    <!-- README-style Documentation Section -->
     <section class="readme-wrap" aria-label="UTM Generator Documentation">
-  <div class="readme-card">
-    <div class="readme-header">
-      <div>
-        <h2 class="readme-title">How to Use</h2>
-  
+      <div class="readme-card">
+        <div class="readme-header">
+          <div>
+            <h2 class="readme-title">How to Use</h2>
+            <div class="readme-subtitle">Click a step to expand details.</div>
+          </div>
+        </div>
+
+        <div class="readme-grid">
+          <div class="doc-panel">
+            <h3>Workflow</h3>
+
+            <div class="step" id="doc-step-1" role="button" tabindex="0" aria-expanded="true"
+              aria-controls="doc-step-1-content">
+              <div class="step-title">
+                <div class="step-title-left">
+                  <span class="step-num">1</span>
+                  <h4>Enter the Base URL</h4>
+                </div>
+                <span class="step-caret" aria-hidden="true">⌄</span>
+              </div>
+              <div class="step-summary">Paste the final destination page you want to track.</div>
+              <div class="step-content" id="doc-step-1-content">
+                <p>Paste the final destination page you want to track.</p>
+                <span class="mono block">Example: https://www.adler.edu/programs/ma-psychology/</span>
+                <div class="hint" style="margin-top:8px;">
+                  Best practices: Always include <strong>https://</strong> and avoid redirects. <br />
+                  The domain needs to be https://adler.edu/<strong>path_name</strong> or
+                  https://<strong>sub_domain</strong>.adler.edu
+                </div>
+              </div>
+            </div>
+
+            <div class="step" id="doc-step-2" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="doc-step-2-content">
+              <div class="step-title">
+                <div class="step-title-left">
+                  <span class="step-num">2</span>
+                  <h4>Choose your UTM Source</h4>
+                </div>
+                <span class="step-caret" aria-hidden="true">⌄</span>
+              </div>
+              <div class="step-summary">Identifies where the traffic comes from (platform, partner, vendor).</div>
+              <div class="step-content" id="doc-step-2-content">
+                <p>Identifies where the traffic comes from (platform, partner, vendor).</p>
+                <table class="doc-table" aria-label="Standard Adler Sources">
+                  <thead>
+                    <tr>
+                      <th>Channel Type</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Google Ads</td>
+                      <td><span class="mono">google</span></td>
+                    </tr>
+                    <tr>
+                      <td>Facebook</td>
+                      <td><span class="mono">facebook</span></td>
+                    </tr>
+                    <tr>
+                      <td>Instagram</td>
+                      <td><span class="mono">instagram</span></td>
+                    </tr>
+                    <tr>
+                      <td>LinkedIn</td>
+                      <td><span class="mono">linkedin</span></td>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td><span class="mono">email</span></td>
+                    </tr>
+                    <tr>
+                      <td>QR Code</td>
+                      <td><span class="mono">qr</span></td>
+                    </tr>
+                    <tr>
+                      <td>Organic Social</td>
+                      <td><span class="mono">organic-social</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="step" id="doc-step-3" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="doc-step-3-content">
+              <div class="step-title">
+                <div class="step-title-left">
+                  <span class="step-num">3</span>
+                  <h4>Choose your UTM Medium</h4>
+                </div>
+                <span class="step-caret" aria-hidden="true">⌄</span>
+              </div>
+              <div class="step-summary">Describes how the traffic arrives (channel type).</div>
+              <div class="step-content" id="doc-step-3-content">
+                <p>Describes how the traffic arrives (channel type).</p>
+                <table class="doc-table" aria-label="Standard Adler Mediums">
+                  <thead>
+                    <tr>
+                      <th>Use Case</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Email campaigns</td>
+                      <td><span class="mono">email</span></td>
+                    </tr>
+                    <tr>
+                      <td>Paid social</td>
+                      <td><span class="mono">paid_social</span></td>
+                    </tr>
+                    <tr>
+                      <td>Organic social</td>
+                      <td><span class="mono">social</span></td>
+                    </tr>
+                    <tr>
+                      <td>Paid search</td>
+                      <td><span class="mono">cpc</span></td>
+                    </tr>
+                    <tr>
+                      <td>Display ads</td>
+                      <td><span class="mono">display</span></td>
+                    </tr>
+                    <tr>
+                      <td>QR codes</td>
+                      <td><span class="mono">offline</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="step" id="doc-step-4" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="doc-step-4-content">
+              <div class="step-title">
+                <div class="step-title-left">
+                  <span class="step-num">4</span>
+                  <h4>Set the Campaign Name</h4>
+                </div>
+                <span class="step-caret" aria-hidden="true">⌄</span>
+              </div>
+              <div class="step-summary">Identifies why the link exists.</div>
+              <div class="step-content" id="doc-step-4-content">
+                <p>Identifies why the link exists.</p>
+                <div class="doc-kicker"><strong>Naming formula:</strong> initiative_term_year</div>
+                <ul>
+                  <li><span class="mono">fall_2026_applications</span></li>
+                  <li><span class="mono">spring_2026_open_house</span></li>
+                  <li><span class="mono">faculty_research_webinar</span></li>
+                  <li><span class="mono">chicago_clinic_awareness</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="step" id="doc-step-5" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="doc-step-5-content">
+              <div class="step-title">
+                <div class="step-title-left">
+                  <span class="step-num">5</span>
+                  <h4>Optional Fields</h4>
+                </div>
+                <span class="step-caret" aria-hidden="true">⌄</span>
+              </div>
+              <div class="step-summary">Use only when extra detail is required.</div>
+              <div class="step-content" id="doc-step-5-content">
+                <p>Use only when extra detail is required.</p>
+
+                <h4 style="margin-top:10px;">UTM Content</h4>
+                <p>Differentiates multiple links pointing to the same URL.</p>
+
+                <table class="doc-table" aria-label="UTM Content Examples">
+                  <thead>
+                    <tr>
+                      <th>Placement</th>
+                      <th>Example Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Hero CTA button</td>
+                      <td><span class="mono">hero_cta</span></td>
+                    </tr>
+                    <tr>
+                      <td>Footer link</td>
+                      <td><span class="mono">footer_link</span></td>
+                    </tr>
+                    <tr>
+                      <td>Inline text link</td>
+                      <td><span class="mono">inline_text</span></td>
+                    </tr>
+                    <tr>
+                      <td>Image banner</td>
+                      <td><span class="mono">image_banner</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <h4>UTM Term</h4>
+                <p>Primarily used for paid search keywords.</p>
+                <span class="mono block">Example: trauma_psychology_program</span>
+              </div>
+            </div>
+
+            <div class="step" id="doc-step-6" role="button" tabindex="0" aria-expanded="false"
+              aria-controls="doc-step-6-content">
+              <div class="step-title">
+                <div class="step-title-left">
+                  <span class="step-num">6</span>
+                  <h4>Share the URL</h4>
+                </div>
+                <span class="step-caret" aria-hidden="true">⌄</span>
+              </div>
+              <div class="step-summary">Copy, send to Teams, and add to the spreadsheet.</div>
+              <div class="step-content" id="doc-step-6-content">
+                <ol>
+                  <li>The tool builds the tracking URL for you.</li>
+                  <li>Use <strong>Copy URL</strong> to paste into your channel.</li>
+                  <li>Send a message in Teams.</li>
+                  <li>Add the generated UTM to the spreadsheet.</li>
+                </ol>
+              </div>
+            </div>
+
+          </div>
+
+          <aside class="doc-panel">
+            <h3>Standards</h3>
+
+            <table class="doc-table" aria-label="Adler UTM Naming Standards">
+              <thead>
+                <tr>
+                  <th>Rule</th>
+                  <th>Requirement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Case</td>
+                  <td>Lowercase only</td>
+                </tr>
+                <tr>
+                  <td>Spacing</td>
+                  <td>Use underscores, never spaces</td>
+                </tr>
+                <tr>
+                  <td>Characters</td>
+                  <td>Letters, numbers, underscores only</td>
+                </tr>
+                <tr>
+                  <td>Consistency</td>
+                  <td>Same values across teams</td>
+                </tr>
+                <tr>
+                  <td>Internal Links</td>
+                  <td>Never use UTMs internally</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h4>Common Mistakes to Avoid</h4>
+            <ul>
+              <li>Changing naming conventions mid-campaign</li>
+              <li>Using spaces or special characters</li>
+              <li>Using UTMs on internal site links</li>
+              <li>Mixing paid and organic mediums</li>
+              <li>Editing URLs after generation</li>
+            </ul>
+
+            <h4>Need Help?</h4>
+            <p>If you are unsure which values to use:</p>
+            <ul>
+              <li>Reference this guide</li>
+              <li>Contact <a href="mailto:webmaster@adler.edu" class="button_primary">webmaster@adler.edu</a> before publishing</li>
+            </ul>
+
+            <div class="hint" style="margin-top:10px;">
+              Tip: Keep sources and mediums consistent across all campaigns for clean reporting.
+            </div>
+          </aside>
+        </div>
       </div>
+    </section>
 
-    </div>
-
-    <div class="readme-grid">
-      <!-- LEFT: Steps -->
-      <div class="doc-panel">
-        <h3>Workflow</h3>
-
-        <div class="step" id="doc-step-1">
-          <div class="step-title">
-            <span class="step-num">1</span>
-            <h4>Enter the Base URL</h4>
-          </div>
-          <p>Paste the final destination page you want to track.</p>
-          <span class="mono">Example: https://www.adler.edu/programs/ma-psychology/</span>
-          <div class="hint" style="margin-top:8px;">
-            Best practices: Always include <strong>https://</strong> and avoid redirects. <br/>
-            The domain needs to be https://adler.edu/<strong>path_name</strong>  or    https://<strong>sub_domain</strong>.adler.edu
-            
-          </div>
-        </div>
-
-        <div class="step" id="doc-step-2">
-          <div class="step-title">
-            <span class="step-num">2</span>
-            <h4>Choose your UTM Source</h4>
-          </div>
-          <p>Identifies where the traffic comes from (platform, partner, vendor).</p>
-          <table class="doc-table" aria-label="Standard Adler Sources">
-            <thead>
-              <tr><th>Channel Type</th><th>Value</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Google Ads</td><td><span class="mono" style="display:inline;">google</span></td></tr>
-              <tr><td>Facebook</td><td><span class="mono" style="display:inline;">facebook</span></td></tr>
-              <tr><td>Instagram</td><td><span class="mono" style="display:inline;">instagram</span></td></tr>
-              <tr><td>LinkedIn</td><td><span class="mono" style="display:inline;">linkedin</span></td></tr>
-              <tr><td>Email</td><td><span class="mono" style="display:inline;">email</span></td></tr>
-              <tr><td>QR Code</td><td><span class="mono" style="display:inline;">qr</span></td></tr>
-              <tr><td>Organic Social</td><td><span class="mono" style="display:inline;">organic-social</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="step" id="doc-step-3">
-          <div class="step-title">
-            <span class="step-num">3</span>
-            <h4>Choose your UTM Medium</h4>
-          </div>
-          <p>Describes how the traffic arrives (channel type).</p>
-          <table class="doc-table" aria-label="Standard Adler Mediums">
-            <thead>
-              <tr><th>Use Case</th><th>Value</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Email campaigns</td><td><span class="mono" style="display:inline;">email</span></td></tr>
-              <tr><td>Paid social</td><td><span class="mono" style="display:inline;">paid-social</span></td></tr>
-              <tr><td>Organic social</td><td><span class="mono" style="display:inline;">social</span></td></tr>
-              <tr><td>Paid search</td><td><span class="mono" style="display:inline;">cpc</span></td></tr>
-              <tr><td>Display ads</td><td><span class="mono" style="display:inline;">display</span></td></tr>
-              <tr><td>QR codes</td><td><span class="mono" style="display:inline;">offline</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="step" id="doc-step-4">
-          <div class="step-title">
-            <span class="step-num">4</span>
-            <h4>Set the Campaign Name</h4>
-          </div>
-          <p>Identifies why the link exists.</p>
-          <div class="doc-kicker"><strong>Naming formula:</strong> initiative_term_year</div>
-          <ul>
-            <li><span class="mono" style="display:inline;">fall_2026_applications</span></li>
-            <li><span class="mono" style="display:inline;">spring_2026_open_house</span></li>
-            <li><span class="mono" style="display:inline;">faculty_research_webinar</span></li>
-            <li><span class="mono" style="display:inline;">chicago_clinic_awareness</span></li>
-          </ul>
-        </div>
-
-        <div class="step" id="doc-step-5">
-          <div class="step-title">
-            <span class="step-num">5</span>
-            <h4>Optional Fields</h4>
-          </div>
-          <p>Use only when extra detail is required.</p>
-
-          <h4 style="margin-top:10px;">UTM Content</h4>
-          <p>Differentiates multiple links pointing to the same URL.</p>
-          <table class="doc-table" aria-label="UTM Content Examples">
-            <thead>
-              <tr><th>Placement</th><th>Example Value</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Hero CTA button</td><td><span class="mono" style="display:inline;">hero_cta</span></td></tr>
-              <tr><td>Footer link</td><td><span class="mono" style="display:inline;">footer_link</span></td></tr>
-              <tr><td>Inline text link</td><td><span class="mono" style="display:inline;">inline_text</span></td></tr>
-              <tr><td>Image banner</td><td><span class="mono" style="display:inline;">image_banner</span></td></tr>
-            </tbody>
-          </table>
-
-          <h4>UTM Term</h4>
-          <p>Primarily used for paid search keywords.</p>
-          <span class="mono">Example: trauma_psychology_program</span>
-        </div>
-
-        <div class="step" id="doc-step-6">
-          <div class="step-title">
-            <span class="step-num">6</span>
-            <h4>Copy the Generated URL</h4>
-          </div>
-          <ol>
-            <li>The tool builds the tracking URL for you. Use the Copy button to paste into your channel.</li>
-            <li>Send a message in Teams</li>
-            <li>Add the generated UTM to the spreadsheet</li>
-          </ol>
-        </div>
-
-    
-      </div>
-
-      <!-- RIGHT: Standards + Mistakes + Help -->
-      <aside class="doc-panel">
-        <h3>Standards</h3>
-
-        <table class="doc-table" aria-label="Adler UTM Naming Standards">
-          <thead>
-            <tr><th>Rule</th><th>Requirement</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Case</td><td>Lowercase only</td></tr>
-            <tr><td>Spacing</td><td>Use underscores, never spaces</td></tr>
-            <tr><td>Characters</td><td>Letters, numbers, underscores only</td></tr>
-            <tr><td>Consistency</td><td>Same values across teams</td></tr>
-            <tr><td>Internal Links</td><td>Never use UTMs internally</td></tr>
-          </tbody>
-        </table>
-
-        <h4>How UTMs Map to GA4</h4>
-        <table class="doc-table" aria-label="UTM to GA4 Mapping">
-          <thead>
-            <tr><th>UTM</th><th>GA4 Dimension</th><th>Purpose</th></tr>
-          </thead>
-          <tbody>
-            <tr><td><span class="mono" style="display:inline;">utm_source</span></td><td>Session source</td><td>Where traffic originates</td></tr>
-            <tr><td><span class="mono" style="display:inline;">utm_medium</span></td><td>Session medium</td><td>How traffic arrives</td></tr>
-            <tr><td><span class="mono" style="display:inline;">utm_campaign</span></td><td>Session campaign</td><td>Why the link exists</td></tr>
-            <tr><td><span class="mono" style="display:inline;">utm_content</span></td><td>Session manual ad content</td><td>Differentiates links</td></tr>
-            <tr><td><span class="mono" style="display:inline;">utm_term</span></td><td>Session manual term</td><td>Paid search keyword</td></tr>
-          </tbody>
-        </table>
-
-        <h4>Common Mistakes to Avoid</h4>
-        <ul>
-          <li>Changing naming conventions mid-campaign</li>
-          <li>Using spaces or special characters</li>
-          <li>Using UTMs on internal site links</li>
-          <li>Mixing paid and organic mediums</li>
-          <li>Editing URLs after generation</li>
-        </ul>
-
-        <h4>Need Help?</h4>
-        <p>If you are unsure which values to use:</p>
-        <ul>
-          <li>Reference this guide</li>
-          <li>Contact <span class="mono" style="display:inline;">webmaster@adler.edu</span> before publishing</li>
-        </ul>
-
-        <div class="hint" style="margin-top:10px;">
-          Tip: Keep sources and mediums consistent across all campaigns for clean reporting.
-        </div>
-      </aside>
-    </div>
-  </div>
-</section>
 
   </div>
 
-  <script>
-    const baseUrlEl = document.getElementById("baseUrl");
-    const sourceEl = document.getElementById("source");
-    const mediumEl = document.getElementById("medium"); // now a <select>
-    const campaignEl = document.getElementById("campaign");
-    const termEl = document.getElementById("term");
-    const contentEl = document.getElementById("content");
-    const normalizeSwitch = document.getElementById("normalizeSwitch");
 
-    const senderEmailEl = document.getElementById("senderEmail");
-    const emailErrorEl = document.getElementById("emailError");
 
-    const urlErrorEl = document.getElementById("urlError");
-    const outputBox = document.getElementById("outputBox");
-    const chipRow = document.getElementById("chipRow");
-    const copyBtn = document.getElementById("copyBtn");
-    const generateBtn = document.getElementById("generateBtn");
-    const clearBtn = document.getElementById("clearBtn");
-    const previewLink = document.getElementById("previewLink");
-    const statusText = document.getElementById("statusText");
+<script>
+  const baseUrlEl = document.getElementById("baseUrl");
+  const sourceEl = document.getElementById("source");
+  const mediumEl = document.getElementById("medium");
+  const campaignEl = document.getElementById("campaign");
+  const termEl = document.getElementById("term");
+  const contentEl = document.getElementById("content");
+  const normalizeSwitchEl = document.getElementById("normalizeSwitch"); // may be null (since toggle-row is display:none)
 
-    const contentCharCount = document.getElementById("contentCharCount");
-    const contentCharWarning = document.getElementById("contentCharWarning");
+  const senderEmailEl = document.getElementById("senderEmail");
+  const emailErrorEl = document.getElementById("emailError");
 
-    const urlCharCount = document.getElementById("urlCharCount");
-    const urlCharWarning = document.getElementById("urlCharWarning");
+  const urlErrorEl = document.getElementById("urlError");
+  const outputBox = document.getElementById("outputBox");
+  const chipRow = document.getElementById("chipRow");
+  const copyBtn = document.getElementById("copyBtn");
+  const generateBtn = document.getElementById("generateBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const previewLink = document.getElementById("previewLink");
+  const statusText = document.getElementById("statusText");
 
-    const sendBtn = document.getElementById("sendBtn");
-    const resultBox = document.getElementById("result");
+  const contentCharCount = document.getElementById("contentCharCount");
+  const contentCharWarning = document.getElementById("contentCharWarning");
 
-    // Default options for dropdowns
-    const defaultSources = [
-      "alumni_email",
-      "bing",
-      "community_partner",
-      "facebook",
-      "fair_booth",
-      "google",
-      "gradschoolscom",
-      "instagram",
-      "linkedin",
-      "newsletter",
-      "open_house_signage",
-      "partner_university",
-      "poster",
-      "print_brochure",
-      "prospect_email",
-      "studyportals",
-      "tiktok",
-      "twitter",
-      "youtube"
-    ];
+  const urlCharCount = document.getElementById("urlCharCount");
+  const urlCharWarning = document.getElementById("urlCharWarning");
 
-    // Medium is now locked: users must choose one of these (plus any previously stored values).
-    const defaultMediums = [
-      "cpc",
-      "display",
-      "email",
-      "event",
-      "offline",
-      "paid_social",
-      "qr",
-      "referral",
-      "sms",
-      "social",
-      "video",
-      "website"
-    ];
+  const sendBtn = document.getElementById("sendBtn");
+  const resultBox = document.getElementById("result");
 
-    const defaultCampaigns = [
-      "application_deadline",
-      "cbs_mental_health_minute_sponsorship",
-      "fall_2025",
-      "fall_2026_launch",
-      "lead_nurture",
-      "multiview_program_promotion",
-      "open_house",
-      "rebrand_launch",
-      "spring_2026",
-      "webinar_series"
-    ];
+  // Default options
+  const defaultSources = [
+    "alumni_email",
+    "bing",
+    "community_partner",
+    "facebook",
+    "fair_booth",
+    "google",
+    "gradschoolscom",
+    "instagram",
+    "linkedin",
+    "newsletter",
+    "open_house_signage",
+    "partner_university",
+    "poster",
+    "print_brochure",
+    "prospect_email",
+    "studyportals",
+    "tiktok",
+    "twitter",
+    "youtube"
+  ];
 
-    function getStoredOptions(key, defaults) {
-      const raw = localStorage.getItem(key);
-      if (!raw) return [...defaults];
-      try {
-        const parsed = JSON.parse(raw);
-        const merged = [...defaults, ...parsed];
-        return Array.from(new Set(merged));
-      } catch {
-        return [...defaults];
-      }
+  const defaultMediums = [
+    "cpc",
+    "display",
+    "email",
+    "event",
+    "offline",
+    "paid_social",
+    "qr",
+    "referral",
+    "sms",
+    "social",
+    "video",
+    "website"
+  ];
+
+  const defaultCampaigns = [
+    "application_deadline",
+    "cbs_mental_health_minute_sponsorship",
+    "fall_2025",
+    "fall_2026_launch",
+    "lead_nurture",
+    "multiview_program_promotion",
+    "open_house",
+    "rebrand_launch",
+    "spring_2026",
+    "webinar_series"
+  ];
+
+  function getStoredOptions(key, defaults) {
+    const raw = localStorage.getItem(key);
+    if (!raw) return [...defaults];
+    try {
+      const parsed = JSON.parse(raw);
+      const merged = [...defaults, ...parsed];
+      return Array.from(new Set(merged));
+    } catch {
+      return [...defaults];
     }
+  }
 
-    function storeOption(key, value) {
-      if (!value) return;
-      const trimmed = value.trim();
-      if (!trimmed) return;
+  function storeOption(key, value) {
+    if (!value) return;
+    const trimmed = value.trim();
+    if (!trimmed) return;
 
-      const raw = localStorage.getItem(key);
-      let arr = [];
-      if (raw) {
-        try { arr = JSON.parse(raw); } catch { arr = []; }
-      }
-      if (!arr.includes(trimmed)) {
-        arr.push(trimmed);
-        localStorage.setItem(key, JSON.stringify(arr));
-      }
+    const raw = localStorage.getItem(key);
+    let arr = [];
+    if (raw) {
+      try { arr = JSON.parse(raw); } catch { arr = []; }
     }
-
-    function renderDatalist(datalistId, options) {
-      const dl = document.getElementById(datalistId);
-      if (!dl) return;
-      dl.innerHTML = "";
-      options.forEach((opt) => {
-        const o = document.createElement("option");
-        o.value = opt;
-        dl.appendChild(o);
-      });
+    if (!arr.includes(trimmed)) {
+      arr.push(trimmed);
+      localStorage.setItem(key, JSON.stringify(arr));
     }
+  }
 
-    // New: render a locked select (prevents custom typing)
-    function renderSelect(selectId, options, placeholderText) {
-      const sel = document.getElementById(selectId);
-      if (!sel) return;
+  function renderDatalist(datalistId, options) {
+    const dl = document.getElementById(datalistId);
+    if (!dl) return;
+    dl.innerHTML = "";
+    options.forEach((opt) => {
+      const o = document.createElement("option");
+      o.value = opt;
+      dl.appendChild(o);
+    });
+  }
 
-      sel.innerHTML = "";
+  function renderSelect(selectId, options, placeholderText) {
+    const sel = document.getElementById(selectId);
+    if (!sel) return;
 
-      const placeholder = document.createElement("option");
-      placeholder.value = "";
-      placeholder.textContent = placeholderText;
-      placeholder.disabled = true;
-      placeholder.selected = true;
-      sel.appendChild(placeholder);
+    sel.innerHTML = "";
 
-      options.forEach((opt) => {
-        const o = document.createElement("option");
-        o.value = opt;
-        o.textContent = opt;
-        sel.appendChild(o);
-      });
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = placeholderText;
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    sel.appendChild(placeholder);
+
+    options.forEach((opt) => {
+      const o = document.createElement("option");
+      o.value = opt;
+      o.textContent = opt;
+      sel.appendChild(o);
+    });
+  }
+
+  function normalizeValue(value) {
+    if (!value) return "";
+    const trimmed = value.trim();
+
+    // If the switch exists, respect it. If not, normalize by default.
+    const shouldNormalize = normalizeSwitchEl ? normalizeSwitchEl.checked : true;
+    if (!shouldNormalize) return trimmed;
+
+    return trimmed.toLowerCase().replace(/\s+/g, "_");
+  }
+
+  function isLikelyUrl(str) {
+    return /^https?:\/\//i.test(str.trim());
+  }
+
+  function isAdlerDomain(urlString) {
+    try {
+      const urlObj = new URL(urlString);
+      return urlObj.hostname === "adler.edu" || urlObj.hostname.endsWith(".adler.edu");
+    } catch {
+      return false;
     }
+  }
 
-    function normalizeValue(value) {
-      if (!value) return "";
-      const trimmed = value.trim();
-      if (!normalizeSwitch.checked) return trimmed;
-      return trimmed.toLowerCase().replace(/\s+/g, "_");
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isAdlerEmail(email) {
+    return email.toLowerCase().endsWith("@adler.edu");
+  }
+
+  function setEmailError(message) {
+    if (!emailErrorEl) return;
+    if (!message) {
+      emailErrorEl.style.display = "none";
+      emailErrorEl.textContent = "";
+      return;
     }
+    emailErrorEl.style.display = "block";
+    emailErrorEl.textContent = message;
+  }
 
-    function isLikelyUrl(str) {
-      return /^https?:\/\//i.test(str.trim());
+  function updateContentCharCount() {
+    const raw = contentEl.value || "";
+    const val = normalizeValue(raw);
+    const length = val.length;
+
+    contentCharCount.textContent = `${length} characters`;
+
+    if (length >= 100) {
+      contentCharWarning.style.display = "inline";
+      contentCharWarning.textContent = "Caution: 100+ characters may reduce reporting consistency.";
+    } else {
+      contentCharWarning.style.display = "none";
+      contentCharWarning.textContent = "";
     }
+  }
 
-    // Enforce adler.edu or any subdomain *.adler.edu
-    function isAdlerDomain(urlString) {
-      try {
-        const urlObj = new URL(urlString);
-        return urlObj.hostname === "adler.edu" || urlObj.hostname.endsWith(".adler.edu");
-      } catch {
-        return false;
-      }
+  function updateUrlCharCount(url) {
+    const length = url ? url.length : 0;
+    urlCharCount.textContent = `Length: ${length} characters`;
+
+    urlCharWarning.style.display = "none";
+    urlCharWarning.className = "";
+    urlCharWarning.textContent = "";
+
+    if (length >= 2000) {
+      urlCharWarning.style.display = "inline";
+      urlCharWarning.classList.add("danger");
+      urlCharWarning.textContent = "Warning: URL may break in some platforms (2000+ chars).";
+    } else if (length >= 1800) {
+      urlCharWarning.style.display = "inline";
+      urlCharWarning.classList.add("warning");
+      urlCharWarning.textContent = "Caution: URL is getting long (1800+ chars).";
     }
+  }
 
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
+  function resetOutputToEmpty() {
+    chipRow.innerHTML = "";
+    outputBox.textContent = "Your UTM URL will appear here.";
+    outputBox.classList.add("empty");
+    previewLink.style.display = "none";
+    updateUrlCharCount("");
+  }
 
-    function isAdlerEmail(email) {
-      return email.toLowerCase().endsWith("@adler.edu");
-    }
+  function showStatus(label) {
+    if (label) statusText.textContent = label;
+    statusText.classList.add("show");
+    setTimeout(() => {
+      statusText.classList.remove("show");
+      statusText.textContent = "Copied!";
+    }, 1400);
+  }
 
-    function setEmailError(message) {
-      if (!emailErrorEl) return;
-      if (!message) {
-        emailErrorEl.style.display = "none";
-        emailErrorEl.textContent = "";
-        return;
-      }
-      emailErrorEl.style.display = "block";
-      emailErrorEl.textContent = message;
-    }
+  function buildUtmUrl(options = { silent: false, rerenderLists: false }) {
+    const base = baseUrlEl.value.trim();
+    const source = normalizeValue(sourceEl.value);
+    const medium = normalizeValue(mediumEl.value);
+    const campaign = normalizeValue(campaignEl.value);
+    const term = normalizeValue(termEl.value);
+    const content = normalizeValue(contentEl.value);
 
-    function updateContentCharCount() {
-      const raw = contentEl.value || "";
-      const val = normalizeValue(raw);
-      const length = val.length;
-
-      contentCharCount.textContent = `${length} characters`;
-
-      if (length >= 100) {
-        contentCharWarning.style.display = "inline";
-        contentCharWarning.textContent = "Caution: 100+ characters may reduce reporting consistency.";
-      } else {
-        contentCharWarning.style.display = "none";
-        contentCharWarning.textContent = "";
-      }
-    }
-
-    function updateUrlCharCount(url) {
-      const length = url ? url.length : 0;
-      urlCharCount.textContent = `Length: ${length} characters`;
-
-      urlCharWarning.style.display = "none";
-      urlCharWarning.className = "";
-      urlCharWarning.textContent = "";
-
-      if (length >= 2000) {
-        urlCharWarning.style.display = "inline";
-        urlCharWarning.classList.add("danger");
-        urlCharWarning.textContent = "Warning: URL may break in some platforms (2000+ chars).";
-      } else if (length >= 1800) {
-        urlCharWarning.style.display = "inline";
-        urlCharWarning.classList.add("warning");
-        urlCharWarning.textContent = "Caution: URL is getting long (1800+ chars).";
-      }
-    }
-
-    function buildUtmUrl() {
-      const base = baseUrlEl.value.trim();
-      const source = normalizeValue(sourceEl.value);
-
-      // medium is now selected from a locked dropdown
-      const medium = normalizeValue(mediumEl.value);
-
-      const campaign = normalizeValue(campaignEl.value);
-      const term = normalizeValue(termEl.value);
-      const content = normalizeValue(contentEl.value);
-
+    if (!options.silent) {
       urlErrorEl.style.display = "none";
       urlErrorEl.textContent = "";
+    }
 
-      if (!base) {
+    if (!base) {
+      if (!options.silent) {
         urlErrorEl.textContent = "Base URL is required.";
         urlErrorEl.style.display = "block";
-        return "";
       }
+      return "";
+    }
 
-      if (!isLikelyUrl(base)) {
+    if (!isLikelyUrl(base)) {
+      if (!options.silent) {
         urlErrorEl.textContent = "Base URL must start with http:// or https://";
         urlErrorEl.style.display = "block";
-        return "";
       }
+      return "";
+    }
 
-      if (!isAdlerDomain(base)) {
+    if (!isAdlerDomain(base)) {
+      if (!options.silent) {
         urlErrorEl.textContent = "Base URL must be on the adler.edu domain or a valid subdomain (e.g., https://subdomain.adler.edu).";
         urlErrorEl.style.display = "block";
-        return "";
       }
+      return "";
+    }
 
-      if (!source || !medium || !campaign) {
+    if (!source || !medium || !campaign) {
+      if (!options.silent) {
         urlErrorEl.textContent = "utm_source, utm_medium, and utm_campaign are required.";
         urlErrorEl.style.display = "block";
-        return "";
       }
+      return "";
+    }
 
-      const params = new URLSearchParams();
-      params.set("utm_source", source);
-      params.set("utm_medium", medium);
-      params.set("utm_campaign", campaign);
-      if (term) params.set("utm_term", term);
-      if (content) params.set("utm_content", content);
+    const params = new URLSearchParams();
+    params.set("utm_source", source);
+    params.set("utm_medium", medium);
+    params.set("utm_campaign", campaign);
+    if (term) params.set("utm_term", term);
+    if (content) params.set("utm_content", content);
 
-      let finalUrl;
-      try {
-        const urlObj = new URL(base);
-        const existing = new URLSearchParams(urlObj.search);
+    let finalUrl;
+    try {
+      const urlObj = new URL(base);
+      const existing = new URLSearchParams(urlObj.search);
+      for (const [key, value] of existing.entries()) params.append(key, value);
+      urlObj.search = params.toString();
+      finalUrl = urlObj.toString();
+    } catch {
+      const joiner = base.includes("?") ? "&" : "?";
+      finalUrl = base + joiner + params.toString();
+    }
 
-        // Preserve existing query params by appending them after the UTM params
-        for (const [key, value] of existing.entries()) {
-          params.append(key, value);
-        }
+    // Persist only campaigns
+    storeOption("utm_campaigns", campaign);
 
-        urlObj.search = params.toString();
-        finalUrl = urlObj.toString();
-      } catch {
-        const joiner = base.includes("?") ? "&" : "?";
-        finalUrl = base + joiner + params.toString();
-      }
-
-      // storeOption("utm_sources", source);
-      // Removed: storeOption("utm_mediums", medium); // locked list, no user-added mediums
-      storeOption("utm_campaigns", campaign);
-
-      renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
-      renderSelect("medium", getStoredOptions("utm_mediums", defaultMediums), "Select a medium");
+    // IMPORTANT: do NOT re-render the select while typing (it resets selection)
+    if (options.rerenderLists) {
+      renderDatalist("sourceOptions", defaultSources);
+      renderSelect("medium", defaultMediums, "Select a medium");
       renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
-
-      chipRow.innerHTML = "";
-      const chips = [
-        ["source", source],
-        ["medium", medium],
-        ["campaign", campaign],
-        ["term", term],
-        ["content", content],
-      ].filter(([, v]) => v);
-
-      chips.forEach(([k, v]) => {
-        const chip = document.createElement("span");
-        chip.className = "chip";
-        chip.innerHTML = `<span class="chip-key">${k}:</span><span>${v}</span>`;
-        chipRow.appendChild(chip);
-      });
-
-      outputBox.textContent = finalUrl;
-      outputBox.classList.remove("empty");
-      previewLink.href = finalUrl;
-      previewLink.style.display = "inline";
-
-      updateUrlCharCount(finalUrl);
-
-      return finalUrl;
     }
 
-    function copyToClipboard(text) {
-      if (!text) return;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(
-          () => showStatus(),
-          () => fallbackCopy(text)
-        );
-      } else {
-        fallbackCopy(text);
-      }
-    }
+    chipRow.innerHTML = "";
+    const chips = [
+      ["source", source],
+      ["medium", medium],
+      ["campaign", campaign],
+      ["term", term],
+      ["content", content],
+    ].filter(([, v]) => v);
 
-    function fallbackCopy(text) {
-      const temp = document.createElement("textarea");
-      temp.value = text;
-      temp.setAttribute("readonly", "");
-      temp.style.position = "absolute";
-      temp.style.left = "-9999px";
-      document.body.appendChild(temp);
-      temp.select();
-      try { document.execCommand("copy"); } catch (e) { console.error("Copy failed", e); }
-      document.body.removeChild(temp);
-      showStatus();
-    }
-
-    function showStatus() {
-      statusText.classList.add("show");
-      setTimeout(() => { statusText.classList.remove("show"); }, 1400);
-    }
-
-    function getCurrentUtmUrlOrBuild() {
-      const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
-      if (current) return current;
-      return buildUtmUrl();
-    }
-
-    async function sendTeamsMsg() {
-      const btn = sendBtn;
-
-      // Validate email
-      const email = (senderEmailEl?.value || "").trim();
-      setEmailError("");
-
-      if (!email) {
-        setEmailError("Email address is required.");
-        return;
-      }
-      if (!isValidEmail(email)) {
-        setEmailError("Please enter a valid email address.");
-        return;
-      }
-      if (!isAdlerEmail(email)) {
-        setEmailError("Please use your @adler.edu email address.");
-        return;
-      }
-
-      // Persist email
-      localStorage.setItem("utm_sender_email", email);
-
-      // Get UTM URL (existing or generate)
-      const utmUrl = getCurrentUtmUrlOrBuild();
-      if (!utmUrl) return;
-
-      const flowUrl =
-        "https://default9de910667ccb4483a226fd27d4b9c5.70.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/eb14b1db81f340d98495edf00b4cffc1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GF8QXsRm9THw1LkNeRFNp7wFiXR0wY_jruNEXHYsBO4";
-
-      const payload = {
-        msg: `${email} created a new UTM link. \n\n${utmUrl}`,
-        email: email,
-        utmUrl: utmUrl
-      };
-
-      btn.disabled = true;
-      btn.textContent = "Sending...";
-
-      const res = await fetch(flowUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-
-      const text = await res.text();
-
-      resultBox.innerHTML = text || "Message sent.";
-      resultBox.style.display = "block";
-      btn.style.display = "none";
-    }
-
-    // Initialize dropdowns
-    renderDatalist("sourceOptions", getStoredOptions("utm_sources", defaultSources));
-    renderSelect("medium", defaultMediums, "Select a medium");
-    renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
-
-    // Prefill stored email
-    const storedEmail = localStorage.getItem("utm_sender_email");
-    if (storedEmail && senderEmailEl) senderEmailEl.value = storedEmail;
-
-    // Event listeners
-    generateBtn.addEventListener("click", () => buildUtmUrl());
-
-    copyBtn.addEventListener("click", () => {
-      const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
-      if (!current) {
-        const url = buildUtmUrl();
-        if (url) copyToClipboard(url);
-      } else {
-        copyToClipboard(current);
-      }
+    chips.forEach(([k, v]) => {
+      const chip = document.createElement("span");
+      chip.className = "chip";
+      chip.innerHTML = `<span class="chip-key">${k}:</span><span>${v}</span>`;
+      chipRow.appendChild(chip);
     });
 
-    clearBtn.addEventListener("click", () => {
-      baseUrlEl.value = "https://adler.edu/";
-      sourceEl.value = "";
-      mediumEl.value = ""; // selects placeholder
-      campaignEl.value = "";
-      termEl.value = "";
-      contentEl.value = "";
-      chipRow.innerHTML = "";
-      outputBox.textContent = "Your UTM URL will appear here.";
-      outputBox.classList.add("empty");
-      previewLink.style.display = "none";
-      urlErrorEl.style.display = "none";
-      urlErrorEl.textContent = "";
+    outputBox.textContent = finalUrl;
+    outputBox.classList.remove("empty");
+    previewLink.href = finalUrl;
+    previewLink.style.display = "inline";
 
-      setEmailError("");
+    updateUrlCharCount(finalUrl);
+    return finalUrl;
+  }
 
-      updateContentCharCount();
-      updateUrlCharCount("");
+  function generateAsYouType() {
+    const base = baseUrlEl.value.trim();
+    const source = normalizeValue(sourceEl.value);
+    const medium = normalizeValue(mediumEl.value);
+    const campaign = normalizeValue(campaignEl.value);
+
+    // Avoid errors while typing. Just show empty until required fields are present.
+    urlErrorEl.style.display = "none";
+    urlErrorEl.textContent = "";
+
+    if (!base || !source || !medium || !campaign) {
+      resetOutputToEmpty();
+      return;
+    }
+
+    const url = buildUtmUrl({ silent: true, rerenderLists: false });
+    if (!url) resetOutputToEmpty();
+  }
+
+  function copyToClipboard(text) {
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        () => showStatus("Copied!"),
+        () => fallbackCopy(text)
+      );
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    temp.setAttribute("readonly", "");
+    temp.style.position = "absolute";
+    temp.style.left = "-9999px";
+    document.body.appendChild(temp);
+    temp.select();
+    try { document.execCommand("copy"); } catch (e) { console.error("Copy failed", e); }
+    document.body.removeChild(temp);
+    showStatus("Copied!");
+  }
+
+  function getCurrentUtmUrlOrBuild() {
+    const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
+    if (current) return current;
+    return buildUtmUrl({ silent: false, rerenderLists: true });
+  }
+
+  async function sendTeamsMsg() {
+    const btn = sendBtn;
+
+    const email = (senderEmailEl?.value || "").trim();
+    setEmailError("");
+
+    if (!email) {
+      setEmailError("Email address is required.");
+      return;
+    }
+    if (!isValidEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+    if (!isAdlerEmail(email)) {
+      setEmailError("Please use your @adler.edu email address.");
+      return;
+    }
+
+    localStorage.setItem("utm_sender_email", email);
+
+    const utmUrl = getCurrentUtmUrlOrBuild();
+    if (!utmUrl) return;
+
+    const flowUrl =
+      "https://default9de910667ccb4483a226fd27d4b9c5.70.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/eb14b1db81f340d98495edf00b4cffc1/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=GF8QXsRm9THw1LkNeRFNp7wFiXR0wY_jruNEXHYsBO4";
+
+    const payload = {
+      msg: `${email} created a new UTM link. \n\n${utmUrl}`,
+      email: email,
+      utmUrl: utmUrl
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+
+    const res = await fetch(flowUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
     });
 
-    sendBtn.addEventListener("click", sendTeamsMsg);
+    const text = await res.text();
 
-    [baseUrlEl, sourceEl, mediumEl, mediumEl, campaignEl, termEl, contentEl, senderEmailEl].forEach((el) => {
-      el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
+    resultBox.innerHTML = text || "Message sent.";
+    resultBox.style.display = "block";
+    btn.style.display = "none";
+  }
+
+  // Accordion init
+  (function initStepAccordion() {
+    const steps = Array.from(document.querySelectorAll(".step[id^='doc-step-']"));
+
+    function setExpanded(stepEl, expanded) {
+      stepEl.setAttribute("aria-expanded", expanded ? "true" : "false");
+    }
+
+    function collapseAllExcept(exceptEl) {
+      steps.forEach((s) => {
+        if (s !== exceptEl) setExpanded(s, false);
+      });
+    }
+
+    steps.forEach((step) => {
+      if (!step.hasAttribute("aria-expanded")) step.setAttribute("aria-expanded", "false");
+
+      step.addEventListener("click", (e) => {
+        const target = e.target;
+        if (target && (target.closest("a") || target.closest("button") || target.closest("input") || target.closest("select"))) return;
+
+        const isExpanded = step.getAttribute("aria-expanded") === "true";
+        collapseAllExcept(step);
+        setExpanded(step, !isExpanded);
+      });
+
+      step.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          buildUtmUrl();
+          const isExpanded = step.getAttribute("aria-expanded") === "true";
+          collapseAllExcept(step);
+          setExpanded(step, !isExpanded);
         }
       });
     });
+  })();
 
-    // Content counter live updates
-    contentEl.addEventListener("input", updateContentCharCount);
-    normalizeSwitch.addEventListener("change", updateContentCharCount);
+  // Initialize dropdowns once (do not re-render while typing)
+  renderDatalist("sourceOptions", defaultSources);
+  renderSelect("medium", defaultMediums, "Select a medium");
+  renderDatalist("campaignOptions", getStoredOptions("utm_campaigns", defaultCampaigns));
 
-    // Initialize counters
+  // Prefill stored email
+  const storedEmail = localStorage.getItem("utm_sender_email");
+  if (storedEmail && senderEmailEl) senderEmailEl.value = storedEmail;
+
+  // Auto-generate as user types (do not attach to select input, use change)
+  [baseUrlEl, sourceEl, campaignEl, termEl, contentEl].forEach((el) => {
+    if (!el) return;
+    el.addEventListener("input", () => {
+      updateContentCharCount();
+      generateAsYouType();
+    });
+  });
+
+  // Medium select: change event only
+  if (mediumEl) {
+    mediumEl.addEventListener("change", generateAsYouType);
+  }
+
+  // If you keep the normalize switch in DOM (even hidden), wire it too
+  if (normalizeSwitchEl) {
+    normalizeSwitchEl.addEventListener("change", () => {
+      updateContentCharCount();
+      generateAsYouType();
+    });
+  }
+
+  // Buttons
+  generateBtn.addEventListener("click", () => {
+    const url = buildUtmUrl({ silent: false, rerenderLists: true });
+    if (url) showStatus("Updated");
+  });
+
+  copyBtn.addEventListener("click", () => {
+    const url = buildUtmUrl({ silent: false, rerenderLists: false });
+    if (url) copyToClipboard(url);
+  });
+
+  clearBtn.addEventListener("click", () => {
+    baseUrlEl.value = "https://adler.edu/";
+    sourceEl.value = "";
+    mediumEl.value = "";
+    campaignEl.value = "";
+    termEl.value = "";
+    contentEl.value = "";
+    chipRow.innerHTML = "";
+
+    urlErrorEl.style.display = "none";
+    urlErrorEl.textContent = "";
+
+    setEmailError("");
     updateContentCharCount();
-    updateUrlCharCount("");
-  </script>
+    resetOutputToEmpty();
+  });
+
+  sendBtn.addEventListener("click", sendTeamsMsg);
+
+  // Enter key: generate (manual)
+  [baseUrlEl, sourceEl, mediumEl, campaignEl, termEl, contentEl, senderEmailEl].forEach((el) => {
+    if (!el) return;
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const url = buildUtmUrl({ silent: false, rerenderLists: true });
+        if (url) showStatus("Updated");
+      }
+    });
+  });
+
+  // Initialize counters + output
+  updateContentCharCount();
+  resetOutputToEmpty();
+</script>
+
 </body>
 
 </html>
