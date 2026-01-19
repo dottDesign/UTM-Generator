@@ -1217,7 +1217,7 @@
 
 
 <script>
-  const API_BASE = "https://YOUR-WORKER.your-subdomain.workers.dev";
+  
   const baseUrlEl = document.getElementById("baseUrl");
   const sourceEl = document.getElementById("source");
   const mediumEl = document.getElementById("medium");
@@ -1760,33 +1760,6 @@
       }
     });
   });
-
-  async function saveLink(email, generatedUrl, payload) {
-  const res = await fetch(`${API_BASE}/api/links`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, generatedUrl, kind: "utm", payload })
-  });
-  return res.json();
-}
-
-
-const ALLOWED_ORIGIN = "https://dottdesign.github.io/"; 
-// or https://YOUR-ORG.github.io or your custom domain
-
-function corsHeaders(origin) {
-  const ok = origin === ALLOWED_ORIGIN;
-  return {
-    "Access-Control-Allow-Origin": ok ? origin : ALLOWED_ORIGIN,
-    "Vary": "Origin",
-    "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-  };
-}
-
-const origin = request.headers.get("Origin") || "";
-const cors = corsHeaders(origin);
-if (request.method === "OPTIONS") return new Response(null, { headers: cors });
 
   // Initialize counters + output
   updateContentCharCount();
