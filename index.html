@@ -1552,24 +1552,24 @@
     return finalUrl;
   }
 
-  function generateAsYouType() {
-    const base = baseUrlEl.value.trim();
-    const source = normalizeValue(sourceEl.value);
-    const medium = normalizeValue(mediumEl.value);
-    const campaign = normalizeValue(campaignEl.value);
+  // function generateAsYouType() {
+  //   const base = baseUrlEl.value.trim();
+  //   const source = normalizeValue(sourceEl.value);
+  //   const medium = normalizeValue(mediumEl.value);
+  //   const campaign = normalizeValue(campaignEl.value);
 
-    // Avoid errors while typing. Just show empty until required fields are present.
-    urlErrorEl.style.display = "none";
-    urlErrorEl.textContent = "";
+  //   // Avoid errors while typing. Just show empty until required fields are present.
+  //   urlErrorEl.style.display = "none";
+  //   urlErrorEl.textContent = "";
 
-    if (!base || !source || !medium || !campaign) {
-      resetOutputToEmpty();
-      return;
-    }
+  //   if (!base || !source || !medium || !campaign) {
+  //     resetOutputToEmpty();
+  //     return;
+  //   }
 
-    const url = buildUtmUrl({ silent: true, rerenderLists: false });
-    if (!url) resetOutputToEmpty();
-  }
+  //   const url = buildUtmUrl({ silent: true, rerenderLists: false });
+  //   if (!url) resetOutputToEmpty();
+  // }
 
   function copyToClipboard(text) {
     if (!text) return;
@@ -1698,18 +1698,14 @@
   if (storedEmail && senderEmailEl) senderEmailEl.value = storedEmail;
 
   // Auto-generate as user types (do not attach to select input, use change)
-  [baseUrlEl, sourceEl, campaignEl, termEl, contentEl].forEach((el) => {
-    if (!el) return;
-    el.addEventListener("input", () => {
-      updateContentCharCount();
-      generateAsYouType();
-    });
+  [contentEl].forEach((el) => {
+  if (!el) return;
+  el.addEventListener("input", () => {
+    updateContentCharCount();
   });
+});
 
-  // Medium select: change event only
-  if (mediumEl) {
-    mediumEl.addEventListener("change", generateAsYouType);
-  }
+
 
   // If you keep the normalize switch in DOM (even hidden), wire it too
   if (normalizeSwitchEl) {
