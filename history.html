@@ -457,7 +457,7 @@
       historyMetaEl.textContent = "Loading...";
       historyMeta2El.textContent = "";
 
-      cconst ADMIN_KEY = "hjhyL6L42NNZRlJGheLtUC2sAs24Af0k";
+      const ADMIN_KEY = "hjhyL6L42NNZRlJGheLtUC2sAs24Af0k";
       const data = await res.json().catch(() => null);
 
       if (!res.ok || !data || !data.ok) {
