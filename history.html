@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Adler UTM Builder – Saved Links</title>
-  <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <style>
-    :root {
+<head>
+    <meta charset="UTF-8" />
+    <title>Adler UTM Builder – Saved Links</title>
+    <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
       --adler-red: #8b0303;
       --adler-charcoal: #111827;
       --adler-gray-100: #f3f4f6;
@@ -366,69 +366,179 @@
       flex-wrap: wrap;
       align-items: center;
     }
+
+    /* Spreadsheet table */
+.table-wrap {
+  margin-top: 10px;
+  border: 1px solid var(--adler-gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #fff;
+}
+
+table.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.history-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--adler-gray-100);
+  color: var(--adler-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--adler-gray-200);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.history-table tbody td {
+  padding: 10px 10px;
+  border-bottom: 1px solid var(--adler-gray-200);
+  vertical-align: top;
+}
+
+.history-table tbody tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+.history-table tbody tr:hover td {
+  background: #fff7f7;
+}
+
+td.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.82rem;
+  word-break: break-all;
+}
+
+td.small {
+  font-size: 0.82rem;
+  color: var(--adler-gray-600);
+  white-space: nowrap;
+}
+
+td.email {
+  font-size: 0.85rem;
+  color: var(--adler-charcoal);
+  white-space: nowrap;
+}
+
+td.tags {
+  min-width: 190px;
+}
+
+td.actions {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.actions .button-row {
+  margin-top: 0;
+  gap: 6px;
+}
+
+button.mini,
+a.button_mini {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  border-radius: 9px;
+}
+
+a.button_mini {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive: allow horizontal scroll on small screens */
+@media (max-width: 900px) {
+  .table-wrap { overflow-x: auto; }
+  table.history-table { min-width: 880px; }
+}
+.hide{display:none;}
   </style>
+    }
 </head>
 
 <body>
-  <div class="wrapper">
-    <div class="card">
-      <header class="site-header">
-        <div class="site-brand">
-          <div class="brand-mark">
-            <img src="https://www.adler.edu/wp-content/uploads/2025/07/favicon-300x300.png" alt="Adler favicon" />
-          </div>
-          <div class="brand-text">
-            <div class="brand-text-main">Adler University</div>
-            <div class="brand-text-sub">Digital and Web Tools</div>
-          </div>
-        </div>
-        <div class="tool-title">
-          <div class="tool-title-main">Saved UTM Links</div>
-          <div class="tool-title-sub">Team-wide history</div>
-        </div>
-      </header>
-
-      <div class="panel">
-        <div class="panel-title">
-          <span>All generated UTMs</span>
-          <span class="status" id="statusText">Copied</span>
-        </div>
-
-        <div class="field-group inline">
-          <div>
-            <label for="search">Search</label>
-            <input type="text" id="search" placeholder="campaign, source, medium, email, or URL" />
-            <div class="hint">Filters the grid below as you type.</div>
-          </div>
-
-          <div>
-            <label>Actions</label>
-            <div class="button-row" style="margin-top:0;">
-              <button id="refreshBtn" type="button" class="primary">Refresh</button>
-              <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
+    <div class="wrapper">
+        <div class="card">
+            <header class="site-header">
+                <div class="site-brand">
+                    <div class="brand-mark">
+                        <img src="https://www.adler.edu/wp-content/uploads/2025/07/favicon-300x300.png" alt="Adler favicon" />
+                    </div>
+                    <div class="brand-text">
+                        <div class="brand-text-main">Adler University</div>
+                        <div class="brand-text-sub">Digital and Web Tools</div>
+                    </div>
+                </div>
+                <div class="tool-title">
+                    <div class="tool-title-main">Saved UTM Links</div>
+                    <div class="tool-title-sub">Team-wide history</div>
+                </div>
+            </header>
+            <div class="panel">
+                <div class="panel-title">
+                    <span>All generated UTMs</span>
+                    <span class="status" id="statusText">Copied</span>
+                </div>
+                <div class="field-group inline">
+                    <div>
+                        <label for="search">Search</label>
+                        <div class="button-row" style="margin-top:0;">
+                            <input type="text" id="search" placeholder="campaign, source, medium, email, or URL" style="flex:1;" />
+                            
+                        </div>
+                        <div class="hint">Filters the table below as you type.</div>
+                    </div>
+                    <div>
+                        <label>Actions</label>
+                        <div class="button-row" style="margin-top:0;">
+                          <button id="clearSearchBtn" type="button" class="secondary">Clear
+                            </button>
+                            <button id="refreshBtn" type="button" class="primary">Refresh</button>
+                            <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
+                        </div>
+                        <div class="hint hide" id="apiHint"></div>
+                    </div>
+                </div>
+                <div class="error-box" id="errorBox"></div>
+                <div class="meta-row">
+                    <div class="hint" id="metaLeft"></div>
+                    <div class="hint" id="metaRight"></div>
+                </div>
+                <div class="table-wrap">
+                    <table class="history-table" aria-label="Saved UTM Links">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Created by</th>
+                                <th>Campaign / Source / Medium</th>
+                                <th>URL</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grid"></tbody>
+                    </table>
+                </div>
+                <div class="footer-hint">
+                    <span>Tip: If you do not see new links, click Refresh.</span>
+                    <span>Internal utility. Not for external marketing use.</span>
+                </div>
             </div>
-            <div class="hint" id="apiHint"></div>
-          </div>
         </div>
-
-        <div class="error-box" id="errorBox"></div>
-
-        <div class="meta-row">
-          <div class="hint" id="metaLeft"></div>
-          <div class="hint" id="metaRight"></div>
-        </div>
-
-        <div id="grid" class="history-grid"></div>
-
-        <div class="footer-hint">
-          <span>Tip: If you do not see new links, click Refresh.</span>
-          <span>Internal utility. Not for external marketing use.</span>
-        </div>
-      </div>
     </div>
-  </div>
-
-  <script>
+    <script>
+    const clearSearchBtn = document.getElementById("clearSearchBtn");
     const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
     const LIMIT = 150;
 
@@ -446,184 +556,187 @@
     apiHintEl.textContent = `API: ${API_BASE}/api/links?limit=${LIMIT}`;
 
     function showStatus(label) {
-      if (label) statusText.textContent = label;
-      statusText.classList.add("show");
-      setTimeout(() => {
-        statusText.classList.remove("show");
-        statusText.textContent = "Copied";
-      }, 1200);
+        if (label) statusText.textContent = label;
+        statusText.classList.add("show");
+        setTimeout(() => {
+            statusText.classList.remove("show");
+            statusText.textContent = "Copied";
+        }, 1200);
     }
 
     function showError(message) {
-      if (!message) {
-        errorBoxEl.style.display = "none";
-        errorBoxEl.textContent = "";
-        return;
-      }
-      errorBoxEl.style.display = "block";
-      errorBoxEl.textContent = message;
+        if (!message) {
+            errorBoxEl.style.display = "none";
+            errorBoxEl.textContent = "";
+            return;
+        }
+        errorBoxEl.style.display = "block";
+        errorBoxEl.textContent = message;
     }
 
     function escapeHtml(s) {
-      return String(s || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
+        return String(s || "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#39;");
     }
 
     function formatLocal(iso) {
-      const d = new Date(iso);
-      if (Number.isNaN(d.getTime())) return iso || "";
-      return d.toLocaleString();
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return iso || "";
+        return d.toLocaleString();
     }
 
     function buildChip(value) {
-      if (!value) return "";
-      return `<span class="chip">${escapeHtml(value)}</span>`;
+        if (!value) return "";
+        return `<span class="chip">${escapeHtml(value)}</span>`;
     }
 
     function render() {
-      const q = (searchEl.value || "").trim().toLowerCase();
+        const q = (searchEl.value || "").trim().toLowerCase();
 
-      const filtered = rows.filter(r => {
-        const p = r.payload || {};
-        const hay = [
-          r.email,
-          r.url,
-          r.createdAt,
-          p.utm_campaign,
-          p.utm_source,
-          p.utm_medium,
-          p.utm_term,
-          p.utm_content,
-          p.baseUrl
-        ].filter(Boolean).join(" ").toLowerCase();
-        return hay.includes(q);
-      });
-
-      gridEl.innerHTML = "";
-
-      for (const r of filtered) {
-        const p = r.payload || {};
-
-        const card = document.createElement("div");
-        card.className = "history-card";
-        card.innerHTML = `
-          <div class="history-top">
-            <div class="history-tags">
-              ${buildChip(p.utm_campaign)}
-              ${buildChip(p.utm_source)}
-              ${buildChip(p.utm_medium)}
-            </div>
-            <div class="history-date">${escapeHtml(formatLocal(r.createdAt))}</div>
-          </div>
-
-          <div class="created-by"><strong>Created by:</strong> ${escapeHtml(r.email || "Unknown")}</div>
-
-          <div class="history-url">${escapeHtml(r.url || "")}</div>
-
-          <div class="history-actions">
-            <button type="button" class="secondary" data-copy="${escapeHtml(r.url || "")}">Copy</button>
-            <a class="button_primary" href="${escapeHtml(r.url || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
-          </div>
-        `;
-
-        const copyBtn = card.querySelector("button[data-copy]");
-        copyBtn.addEventListener("click", async () => {
-          const url = copyBtn.getAttribute("data-copy") || "";
-          if (!url) return;
-          try {
-            await navigator.clipboard.writeText(url);
-            showStatus("Copied");
-          } catch {
-            const temp = document.createElement("textarea");
-            temp.value = url;
-            temp.setAttribute("readonly", "");
-            temp.style.position = "absolute";
-            temp.style.left = "-9999px";
-            document.body.appendChild(temp);
-            temp.select();
-            try { document.execCommand("copy"); } catch {}
-            document.body.removeChild(temp);
-            showStatus("Copied");
-          }
+        const filtered = rows.filter(r => {
+            const p = r.payload || {};
+            const hay = [
+                r.email,
+                r.url,
+                r.createdAt,
+                p.utm_campaign,
+                p.utm_source,
+                p.utm_medium,
+                p.utm_term,
+                p.utm_content,
+                p.baseUrl
+            ].filter(Boolean).join(" ").toLowerCase();
+            return hay.includes(q);
         });
 
-        gridEl.appendChild(card);
-      }
+        gridEl.innerHTML = "";
 
-      metaLeftEl.textContent = `${filtered.length} shown`;
-      metaRightEl.textContent = rows.length ? `Last refreshed: ${new Date().toLocaleTimeString()}` : "";
+        for (const r of filtered) {
+            const p = r.payload || {};
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML = `
+      <td class="small">${escapeHtml(formatLocal(r.createdAt))}</td>
+      <td class="email">${escapeHtml(r.email || "Unknown")}</td>
+      <td class="tags">
+        ${buildChip(p.utm_campaign)}
+        ${buildChip(p.utm_source)}
+        ${buildChip(p.utm_medium)}
+      </td>
+      <td class="mono">${escapeHtml(r.url || "")}</td>
+      <td class="actions">
+        <div class="button-row actions" style="margin:0;">
+          <button type="button" class="secondary mini" data-copy="${escapeHtml(r.url || "")}">Copy</button>
+          <a class="button_primary button_mini" href="${escapeHtml(r.url || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
+        </div>
+      </td>
+    `;
+
+            const copyBtn = tr.querySelector("button[data-copy]");
+            copyBtn.addEventListener("click", async () => {
+                const url = copyBtn.getAttribute("data-copy") || "";
+                if (!url) return;
+                try {
+                    await navigator.clipboard.writeText(url);
+                    showStatus("Copied");
+                } catch {
+                    const temp = document.createElement("textarea");
+                    temp.value = url;
+                    temp.setAttribute("readonly", "");
+                    temp.style.position = "absolute";
+                    temp.style.left = "-9999px";
+                    document.body.appendChild(temp);
+                    temp.select();
+                    try { document.execCommand("copy"); } catch {}
+                    document.body.removeChild(temp);
+                    showStatus("Copied");
+                }
+            });
+
+            gridEl.appendChild(tr);
+        }
+
+        metaLeftEl.textContent = `${filtered.length} shown`;
+        metaRightEl.textContent = rows.length ? `Last refreshed: ${new Date().toLocaleTimeString()}` : "";
     }
+    clearSearchBtn.addEventListener("click", () => {
+        searchEl.value = "";
+        render();
+        searchEl.focus();
+    });
 
     async function load() {
-      showError("");
-      metaLeftEl.textContent = "Loading...";
-      metaRightEl.textContent = "";
+        showError("");
+        metaLeftEl.textContent = "Loading...";
+        metaRightEl.textContent = "";
 
-      const endpoint = `${API_BASE}/api/links?limit=${LIMIT}`;
+        const endpoint = `${API_BASE}/api/links?limit=${LIMIT}`;
 
-      let res;
-      let text = "";
-      let data = null;
+        let res;
+        let text = "";
+        let data = null;
 
-      try {
-        res = await fetch(endpoint, { method: "GET" });
-        text = await res.text();
-        try { data = JSON.parse(text); } catch { data = null; }
-      } catch (e) {
-        showError(`Network error.\n\n${String(e)}`);
-        rows = [];
+        try {
+            res = await fetch(endpoint, { method: "GET" });
+            text = await res.text();
+            try { data = JSON.parse(text); } catch { data = null; }
+        } catch (e) {
+            showError(`Network error.\n\n${String(e)}`);
+            rows = [];
+            render();
+            return;
+        }
+
+        if (!res.ok) {
+            showError(
+                `API returned an error.\n\n` +
+                `URL: ${endpoint}\n` +
+                `HTTP: ${res.status} ${res.statusText}\n\n` +
+                `Body:\n${text || "(empty)"}`
+            );
+            rows = [];
+            render();
+            return;
+        }
+
+        const list = (data && (data.rows || data.results)) ? (data.rows || data.results) : null;
+
+        if (!Array.isArray(list)) {
+            showError(
+                `Unexpected response format.\n\n` +
+                `Expected JSON with "rows" (array).\n\n` +
+                `Body:\n${text || "(empty)"}`
+            );
+            rows = [];
+            render();
+            return;
+        }
+
+        rows = list.map(r => ({
+            id: r.id,
+            email: r.email,
+            url: r.url || r.generated_url || r.generatedUrl,
+            createdAt: r.createdAt || r.created_at || r.created,
+            payload: r.payload || (r.payload_json ? safeJsonParse(r.payload_json) : null)
+        })).filter(r => r.url);
+
         render();
-        return;
-      }
-
-      if (!res.ok) {
-        showError(
-          `API returned an error.\n\n` +
-          `URL: ${endpoint}\n` +
-          `HTTP: ${res.status} ${res.statusText}\n\n` +
-          `Body:\n${text || "(empty)"}`
-        );
-        rows = [];
-        render();
-        return;
-      }
-
-      const list = (data && (data.rows || data.results)) ? (data.rows || data.results) : null;
-
-      if (!Array.isArray(list)) {
-        showError(
-          `Unexpected response format.\n\n` +
-          `Expected JSON with "rows" (array).\n\n` +
-          `Body:\n${text || "(empty)"}`
-        );
-        rows = [];
-        render();
-        return;
-      }
-
-      rows = list.map(r => ({
-        id: r.id,
-        email: r.email,
-        url: r.url || r.generated_url || r.generatedUrl,
-        createdAt: r.createdAt || r.created_at || r.created,
-        payload: r.payload || (r.payload_json ? safeJsonParse(r.payload_json) : null)
-      })).filter(r => r.url);
-
-      render();
     }
 
     function safeJsonParse(s) {
-      try { return JSON.parse(s); } catch { return null; }
+        try { return JSON.parse(s); } catch { return null; }
     }
 
     refreshBtn.addEventListener("click", load);
     searchEl.addEventListener("input", render);
 
     load();
-  </script>
+    </script>
 </body>
+
 </html>
