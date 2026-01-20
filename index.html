@@ -1217,7 +1217,7 @@
 
 
 <script>
-  
+  const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
   const baseUrlEl = document.getElementById("baseUrl");
   const sourceEl = document.getElementById("source");
   const mediumEl = document.getElementById("medium");
@@ -1720,10 +1720,22 @@
   }
 
   // Buttons
-  generateBtn.addEventListener("click", () => {
-    const url = buildUtmUrl({ silent: false, rerenderLists: true });
-    if (url) showStatus("Updated");
-  });
+generateBtn.addEventListener("click", () => {
+  const utmUrl = buildUtmUrl();
+  outputEl.value = utmUrl;
+
+  const email = senderEmailEl.value;
+  const payload = {
+    baseUrl: baseUrlEl.value.trim(),
+    utm_source: sourceEl.value.trim(),
+    utm_medium: mediumEl.value.trim(),
+    utm_campaign: campaignEl.value.trim(),
+    utm_term: termEl.value.trim(),
+    utm_content: contentEl.value.trim()
+  };
+
+  saveGeneratedUtmToDb(email, utmUrl, payload);
+});
 
   copyBtn.addEventListener("click", () => {
     const url = buildUtmUrl({ silent: false, rerenderLists: false });
@@ -1764,6 +1776,35 @@
   // Initialize counters + output
   updateContentCharCount();
   resetOutputToEmpty();
+
+  async function saveGeneratedUtmToDb(email, utmUrl, payload) {
+  if (!email || !utmUrl) return;
+
+  // Optional, but recommended if you only want adler emails stored
+  // if (!/@adler\.edu$/i.test(email)) return;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/links`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email.trim().toLowerCase(),
+        generatedUrl: utmUrl,
+        kind: "utm",
+        payload: payload || null
+      })
+    });
+
+    // Optional: surface errors during testing
+    if (!res.ok) {
+      const err = await res.text();
+      console.warn("DB save failed:", err);
+    }
+  } catch (e) {
+    console.warn("DB save failed:", e);
+  }
+}
+
 </script>
 
 </body>
