@@ -50,7 +50,7 @@
 
     .site-brand { display: flex; align-items: center; gap: 10px; }
     .brand-mark { width: 32px; height: 32px; }
-    .brand-mark img { width: 100%; height: 100%; }
+    .brand-mark img { width: 100%; height: 100%; object-fit: cover; }
 
     .brand-text-main {
       font-size: 1.05rem;
@@ -66,6 +66,10 @@
 
     .tool-title-main { font-size: 1.15rem; font-weight: 650; }
     .tool-title-sub { font-size: 0.85rem; color: var(--adler-gray-600); }
+
+    @media (max-width: 800px) {
+      .site-header { flex-direction: column; align-items: flex-start; }
+    }
 
     .panel {
       background: #ffffff;
@@ -85,6 +89,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     input[type="text"] {
@@ -93,6 +99,12 @@
       border-radius: var(--radius-md);
       border: 1px solid var(--adler-gray-200);
       font-size: 0.9rem;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--adler-red);
+      box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.18);
     }
 
     .button-row {
@@ -100,6 +112,7 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     button, a.button_secondary {
@@ -111,10 +124,27 @@
       cursor: pointer;
       font-size: 0.9rem;
       text-decoration: none;
+      line-height: 1.1;
     }
 
-    button:hover, a.button_secondary:hover {
-      border-color: var(--adler-gray-400);
+    button:hover, a.button_secondary:hover { border-color: var(--adler-gray-400); }
+
+    .hint {
+      font-size: 0.78rem;
+      color: var(--adler-gray-600);
+      margin-top: 6px;
+    }
+
+    .error-box {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(139, 3, 3, 0.25);
+      background: #fff;
+      color: var(--adler-red);
+      font-size: 0.85rem;
+      white-space: pre-wrap;
     }
 
     .history-grid {
@@ -139,6 +169,19 @@
       gap: 8px;
     }
 
+    .history-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .history-date {
+      font-size: 0.75rem;
+      color: var(--adler-gray-600);
+      white-space: nowrap;
+    }
+
     .history-tags { display: flex; gap: 6px; flex-wrap: wrap; }
     .chip {
       font-size: 0.75rem;
@@ -146,6 +189,7 @@
       border-radius: 999px;
       background: var(--adler-gray-100);
       border: 1px solid var(--adler-gray-200);
+      color: var(--adler-gray-600);
     }
 
     .created-by {
@@ -153,12 +197,18 @@
       color: var(--adler-gray-600);
     }
 
+    .created-by strong {
+      color: var(--adler-charcoal);
+      font-weight: 600;
+    }
+
     .history-url {
-      font-family: ui-monospace, monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.82rem;
       background: var(--adler-gray-100);
       padding: 8px 10px;
       border-radius: var(--radius-md);
+      border: 1px solid var(--adler-gray-200);
       word-break: break-all;
     }
 
@@ -166,6 +216,7 @@
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
+      align-items: center;
     }
   </style>
 </head>
@@ -180,7 +231,7 @@
           </div>
           <div>
             <div class="brand-text-main">Adler University</div>
-            <div class="brand-text-sub">Digital & Web Tools</div>
+            <div class="brand-text-sub">Digital and Web Tools</div>
           </div>
         </div>
         <div>
@@ -192,15 +243,18 @@
       <div class="panel">
         <div class="panel-title">
           <span>All generated UTMs</span>
-          <span id="meta"></span>
+          <span id="meta">Idle</span>
         </div>
 
         <input type="text" id="search" placeholder="Search campaign, source, medium, email, or URL" />
 
         <div class="button-row">
-          <button id="refreshBtn">Refresh</button>
+          <button id="refreshBtn" type="button">Refresh</button>
           <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
         </div>
+
+        <div class="hint" id="apiHint"></div>
+        <div class="error-box" id="errorBox"></div>
 
         <div id="grid" class="history-grid"></div>
       </div>
@@ -209,33 +263,60 @@
 
   <script>
     const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
+    const LIMIT = 150;
 
     const grid = document.getElementById("grid");
     const search = document.getElementById("search");
     const meta = document.getElementById("meta");
     const refreshBtn = document.getElementById("refreshBtn");
+    const errorBox = document.getElementById("errorBox");
+    const apiHint = document.getElementById("apiHint");
 
     let rows = [];
+
+    apiHint.textContent = `API: ${API_BASE}/api/links?limit=${LIMIT}`;
+
+    function showError(message) {
+      if (!message) {
+        errorBox.style.display = "none";
+        errorBox.textContent = "";
+        return;
+      }
+      errorBox.style.display = "block";
+      errorBox.textContent = message;
+    }
 
     function escapeHtml(s) {
       return String(s || "")
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;");
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    function formatLocal(iso) {
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return iso || "";
+      return d.toLocaleString();
     }
 
     function render() {
-      const q = search.value.toLowerCase();
+      const q = (search.value || "").trim().toLowerCase();
 
       const filtered = rows.filter(r => {
         const p = r.payload || {};
         const hay = [
           r.email,
           r.url,
+          r.createdAt,
           p.utm_campaign,
           p.utm_source,
-          p.utm_medium
-        ].join(" ").toLowerCase();
+          p.utm_medium,
+          p.utm_term,
+          p.utm_content,
+          p.baseUrl
+        ].filter(Boolean).join(" ").toLowerCase();
         return hay.includes(q);
       });
 
@@ -243,28 +324,48 @@
 
       for (const r of filtered) {
         const p = r.payload || {};
+
+        const chips = [];
+        if (p.utm_campaign) chips.push(`<span class="chip">${escapeHtml(p.utm_campaign)}</span>`);
+        if (p.utm_source) chips.push(`<span class="chip">${escapeHtml(p.utm_source)}</span>`);
+        if (p.utm_medium) chips.push(`<span class="chip">${escapeHtml(p.utm_medium)}</span>`);
+
         const card = document.createElement("div");
         card.className = "history-card";
         card.innerHTML = `
-          <div class="history-tags">
-            ${p.utm_campaign ? `<span class="chip">${escapeHtml(p.utm_campaign)}</span>` : ""}
-            ${p.utm_source ? `<span class="chip">${escapeHtml(p.utm_source)}</span>` : ""}
-            ${p.utm_medium ? `<span class="chip">${escapeHtml(p.utm_medium)}</span>` : ""}
+          <div class="history-top">
+            <div class="history-tags">${chips.join("")}</div>
+            <div class="history-date">${escapeHtml(formatLocal(r.createdAt))}</div>
           </div>
 
-          <div class="created-by"><strong>Created by:</strong> ${escapeHtml(r.email)}</div>
+          <div class="created-by"><strong>Created by:</strong> ${escapeHtml(r.email || "Unknown")}</div>
 
-          <div class="history-url">${escapeHtml(r.url)}</div>
+          <div class="history-url">${escapeHtml(r.url || "")}</div>
 
           <div class="history-actions">
-            <button data-copy="${escapeHtml(r.url)}">Copy</button>
-            <a class="button_secondary" href="${escapeHtml(r.url)}" target="_blank">Open</a>
+            <button type="button" data-copy="${escapeHtml(r.url || "")}">Copy</button>
+            <a class="button_secondary" href="${escapeHtml(r.url || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
           </div>
         `;
 
-        card.querySelector("button").onclick = async () => {
-          await navigator.clipboard.writeText(r.url);
-        };
+        const copyBtn = card.querySelector("button[data-copy]");
+        copyBtn.addEventListener("click", async () => {
+          const url = copyBtn.getAttribute("data-copy") || "";
+          if (!url) return;
+          try {
+            await navigator.clipboard.writeText(url);
+          } catch {
+            const temp = document.createElement("textarea");
+            temp.value = url;
+            temp.setAttribute("readonly", "");
+            temp.style.position = "absolute";
+            temp.style.left = "-9999px";
+            document.body.appendChild(temp);
+            temp.select();
+            try { document.execCommand("copy"); } catch {}
+            document.body.removeChild(temp);
+          }
+        });
 
         grid.appendChild(card);
       }
@@ -273,16 +374,72 @@
     }
 
     async function load() {
+      showError("");
       meta.textContent = "Loading...";
-      const res = await fetch(`${API_BASE}/api/links?limit=150`);
-      const data = await res.json();
-      rows = data.rows || [];
+
+      const endpoint = `${API_BASE}/api/links?limit=${LIMIT}`;
+
+      let res;
+      let text = "";
+      let data = null;
+
+      try {
+        res = await fetch(endpoint, { method: "GET" });
+        text = await res.text();
+        try { data = JSON.parse(text); } catch { data = null; }
+      } catch (e) {
+        meta.textContent = "Load failed";
+        showError(`Network error.\n\n${String(e)}`);
+        rows = [];
+        render();
+        return;
+      }
+
+      if (!res.ok) {
+        meta.textContent = "Load failed";
+        showError(
+          `API returned an error.\n\n` +
+          `URL: ${endpoint}\n` +
+          `HTTP: ${res.status} ${res.statusText}\n\n` +
+          `Body:\n${text || "(empty)"}`
+        );
+        rows = [];
+        render();
+        return;
+      }
+
+      const list = (data && (data.rows || data.results)) ? (data.rows || data.results) : null;
+
+      if (!Array.isArray(list)) {
+        meta.textContent = "Load failed";
+        showError(
+          `Unexpected response format.\n\n` +
+          `Expected JSON with "rows" (array).\n\n` +
+          `Body:\n${text || "(empty)"}`
+        );
+        rows = [];
+        render();
+        return;
+      }
+
+      rows = list.map(r => ({
+        id: r.id,
+        email: r.email,
+        url: r.url || r.generated_url || r.generatedUrl,
+        createdAt: r.createdAt || r.created_at || r.created,
+        payload: r.payload || (r.payload_json ? safeJsonParse(r.payload_json) : null)
+      })).filter(r => r.url);
+
       meta.textContent = `${rows.length} total`;
       render();
     }
 
-    refreshBtn.onclick = load;
-    search.oninput = render;
+    function safeJsonParse(s) {
+      try { return JSON.parse(s); } catch { return null; }
+    }
+
+    refreshBtn.addEventListener("click", load);
+    search.addEventListener("input", render);
 
     load();
   </script>
