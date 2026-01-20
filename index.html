@@ -1716,21 +1716,45 @@
   }
 
   // Buttons
-generateBtn.addEventListener("click", () => {
-  const utmUrl = buildUtmUrl();
-  outputEl.value = utmUrl;
+generateBtn.addEventListener("click", async () => {
+  // Require email so the DB write can happen
+  const email = (senderEmailEl.value || "").trim();
 
-  const email = senderEmailEl.value;
+  setEmailError("");
+  if (!email) {
+    setEmailError("Email address is required to save this UTM.");
+    return;
+  }
+  if (!isValidEmail(email)) {
+    setEmailError("Please enter a valid email address.");
+    return;
+  }
+  if (!isAdlerEmail(email)) {
+    setEmailError("Please use your @adler.edu email address.");
+    return;
+  }
+
+  // Generate URL (this also updates the UI)
+  const utmUrl = buildUtmUrl({ silent: false, rerenderLists: true });
+  if (!utmUrl) return;
+
   const payload = {
     baseUrl: baseUrlEl.value.trim(),
-    utm_source: sourceEl.value.trim(),
-    utm_medium: mediumEl.value.trim(),
-    utm_campaign: campaignEl.value.trim(),
-    utm_term: termEl.value.trim(),
-    utm_content: contentEl.value.trim()
+    utm_source: normalizeValue(sourceEl.value),
+    utm_medium: normalizeValue(mediumEl.value),
+    utm_campaign: normalizeValue(campaignEl.value),
+    utm_term: normalizeValue(termEl.value),
+    utm_content: normalizeValue(contentEl.value),
   };
 
-  saveGeneratedUtmToDb(email, utmUrl, payload);
+  const result = await saveGeneratedUtmToDb(email, utmUrl, payload);
+
+  if (result?.ok) {
+    showStatus("Saved");
+  } else {
+    showStatus("Not saved");
+    console.warn("Save returned:", result);
+  }
 });
 
   copyBtn.addEventListener("click", () => {
@@ -1773,11 +1797,8 @@ generateBtn.addEventListener("click", () => {
   updateContentCharCount();
   resetOutputToEmpty();
 
-  async function saveGeneratedUtmToDb(email, utmUrl, payload) {
-  if (!email || !utmUrl) return;
-
-  // Optional, but recommended if you only want adler emails stored
-  // if (!/@adler\.edu$/i.test(email)) return;
+async function saveGeneratedUtmToDb(email, utmUrl, payload) {
+  if (!email || !utmUrl) return { ok: false, error: "Missing email or url" };
 
   try {
     const res = await fetch(`${API_BASE}/api/links`, {
@@ -1791,13 +1812,16 @@ generateBtn.addEventListener("click", () => {
       })
     });
 
-    // Optional: surface errors during testing
+    const data = await res.json().catch(() => ({ ok: false, error: "Non-JSON response" }));
     if (!res.ok) {
-      const err = await res.text();
-      console.warn("DB save failed:", err);
+      console.warn("DB save failed:", res.status, data);
+      return { ok: false, status: res.status, data };
     }
+
+    return data; // should include { ok: true, id, createdAt } from your Worker
   } catch (e) {
     console.warn("DB save failed:", e);
+    return { ok: false, error: String(e) };
   }
 }
 
