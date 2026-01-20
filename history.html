@@ -538,6 +538,13 @@ a.button_mini {
     </div>
     <script>
     const clearSearchBtn = document.getElementById("clearSearchBtn");
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener("click", () => {
+        searchEl.value = "";
+        render();
+        searchEl.focus();
+      });
+    }
     const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
     const LIMIT = 150;
 
