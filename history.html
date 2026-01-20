@@ -192,6 +192,13 @@
       margin-top: 4px;
     }
 
+    .error {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--adler-red);
+      display: none;
+    }
+
     .button-row {
       margin-top: 10px;
       display: flex;
@@ -379,6 +386,7 @@
             <input type="text" id="historySearch" placeholder="campaign, source, medium, email, or URL" />
             <div class="hint">Filters the grid below as you type.</div>
           </div>
+
           <div>
             <label>Actions</label>
             <div class="button-row" style="margin-top:0;">
@@ -386,9 +394,11 @@
               <button id="refreshHistoryBtn" type="button" class="secondary">Refresh</button>
               <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
             </div>
-            <div class="hint">Loads the most recent saved UTMs across the team.</div>
+            <div class="hint">Requires #key=... in the URL to load team-wide results.</div>
           </div>
         </div>
+
+        <div class="error" id="authError"></div>
 
         <div class="meta-row">
           <div class="hint" id="historyMeta"></div>
@@ -410,7 +420,6 @@
   </div>
 
   <script>
-    // Worker base URL
     const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
 
     const historySearchEl = document.getElementById("historySearch");
@@ -421,6 +430,7 @@
     const historyMetaEl = document.getElementById("historyMeta");
     const historyMeta2El = document.getElementById("historyMeta2");
     const statusText = document.getElementById("statusText");
+    const authErrorEl = document.getElementById("authError");
 
     let historyRows = [];
 
@@ -433,10 +443,20 @@
       }, 1200);
     }
 
+    function setAuthError(msg) {
+      if (!msg) {
+        authErrorEl.style.display = "none";
+        authErrorEl.textContent = "";
+        return;
+      }
+      authErrorEl.style.display = "block";
+      authErrorEl.textContent = msg;
+    }
+
     function escapeHtml(s) {
       return String(s || "")
         .replaceAll("&", "&amp;")
-        replaceAll("<", "&lt;")
+        .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#39;");
@@ -453,23 +473,54 @@
       return `<span class="chip"><span class="chip-key">${label}:</span><span>${escapeHtml(value)}</span></span>`;
     }
 
+    function getKeyFromHash() {
+      // Expected: history.html#key=YOUR_ADMIN_KEY
+      const hash = window.location.hash || "";
+      if (!hash.startsWith("#")) return "";
+      const raw = hash.slice(1); // remove #
+      const params = new URLSearchParams(raw);
+      return (params.get("key") || "").trim();
+    }
+
     async function loadHistory() {
+      setAuthError("");
+
+      const key = getKeyFromHash();
+      if (!key) {
+        historyRows = [];
+        renderHistory();
+        historyMetaEl.textContent = "";
+        historyMeta2El.textContent = "";
+        setAuthError("Missing admin key. Open this page as history.html#key=YOUR_ADMIN_KEY");
+        return;
+      }
+
       historyMetaEl.textContent = "Loading...";
       historyMeta2El.textContent = "";
 
-      const ADMIN_KEY = "hjhyL6L42NNZRlJGheLtUC2sAs24Af0k";
+      const res = await fetch(`${API_BASE}/api/links?limit=150&key=${encodeURIComponent(key)}`);
       const data = await res.json().catch(() => null);
+
+      if (res.status === 401) {
+        historyRows = [];
+        renderHistory();
+        historyMetaEl.textContent = "";
+        historyMeta2El.textContent = "";
+        setAuthError("Unauthorized. The key is missing or incorrect.");
+        return;
+      }
 
       if (!res.ok || !data || !data.ok) {
         console.warn("History load failed:", res.status, data);
         historyRows = [];
         historyMetaEl.textContent = "Load failed. Check console for details.";
         historyMeta2El.textContent = "";
-      } else {
-        historyRows = data.rows || [];
-        historyMetaEl.textContent = `${historyRows.length} links loaded`;
-        historyMeta2El.textContent = `Last refreshed: ${new Date().toLocaleTimeString()}`;
+        return;
       }
+
+      historyRows = data.rows || [];
+      historyMetaEl.textContent = `${historyRows.length} links loaded`;
+      historyMeta2El.textContent = `Last refreshed: ${new Date().toLocaleTimeString()}`;
 
       renderHistory();
     }
@@ -526,12 +577,12 @@
 
         const copyButton = card.querySelector("button[data-copy]");
         copyButton.addEventListener("click", async (ev) => {
-          const url = ev.currentTarget.getAttribute("data-copy");
+          const urlToCopy = ev.currentTarget.getAttribute("data-copy");
           try {
-            await navigator.clipboard.writeText(url);
+            await navigator.clipboard.writeText(urlToCopy);
             showStatus("Copied");
           } catch {
-            fallbackCopy(url);
+            fallbackCopy(urlToCopy);
           }
         });
 
