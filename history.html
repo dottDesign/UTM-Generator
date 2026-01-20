@@ -182,7 +182,7 @@
 
     .field-group.inline {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 10px;
     }
 
@@ -193,8 +193,8 @@
     }
 
     .error {
-      margin-top: 8px;
-      font-size: 0.82rem;
+      margin-top: 6px;
+      font-size: 0.8rem;
       color: var(--adler-red);
       display: none;
     }
@@ -256,6 +256,7 @@
       margin-left: 10px;
       white-space: nowrap;
     }
+
     .status.show { opacity: 1; }
 
     .chip {
@@ -376,29 +377,30 @@
 
       <div class="panel">
         <div class="panel-title">
-          <span>Saved links</span>
+          <span>Load links</span>
           <span class="status" id="statusText">Copied</span>
         </div>
 
         <div class="field-group inline">
           <div>
-            <label for="historySearch">Search</label>
-            <input type="text" id="historySearch" placeholder="campaign, source, medium, email, or URL" />
-            <div class="hint">Filters the grid below as you type.</div>
-          </div>
+  <label for="historyEmail">Email</label>
+  <input type="text" id="historyEmail" placeholder="name@adler.edu" autocomplete="email" />
+  <div class="hint">Loads the most recent saved UTMs for this email.</div>
+  <div class="error" id="historyEmailError"></div>
+</div>
 
           <div>
-            <label>Actions</label>
-            <div class="button-row" style="margin-top:0;">
-              <button id="loadHistoryBtn" type="button" class="secondary">Load recent UTMs</button>
-              <button id="refreshHistoryBtn" type="button" class="secondary">Refresh</button>
-              <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
-            </div>
-            <div class="hint">Requires #key=... in the URL to load team-wide results.</div>
+            <label for="historySearch">Search</label>
+            <input type="text" id="historySearch" placeholder="campaign, source, medium, or URL" />
+            <div class="hint">Filters the grid below as you type.</div>
           </div>
         </div>
 
-        <div class="error" id="authError"></div>
+        <div class="button-row">
+          <button id="loadHistoryBtn" type="button" class="secondary">Load recent UTMs</button>          
+          <button id="refreshHistoryBtn" type="button" class="secondary">Refresh</button>
+          <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
+        </div>
 
         <div class="meta-row">
           <div class="hint" id="historyMeta"></div>
@@ -420,6 +422,7 @@
   </div>
 
   <script>
+    // Your Worker base URL
     const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
 
     const historySearchEl = document.getElementById("historySearch");
@@ -430,7 +433,6 @@
     const historyMetaEl = document.getElementById("historyMeta");
     const historyMeta2El = document.getElementById("historyMeta2");
     const statusText = document.getElementById("statusText");
-    const authErrorEl = document.getElementById("authError");
 
     let historyRows = [];
 
@@ -443,15 +445,17 @@
       }, 1200);
     }
 
-    function setAuthError(msg) {
+    function setEmailError(msg) {
       if (!msg) {
-        authErrorEl.style.display = "none";
-        authErrorEl.textContent = "";
+        historyEmailErrorEl.style.display = "none";
+        historyEmailErrorEl.textContent = "";
         return;
       }
-      authErrorEl.style.display = "block";
-      authErrorEl.textContent = msg;
+      historyEmailErrorEl.style.display = "block";
+      historyEmailErrorEl.textContent = msg;
     }
+
+
 
     function escapeHtml(s) {
       return String(s || "")
@@ -473,57 +477,25 @@
       return `<span class="chip"><span class="chip-key">${label}:</span><span>${escapeHtml(value)}</span></span>`;
     }
 
-    function getKeyFromHash() {
-      // Expected: history.html#key=YOUR_ADMIN_KEY
-      const hash = window.location.hash || "";
-      if (!hash.startsWith("#")) return "";
-      const raw = hash.slice(1); // remove #
-      const params = new URLSearchParams(raw);
-      return (params.get("key") || "").trim();
-    }
-
     async function loadHistory() {
-      setAuthError("");
+  historyMetaEl.textContent = "Loading...";
+  historyMeta2El.textContent = "";
 
-      const key = getKeyFromHash();
-      if (!key) {
-        historyRows = [];
-        renderHistory();
-        historyMetaEl.textContent = "";
-        historyMeta2El.textContent = "";
-        setAuthError("Missing admin key. Open this page as history.html#key=YOUR_ADMIN_KEY");
-        return;
-      }
+  const res = await fetch(`${API_BASE}/api/links?limit=150`);
+  const data = await res.json().catch(() => null);
 
-      historyMetaEl.textContent = "Loading...";
-      historyMeta2El.textContent = "";
+  if (!res.ok || !data || !data.ok) {
+    console.warn("History load failed:", res.status, data);
+    historyRows = [];
+    historyMetaEl.textContent = "Load failed.";
+  } else {
+    historyRows = data.rows || [];
+    historyMetaEl.textContent = `${historyRows.length} links loaded`;
+    historyMeta2El.textContent = `Last refreshed: ${new Date().toLocaleTimeString()}`;
+  }
 
-      const res = await fetch(`${API_BASE}/api/links?limit=150&key=${encodeURIComponent(key)}`);
-      const data = await res.json().catch(() => null);
-
-      if (res.status === 401) {
-        historyRows = [];
-        renderHistory();
-        historyMetaEl.textContent = "";
-        historyMeta2El.textContent = "";
-        setAuthError("Unauthorized. The key is missing or incorrect.");
-        return;
-      }
-
-      if (!res.ok || !data || !data.ok) {
-        console.warn("History load failed:", res.status, data);
-        historyRows = [];
-        historyMetaEl.textContent = "Load failed. Check console for details.";
-        historyMeta2El.textContent = "";
-        return;
-      }
-
-      historyRows = data.rows || [];
-      historyMetaEl.textContent = `${historyRows.length} links loaded`;
-      historyMeta2El.textContent = `Last refreshed: ${new Date().toLocaleTimeString()}`;
-
-      renderHistory();
-    }
+  renderHistory();
+}
 
     function renderHistory() {
       const q = (historySearchEl.value || "").trim().toLowerCase();
@@ -532,7 +504,6 @@
         if (!q) return true;
         const p = r.payload || {};
         const hay = [
-          r.email,
           r.url,
           r.createdAt,
           p.utm_campaign,
@@ -546,6 +517,7 @@
       });
 
       historyGridEl.innerHTML = "";
+
       historyEmptyEl.style.display = rows.length ? "none" : "block";
 
       for (const r of rows) {
@@ -563,10 +535,6 @@
             <div class="history-date">${escapeHtml(formatLocal(r.createdAt))}</div>
           </div>
 
-          <div class="hint" style="margin-top:-2px;">
-            <strong>Created by:</strong> ${escapeHtml(r.email || "Unknown")}
-          </div>
-
           <div class="history-url">${escapeHtml(r.url)}</div>
 
           <div class="history-actions">
@@ -577,12 +545,12 @@
 
         const copyButton = card.querySelector("button[data-copy]");
         copyButton.addEventListener("click", async (ev) => {
-          const urlToCopy = ev.currentTarget.getAttribute("data-copy");
+          const url = ev.currentTarget.getAttribute("data-copy");
           try {
-            await navigator.clipboard.writeText(urlToCopy);
+            await navigator.clipboard.writeText(url);
             showStatus("Copied");
           } catch {
-            fallbackCopy(urlToCopy);
+            fallbackCopy(url);
           }
         });
 
@@ -603,12 +571,17 @@
       showStatus("Copied");
     }
 
+    // Wire UI
     loadHistoryBtn.addEventListener("click", loadHistory);
-    refreshHistoryBtn.addEventListener("click", loadHistory);
+refreshHistoryBtn.addEventListener("click", loadHistory);
     historySearchEl.addEventListener("input", renderHistory);
 
-    // Auto-load on page open
-    loadHistory();
+    // Prefill from localStorage (matches your builder’s key)
+    const storedEmail = localStorage.getItem("utm_sender_email");
+    if (storedEmail) historyEmailEl.value = storedEmail;
+
+    // Optional: auto-load on page open if email exists
+    if (historyEmailEl.value) loadHistory(historyEmailEl.value);
   </script>
 </body>
 </html>
