@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Adler UTM Builder – Saved Links</title>
-    <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-        :root {
+  <meta charset="UTF-8" />
+  <title>Adler UTM Builder – Saved Links</title>
+  <link rel="icon" type="image/x-icon" href="https://www.adler.edu/wp-content/uploads/2025/07/favicon-150x150.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
       --adler-red: #8b0303;
       --adler-charcoal: #111827;
       --adler-gray-100: #f3f4f6;
@@ -17,10 +18,7 @@
       --radius-md: 10px;
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 
     body {
       margin: 0;
@@ -50,54 +48,26 @@
       gap: 16px;
     }
 
-    .site-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
+    .site-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
 
     .brand-mark {
-      width: 32px;
-      height: 32px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      padding: 0;
-      flex: 0 0 auto;
+      width: 32px; height: 32px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; padding: 0; flex: 0 0 auto;
     }
 
-    .brand-mark img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+    .brand-mark img { width: 100%; height: 100%; object-fit: cover; }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
+    .brand-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
     .brand-text-main {
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
     .brand-text-sub {
-      font-size: 0.8rem;
-      color: var(--adler-gray-600);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 0.8rem; color: var(--adler-gray-600);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
     .tool-title { text-align: right; }
@@ -152,10 +122,7 @@
       transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
     }
 
-    input[type="text"]::placeholder {
-      color: var(--adler-gray-400);
-      font-size: 0.85rem;
-    }
+    input[type="text"]::placeholder { color: var(--adler-gray-400); font-size: 0.85rem; }
 
     input[type="text"]:focus {
       border-color: var(--adler-red);
@@ -163,9 +130,7 @@
       background: #ffffff;
     }
 
-    .field-group {
-      margin-bottom: 12px;
-    }
+    .field-group { margin-bottom: 12px; }
 
     .field-group.inline {
       display: grid;
@@ -173,15 +138,9 @@
       gap: 10px;
     }
 
-    @media (max-width: 900px) {
-      .field-group.inline { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 900px) { .field-group.inline { grid-template-columns: 1fr; } }
 
-    .hint {
-      font-size: 0.75rem;
-      color: var(--adler-gray-600);
-      margin-top: 4px;
-    }
+    .hint { font-size: 0.75rem; color: var(--adler-gray-600); margin-top: 4px; }
 
     .error-box {
       display: none;
@@ -195,7 +154,6 @@
       white-space: pre-wrap;
     }
 
-    /* Buttons: match the first iteration */
     .button-row {
       margin-top: 10px;
       display: flex;
@@ -204,9 +162,7 @@
       align-items: center;
     }
 
-    button,
-    a.button_primary,
-    a.button_secondary {
+    button, a.button_primary, a.button_secondary {
       border: none;
       font-size: 0.9rem;
       padding: 8px 16px;
@@ -224,29 +180,25 @@
       user-select: none;
     }
 
-    button.primary,
-    a.button_primary {
+    button.primary, a.button_primary {
       background: var(--adler-red);
       color: #ffffff;
       box-shadow: 0 10px 20px rgba(185, 28, 28, 0.25);
     }
 
-    button.primary:hover,
-    a.button_primary:hover {
+    button.primary:hover, a.button_primary:hover {
       background: #991b1b;
       transform: translateY(-1px);
       box-shadow: 0 14px 26px rgba(185, 28, 28, 0.3);
     }
 
-    button.secondary,
-    a.button_secondary {
+    button.secondary, a.button_secondary {
       background: #ffffff;
       color: var(--adler-gray-600);
       border: 1px solid var(--adler-gray-200);
     }
 
-    button.secondary:hover,
-    a.button_secondary:hover {
+    button.secondary:hover, a.button_secondary:hover {
       border-color: var(--adler-gray-400);
       transform: translateY(-1px);
       box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
@@ -260,91 +212,7 @@
       margin-left: 10px;
       white-space: nowrap;
     }
-
     .status.show { opacity: 1; }
-
-    /* Grid cards */
-    .history-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    @media (max-width: 900px) {
-      .history-grid { grid-template-columns: 1fr; }
-    }
-
-    .history-card {
-      border: 1px solid var(--adler-gray-200);
-      background: #fff;
-      padding: 12px;
-      border-radius: var(--radius-lg);
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .history-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: baseline;
-    }
-
-    .history-date {
-      font-size: 0.75rem;
-      color: var(--adler-gray-600);
-      white-space: nowrap;
-    }
-
-    .history-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      min-width: 0;
-    }
-
-    .chip {
-      border-radius: 999px;
-      padding: 4px 8px;
-      border: 1px solid var(--adler-gray-200);
-      background: var(--adler-gray-100);
-      color: var(--adler-gray-600);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.75rem;
-    }
-
-    .created-by {
-      font-size: 0.78rem;
-      color: var(--adler-gray-600);
-      margin-top: -2px;
-    }
-
-    .created-by strong {
-      color: var(--adler-charcoal);
-      font-weight: 600;
-    }
-
-    .history-url {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 0.82rem;
-      background: var(--adler-gray-100);
-      border: 1px solid var(--adler-gray-200);
-      padding: 8px 10px;
-      border-radius: var(--radius-md);
-      word-break: break-all;
-    }
-
-    .history-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
 
     .meta-row {
       display: flex;
@@ -366,191 +234,173 @@
       align-items: center;
     }
 
+    .chip {
+      border-radius: 999px;
+      padding: 4px 8px;
+      border: 1px solid var(--adler-gray-200);
+      background: var(--adler-gray-100);
+      color: var(--adler-gray-600);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
     /* Spreadsheet table */
-.table-wrap {
-  margin-top: 10px;
-  border: 1px solid var(--adler-gray-200);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: #fff;
-}
+    .table-wrap {
+      margin-top: 10px;
+      border: 1px solid var(--adler-gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #fff;
+    }
 
-table.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
-}
+    table.history-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
 
-.history-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: var(--adler-gray-100);
-  color: var(--adler-gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 10px 10px;
-  border-bottom: 1px solid var(--adler-gray-200);
-  text-align: left;
-  white-space: nowrap;
-}
+    .history-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--adler-gray-100);
+      color: var(--adler-gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--adler-gray-200);
+      text-align: left;
+      white-space: nowrap;
+    }
 
-.history-table tbody td {
-  padding: 10px 10px;
-  border-bottom: 1px solid var(--adler-gray-200);
-  vertical-align: top;
-}
+    .history-table tbody td {
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--adler-gray-200);
+      vertical-align: top;
+    }
 
-.history-table tbody tr:nth-child(even) td {
-  background: #fafafa;
-}
+    .history-table tbody tr:nth-child(even) td { background: #fafafa; }
+    .history-table tbody tr:hover td { background: #fff7f7; }
 
-.history-table tbody tr:hover td {
-  background: #fff7f7;
-}
+    td.mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
 
-td.mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.82rem;
-  word-break: break-all;
-}
+    td.small { font-size: 0.82rem; color: var(--adler-gray-600); white-space: nowrap; }
+    td.email { font-size: 0.85rem; color: var(--adler-charcoal); white-space: nowrap; }
+    td.tags { min-width: 240px; }
+    td.actions { white-space: nowrap; width: 1%; }
 
-td.small {
-  font-size: 0.82rem;
-  color: var(--adler-gray-600);
-  white-space: nowrap;
-}
+    button.mini, a.button_mini {
+      padding: 6px 10px;
+      font-size: 0.82rem;
+      border-radius: 9px;
+    }
 
-td.email {
-  font-size: 0.85rem;
-  color: var(--adler-charcoal);
-  white-space: nowrap;
-}
+    a.button_mini {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-td.tags {
-  min-width: 190px;
-}
+    @media (max-width: 900px) {
+      .table-wrap { overflow-x: auto; }
+      table.history-table { min-width: 980px; }
+    }
 
-td.actions {
-  white-space: nowrap;
-  width: 1%;
-}
-
-.actions .button-row {
-  margin-top: 0;
-  gap: 6px;
-}
-
-button.mini,
-a.button_mini {
-  padding: 6px 10px;
-  font-size: 0.82rem;
-  border-radius: 9px;
-}
-
-a.button_mini {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Responsive: allow horizontal scroll on small screens */
-@media (max-width: 900px) {
-  .table-wrap { overflow-x: auto; }
-  table.history-table { min-width: 880px; }
-}
-.hide{display:none;}
+    .hide { display: none; }
   </style>
-    
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="card">
-            <header class="site-header">
-                <div class="site-brand">
-                    <div class="brand-mark">
-                        <img src="https://www.adler.edu/wp-content/uploads/2025/07/favicon-300x300.png" alt="Adler favicon" />
-                    </div>
-                    <div class="brand-text">
-                        <div class="brand-text-main">Adler University</div>
-                        <div class="brand-text-sub">Digital and Web Tools</div>
-                    </div>
-                </div>
-                <div class="tool-title">
-                    <div class="tool-title-main">Saved UTM Links</div>
-                    <div class="tool-title-sub">Team-wide history</div>
-                </div>
-            </header>
-            <div class="panel">
-                <div class="panel-title">
-                    <span>All generated UTMs</span>
-                    <span class="status" id="statusText">Copied</span>
-                </div>
-                <div class="field-group inline">
-                    <div>
-                        <label for="search">Search</label>
-                        <div class="button-row" style="margin-top:0;">
-                            <input type="text" id="search" placeholder="campaign, source, medium, email, or URL" style="flex:1;" />
-                            
-                        </div>
-                        <div class="hint">Filters the table below as you type.</div>
-                    </div>
-                    <div>
-                        <label>Actions</label>
-                        <div class="button-row" style="margin-top:0;">
-                          <button id="clearSearchBtn" type="button" class="secondary">Clear
-                            </button>
-                            <button id="refreshBtn" type="button" class="primary">Refresh</button>
-                            <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
-                        </div>
-                        <div class="hint hide" id="apiHint"></div>
-                    </div>
-                </div>
-                <div class="error-box" id="errorBox"></div>
-                <div class="meta-row">
-                    <div class="hint" id="metaLeft"></div>
-                    <div class="hint" id="metaRight"></div>
-                </div>
-                <div class="table-wrap">
-                    <table class="history-table" aria-label="Saved UTM Links">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Created by</th>
-                                <th>Campaign / Source / Medium</th>
-                                <th>URL</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="grid"></tbody>
-                    </table>
-                </div>
-                <div class="footer-hint">
-                    <span>Tip: If you do not see new links, click Refresh.</span>
-                    <span>Internal utility. Not for external marketing use.</span>
-                </div>
-            </div>
+  <div class="wrapper">
+    <div class="card">
+      <header class="site-header">
+        <div class="site-brand">
+          <div class="brand-mark">
+            <img src="https://www.adler.edu/wp-content/uploads/2025/07/favicon-300x300.png" alt="Adler favicon" />
+          </div>
+          <div class="brand-text">
+            <div class="brand-text-main">Adler University</div>
+            <div class="brand-text-sub">Digital and Web Tools</div>
+          </div>
         </div>
+        <div class="tool-title">
+          <div class="tool-title-main">Saved UTM Links</div>
+          <div class="tool-title-sub">Team-wide history</div>
+        </div>
+      </header>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>All generated UTMs</span>
+          <span class="status" id="statusText">Copied</span>
+        </div>
+
+        <div class="field-group inline">
+          <div>
+            <label for="search">Search</label>
+            <input type="text" id="search" placeholder="campaign, source, medium, email, or URL" />
+            <div class="hint">Filters the table below as you type.</div>
+          </div>
+
+          <div>
+            <label>Actions</label>
+            <div class="button-row" style="margin-top:0;">
+              <button id="clearSearchBtn" type="button" class="secondary">Clear search</button>
+              <button id="refreshBtn" type="button" class="primary">Refresh</button>
+              <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
+            </div>
+            <div class="hint hide" id="apiHint"></div>
+          </div>
+        </div>
+
+        <div class="error-box" id="errorBox"></div>
+
+        <div class="meta-row">
+          <div class="hint" id="metaLeft"></div>
+          <div class="hint" id="metaRight"></div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="history-table" aria-label="Saved UTM Links">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Created by</th>
+                <th>Campaign / Source / Medium</th>
+                <th>URL</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="grid"></tbody>
+          </table>
+        </div>
+
+        <div class="footer-hint">
+          <span>Tip: If you do not see new links, click Refresh.</span>
+          <span>Internal utility. Not for external marketing use.</span>
+        </div>
+      </div>
     </div>
-    <script>
-    const clearSearchBtn = document.getElementById("clearSearchBtn");
-    if (clearSearchBtn) {
-      clearSearchBtn.addEventListener("click", () => {
-        searchEl.value = "";
-        render();
-        searchEl.focus();
-      });
-    }
+  </div>
+
+  <script>
     const API_BASE = "https://utm-link-api.dottenbreit.workers.dev";
     const LIMIT = 150;
-
     const gridEl = document.getElementById("grid");
     const searchEl = document.getElementById("search");
     const refreshBtn = document.getElementById("refreshBtn");
+    const clearSearchBtn = document.getElementById("clearSearchBtn");
     const errorBoxEl = document.getElementById("errorBox");
     const statusText = document.getElementById("statusText");
     const apiHintEl = document.getElementById("apiHint");
@@ -562,186 +412,229 @@ a.button_mini {
     apiHintEl.textContent = `API: ${API_BASE}/api/links?limit=${LIMIT}`;
 
     function showStatus(label) {
-        if (label) statusText.textContent = label;
-        statusText.classList.add("show");
-        setTimeout(() => {
-            statusText.classList.remove("show");
-            statusText.textContent = "Copied";
-        }, 1200);
+      if (label) statusText.textContent = label;
+      statusText.classList.add("show");
+      setTimeout(() => {
+        statusText.classList.remove("show");
+        statusText.textContent = "Copied";
+      }, 1200);
     }
 
     function showError(message) {
-        if (!message) {
-            errorBoxEl.style.display = "none";
-            errorBoxEl.textContent = "";
-            return;
-        }
-        errorBoxEl.style.display = "block";
-        errorBoxEl.textContent = message;
+      if (!message) {
+        errorBoxEl.style.display = "none";
+        errorBoxEl.textContent = "";
+        return;
+      }
+      errorBoxEl.style.display = "block";
+      errorBoxEl.textContent = message;
     }
 
     function escapeHtml(s) {
-        return String(s || "")
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#39;");
+      return String(s || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
     }
 
     function formatLocal(iso) {
-        const d = new Date(iso);
-        if (Number.isNaN(d.getTime())) return iso || "";
-        return d.toLocaleString();
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return iso || "";
+      return d.toLocaleString();
     }
 
     function buildChip(value) {
-        if (!value) return "";
-        return `<span class="chip">${escapeHtml(value)}</span>`;
+      const v = String(value || "").trim();
+      if (!v) return "";
+      return `<span class="chip">${escapeHtml(v)}</span>`;
     }
 
-    function render() {
-        const q = (searchEl.value || "").trim().toLowerCase();
-
-        const filtered = rows.filter(r => {
-            const p = r.payload || {};
-            const hay = [
-                r.email,
-                r.url,
-                r.createdAt,
-                p.utm_campaign,
-                p.utm_source,
-                p.utm_medium,
-                p.utm_term,
-                p.utm_content,
-                p.baseUrl
-            ].filter(Boolean).join(" ").toLowerCase();
-            return hay.includes(q);
-        });
-
-        gridEl.innerHTML = "";
-
-        for (const r of filtered) {
-            const p = r.payload || {};
-
-            const tr = document.createElement("tr");
-
-            tr.innerHTML = `
-      <td class="small">${escapeHtml(formatLocal(r.createdAt))}</td>
-      <td class="email">${escapeHtml(r.email || "Unknown")}</td>
-      <td class="tags">
-        ${buildChip(p.utm_campaign)}
-        ${buildChip(p.utm_source)}
-        ${buildChip(p.utm_medium)}
-      </td>
-      <td class="mono">${escapeHtml(r.url || "")}</td>
-      <td class="actions">
-        <div class="button-row actions" style="margin:0;">
-          <button type="button" class="secondary mini" data-copy="${escapeHtml(r.url || "")}">Copy</button>
-          <a class="button_primary button_mini" href="${escapeHtml(r.url || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
-        </div>
-      </td>
-    `;
-
-            const copyBtn = tr.querySelector("button[data-copy]");
-            copyBtn.addEventListener("click", async () => {
-                const url = copyBtn.getAttribute("data-copy") || "";
-                if (!url) return;
-                try {
-                    await navigator.clipboard.writeText(url);
-                    showStatus("Copied");
-                } catch {
-                    const temp = document.createElement("textarea");
-                    temp.value = url;
-                    temp.setAttribute("readonly", "");
-                    temp.style.position = "absolute";
-                    temp.style.left = "-9999px";
-                    document.body.appendChild(temp);
-                    temp.select();
-                    try { document.execCommand("copy"); } catch {}
-                    document.body.removeChild(temp);
-                    showStatus("Copied");
-                }
-            });
-
-            gridEl.appendChild(tr);
-        }
-
-        metaLeftEl.textContent = `${filtered.length} shown`;
-        metaRightEl.textContent = rows.length ? `Last refreshed: ${new Date().toLocaleTimeString()}` : "";
-    }
-    clearSearchBtn.addEventListener("click", () => {
-        searchEl.value = "";
-        render();
-        searchEl.focus();
-    });
-
-    async function load() {
-        showError("");
-        metaLeftEl.textContent = "Loading...";
-        metaRightEl.textContent = "";
-
-        const endpoint = `${API_BASE}/api/links?limit=${LIMIT}`;
-
-        let res;
-        let text = "";
-        let data = null;
-
-        try {
-            res = await fetch(endpoint, { method: "GET" });
-            text = await res.text();
-            try { data = JSON.parse(text); } catch { data = null; }
-        } catch (e) {
-            showError(`Network error.\n\n${String(e)}`);
-            rows = [];
-            render();
-            return;
-        }
-
-        if (!res.ok) {
-            showError(
-                `API returned an error.\n\n` +
-                `URL: ${endpoint}\n` +
-                `HTTP: ${res.status} ${res.statusText}\n\n` +
-                `Body:\n${text || "(empty)"}`
-            );
-            rows = [];
-            render();
-            return;
-        }
-
-        const list = (data && (data.rows || data.results)) ? (data.rows || data.results) : null;
-
-        if (!Array.isArray(list)) {
-            showError(
-                `Unexpected response format.\n\n` +
-                `Expected JSON with "rows" (array).\n\n` +
-                `Body:\n${text || "(empty)"}`
-            );
-            rows = [];
-            render();
-            return;
-        }
-
-        rows = list.map(r => ({
-            id: r.id,
-            email: r.email,
-            url: r.url || r.generated_url || r.generatedUrl,
-            createdAt: r.createdAt || r.created_at || r.created,
-            payload: r.payload || (r.payload_json ? safeJsonParse(r.payload_json) : null)
-        })).filter(r => r.url);
-
-        render();
+    // Robust picker: handles payloads stored with different key names
+    function pick(obj, keys) {
+      for (const k of keys) {
+        const v = obj?.[k];
+        if (v !== undefined && v !== null && String(v).trim() !== "") return String(v);
+      }
+      return "";
     }
 
     function safeJsonParse(s) {
-        try { return JSON.parse(s); } catch { return null; }
+      try { return JSON.parse(s); } catch { return null; }
+    }
+
+    function normalizeRow(r) {
+  const url = r.url || r.generated_url || r.generatedUrl || "";
+  const createdAt = r.createdAt || r.created_at || r.created || "";
+  const email = r.email || r.created_by || r.createdBy || "";
+
+  let payload = r.payload || null;
+
+  // Worker often returns payload_json as a string
+  if (!payload && r.payload_json) payload = safeJsonParse(r.payload_json);
+
+  // Defensive: payload might itself be a JSON string
+  if (typeof payload === "string") payload = safeJsonParse(payload);
+
+  // Ensure object
+  if (!payload || typeof payload !== "object") payload = {};
+
+  // IMPORTANT: pull common top-level columns into payload as fallback
+  // (covers the case where the API returns utm_medium as a column, not inside payload)
+  const topLevelFallbacks = {
+    utm_campaign: r.utm_campaign || r.campaign,
+    utm_source: r.utm_source || r.source,
+    utm_medium: r.utm_medium || r.medium,
+    utm_term: r.utm_term || r.term,
+    utm_content: r.utm_content || r.content,
+    baseUrl: r.baseUrl || r.base_url
+  };
+
+  for (const [k, v] of Object.entries(topLevelFallbacks)) {
+    if (v !== undefined && v !== null && String(v).trim() !== "" && !payload[k]) {
+      payload[k] = v;
+    }
+  }
+
+  return { id: r.id, email, url, createdAt, payload };
+}
+    function render() {
+      const q = (searchEl.value || "").trim().toLowerCase();
+
+      const filtered = rows.filter(r => {
+        const p = r.payload || {};
+        const hay = [
+          r.email,
+          r.url,
+          r.createdAt,
+          p.utm_campaign, p.campaign,
+          p.utm_source, p.source,
+          p.utm_medium, p.medium,
+          p.utm_term, p.term,
+          p.utm_content, p.content,
+          p.baseUrl, p.base_url
+        ].filter(Boolean).join(" ").toLowerCase();
+        return hay.includes(q);
+      });
+
+      gridEl.innerHTML = "";
+
+      for (const r of filtered) {
+        const p = r.payload || {};
+
+        const campaign = pick(p, ["utm_campaign", "campaign"]);
+        const source   = pick(p, ["utm_source", "source"]);
+        const medium   = pick(p, ["utm_medium", "medium"]); // now works whether stored in payload_json or top-level
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="small">${escapeHtml(formatLocal(r.createdAt))}</td>
+          <td class="email">${escapeHtml(r.email || "Unknown")}</td>
+          <td class="tags">
+            ${buildChip(campaign)}
+            ${buildChip(source)}
+            ${buildChip(medium)}
+          </td>
+          <td class="mono">${escapeHtml(r.url || "")}</td>
+          <td class="actions">
+            <div class="button-row" style="margin:0; gap:6px;">
+              <button type="button" class="secondary mini" data-copy="${escapeHtml(r.url || "")}">Copy</button>
+              <a class="button_primary button_mini" href="${escapeHtml(r.url || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
+            </div>
+          </td>
+        `;
+
+        const copyBtn = tr.querySelector("button[data-copy]");
+        copyBtn.addEventListener("click", async () => {
+          const url = copyBtn.getAttribute("data-copy") || "";
+          if (!url) return;
+          try {
+            await navigator.clipboard.writeText(url);
+            showStatus("Copied");
+          } catch {
+            const temp = document.createElement("textarea");
+            temp.value = url;
+            temp.setAttribute("readonly", "");
+            temp.style.position = "absolute";
+            temp.style.left = "-9999px";
+            document.body.appendChild(temp);
+            temp.select();
+            try { document.execCommand("copy"); } catch {}
+            document.body.removeChild(temp);
+            showStatus("Copied");
+          }
+        });
+
+        gridEl.appendChild(tr);
+      }
+
+      metaLeftEl.textContent = `${filtered.length} shown`;
+      metaRightEl.textContent = rows.length ? `Last refreshed: ${new Date().toLocaleTimeString()}` : "";
+    }
+
+    async function load() {
+      showError("");
+      metaLeftEl.textContent = "Loading...";
+      metaRightEl.textContent = "";
+
+      const endpoint = `${API_BASE}/api/links?limit=${LIMIT}`;
+
+      let res;
+      let text = "";
+      let data = null;
+
+      try {
+        res = await fetch(endpoint, { method: "GET" });
+        text = await res.text();
+        try { data = JSON.parse(text); } catch { data = null; }
+      } catch (e) {
+        showError(`Network error.\n\n${String(e)}`);
+        rows = [];
+        render();
+        return;
+      }
+
+      if (!res.ok) {
+        showError(
+          `API returned an error.\n\n` +
+          `URL: ${endpoint}\n` +
+          `HTTP: ${res.status} ${res.statusText}\n\n` +
+          `Body:\n${text || "(empty)"}`
+        );
+        rows = [];
+        render();
+        return;
+      }
+
+      const list = (data && (data.rows || data.results)) ? (data.rows || data.results) : null;
+
+      if (!Array.isArray(list)) {
+        showError(
+          `Unexpected response format.\n\n` +
+          `Expected JSON with "rows" (array).\n\n` +
+          `Body:\n${text || "(empty)"}`
+        );
+        rows = [];
+        render();
+        return;
+      }
+
+      rows = list.map(normalizeRow).filter(r => r.url);
+
+      render();
     }
 
     refreshBtn.addEventListener("click", load);
     searchEl.addEventListener("input", render);
 
+    clearSearchBtn.addEventListener("click", () => {
+      searchEl.value = "";
+      render();
+      searchEl.focus();
+    });
+
     load();
-    </script>
+  </script>
 </body>
 </html>
