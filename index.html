@@ -1745,16 +1745,22 @@ generateBtn.addEventListener("click", async () => {
   const utmUrl = buildUtmUrl({ silent: false, rerenderLists: true });
   if (!utmUrl) return;
 
-  const payload = {
-    baseUrl: baseUrlEl.value.trim(),
-    utm_source: normalizeValue(sourceEl.value),
-    utm_medium: normalizeValue(mediumEl.value),
-    utm_campaign: normalizeValue(campaignEl.value),
-    utm_term: normalizeValue(termEl.value),
-    utm_content: normalizeValue(contentEl.value),
-  };
+const payload = {
+  baseUrl: baseUrlEl.value.trim(),
+  utm_source: normalizeValue(sourceEl.value),
+  utm_medium: normalizeValue(mediumEl.value),   // FIX: ensure this is the select value
+  utm_campaign: normalizeValue(campaignEl.value),
+  utm_term: normalizeValue(termEl.value),
+  utm_content: normalizeValue(contentEl.value)
+};
 
-  const result = await saveGeneratedUtmToDb(email, utmUrl, payload);
+// Guard: do not save if required fields missing
+if (!payload.utm_source || !payload.utm_medium || !payload.utm_campaign) {
+  console.warn("Missing required UTM fields, not saving:", payload);
+  return;
+}
+
+saveGeneratedUtmToDb(email, utmUrl, payload);
 
   if (result?.ok) {
     showStatus("Saved");
