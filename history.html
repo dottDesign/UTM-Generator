@@ -7,67 +7,209 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-    :root{
-      --adler-red:#8b0303;--adler-charcoal:#111827;--adler-gray-100:#f3f4f6;--adler-gray-200:#e5e7eb;--adler-gray-400:#9ca3af;--adler-gray-600:#4b5563;
-      --radius-lg:16px;--radius-md:10px;
+    :root {
+      --adler-red: #8b0303;
+      --adler-charcoal: #111827;
+      --adler-gray-100: #f3f4f6;
+      --adler-gray-200: #e5e7eb;
+      --adler-gray-400: #9ca3af;
+      --adler-gray-600: #4b5563;
+      --radius-lg: 16px;
+      --radius-md: 10px;
     }
-    *{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    body{margin:0;min-height:100vh;background:var(--adler-gray-100);color:var(--adler-charcoal);display:flex;justify-content:center;padding:32px 16px}
-    .wrapper{width:100%;max-width:1200px}
-    .card{background:#fff;padding:20px 20px 18px;border:1px solid var(--adler-gray-200);box-shadow:0 14px 30px rgba(15,23,42,.06);border-radius:var(--radius-lg)}
-    .site-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:16px}
-    .site-brand{display:flex;align-items:center;gap:10px;min-width:0}
-    .brand-mark{width:32px;height:32px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:0;flex:0 0 auto}
-    .brand-mark img{width:100%;height:100%;object-fit:cover}
-    .brand-text{display:flex;flex-direction:column;gap:2px;min-width:0}
-    .brand-text-main{font-size:1.05rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .brand-text-sub{font-size:.8rem;color:var(--adler-gray-600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .tool-title{text-align:right}
-    .tool-title-main{font-size:1.15rem;font-weight:650}
-    .tool-title-sub{font-size:.85rem;color:var(--adler-gray-600)}
-    @media(max-width:800px){body{padding-top:20px}.site-header{flex-direction:column;align-items:flex-start}.tool-title{text-align:left}}
 
-    .panel{background:#fff;border:1px solid var(--adler-gray-200);padding:14px;border-radius:var(--radius-lg);margin-top:12px}
-    .panel-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--adler-gray-600);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    label{display:block;font-size:.8rem;font-weight:500;margin-bottom:4px;color:var(--adler-gray-600)}
-    input[type="text"]{width:100%;padding:8px 10px;border-radius:var(--radius-md);border:1px solid var(--adler-gray-200);background:#fff;color:var(--adler-charcoal);font-size:.9rem;outline:none;transition:border-color .14s ease,box-shadow .14s ease,background .14s ease}
-    input[type="text"]::placeholder{color:var(--adler-gray-400);font-size:.85rem}
-    input[type="text"]:focus{border-color:var(--adler-red);box-shadow:0 0 0 1px rgba(185,28,28,.18)}
-    .field-group{margin-bottom:12px}
-    .field-group.inline{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:10px}
-    @media(max-width:900px){.field-group.inline{grid-template-columns:1fr}}
-    .hint{font-size:.75rem;color:var(--adler-gray-600);margin-top:4px}
-    .error-box{display:none;margin-top:10px;padding:10px;border-radius:var(--radius-md);border:1px solid rgba(139,3,3,.25);background:#fff;color:var(--adler-red);font-size:.85rem;white-space:pre-wrap}
-    .button-row{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-    button,a.button_primary,a.button_secondary{border:none;font-size:.9rem;padding:8px 16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:500;letter-spacing:.02em;transition:transform .12s ease,box-shadow .12s ease,background .12s ease,color .12s ease,border-color .12s ease;border-radius:var(--radius-md);text-decoration:none;line-height:1.1;user-select:none}
-    button.primary,a.button_primary{background:var(--adler-red);color:#fff;box-shadow:0 10px 20px rgba(185,28,28,.25)}
-    button.primary:hover,a.button_primary:hover{background:#991b1b;transform:translateY(-1px);box-shadow:0 14px 26px rgba(185,28,28,.3)}
-    button.secondary,a.button_secondary{background:#fff;color:var(--adler-gray-600);border:1px solid var(--adler-gray-200)}
-    button.secondary:hover,a.button_secondary:hover{border-color:var(--adler-gray-400);transform:translateY(-1px);box-shadow:0 10px 22px rgba(15,23,42,.06)}
-    .status{font-size:.8rem;color:#059669;opacity:0;transition:opacity .2s ease;margin-left:10px;white-space:nowrap}
-    .status.show{opacity:1}
-    .meta-row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap}
-    .footer-hint{margin-top:14px;font-size:.78rem;color:var(--adler-gray-600);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
-    .chip{border-radius:999px;padding:4px 8px;border:1px solid var(--adler-gray-200);background:var(--adler-gray-100);color:var(--adler-gray-600);display:inline-flex;align-items:center;gap:4px;font-size:.75rem;margin-right:6px;margin-bottom:4px}
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 
-    .table-wrap{margin-top:10px;border:1px solid var(--adler-gray-200);border-radius:var(--radius-lg);overflow:hidden;background:#fff}
-    table.history-table{width:100%;border-collapse:collapse;font-size:.88rem}
-    .history-table thead th{
-      position:sticky;top:0;z-index:2;background:var(--adler-gray-100);color:var(--adler-gray-600);
-      text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:800;padding:10px;border-bottom:1px solid var(--adler-gray-200);text-align:left;white-space:nowrap
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--adler-gray-100);
+      color: var(--adler-charcoal);
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
     }
-    .history-table tbody td{padding:10px;border-bottom:1px solid var(--adler-gray-200);vertical-align:top}
-    .history-table tbody tr:nth-child(even) td{background:#fafafa}
-    .history-table tbody tr:hover td{background:#fff7f7}
-    td.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;font-size:.82rem;word-break:break-all}
-    td.small{font-size:.82rem;color:var(--adler-gray-600);white-space:nowrap}
-    td.email{font-size:.85rem;color:var(--adler-charcoal);white-space:nowrap}
-    td.tags{min-width:240px}
-    td.actions{white-space:nowrap;width:1%}
-    button.mini,a.button_mini{padding:6px 10px;font-size:.82rem;border-radius:9px}
-    a.button_mini{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
-    @media(max-width:900px){.table-wrap{overflow-x:auto}table.history-table{min-width:1040px}}
-    .hide{display:none}
+
+    .wrapper { width: 100%; max-width: 1200px; }
+
+    .card {
+      background: #ffffff;
+      padding: 20px 20px 18px;
+      border: 1px solid var(--adler-gray-200);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+      border-radius: var(--radius-lg);
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 16px;
+    }
+
+    .site-brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark { width: 32px; height: 32px; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 0; flex: 0 0 auto; }
+    .brand-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .brand-text-main { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand-text-sub { font-size: 0.8rem; color: var(--adler-gray-600); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .tool-title { text-align: right; }
+    .tool-title-main { font-size: 1.15rem; font-weight: 650; }
+    .tool-title-sub { font-size: 0.85rem; color: var(--adler-gray-600); }
+
+    @media (max-width: 800px) {
+      body { padding-top: 20px; }
+      .site-header { flex-direction: column; align-items: flex-start; }
+      .tool-title { text-align: left; }
+    }
+
+    .panel {
+      background: #ffffff;
+      border: 1px solid var(--adler-gray-200);
+      padding: 14px;
+      border-radius: var(--radius-lg);
+      margin-top: 12px;
+    }
+
+    .panel-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--adler-gray-600);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    label { display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 4px; color: var(--adler-gray-600); }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--adler-gray-200);
+      background: #ffffff;
+      color: var(--adler-charcoal);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    input[type="text"]::placeholder { color: var(--adler-gray-400); font-size: 0.85rem; }
+    input[type="text"]:focus { border-color: var(--adler-red); box-shadow: 0 0 0 1px rgba(185, 28, 28, 0.18); }
+
+    .field-group { margin-bottom: 12px; }
+    .field-group.inline { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 10px; }
+    @media (max-width: 900px) { .field-group.inline { grid-template-columns: 1fr; } }
+
+    .hint { font-size: 0.75rem; color: var(--adler-gray-600); margin-top: 4px; }
+
+    .error-box {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(139, 3, 3, 0.25);
+      background: #fff;
+      color: var(--adler-red);
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+    }
+
+    .button-row { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    button, a.button_primary, a.button_secondary {
+      border: none;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      line-height: 1.1;
+      user-select: none;
+    }
+
+    button.primary, a.button_primary {
+      background: var(--adler-red);
+      color: #ffffff;
+      box-shadow: 0 10px 20px rgba(185, 28, 28, 0.25);
+    }
+
+    button.primary:hover, a.button_primary:hover {
+      background: #991b1b;
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(185, 28, 28, 0.3);
+    }
+
+    button.secondary, a.button_secondary {
+      background: #ffffff;
+      color: var(--adler-gray-600);
+      border: 1px solid var(--adler-gray-200);
+    }
+
+    button.secondary:hover, a.button_secondary:hover {
+      border-color: var(--adler-gray-400);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.06);
+    }
+
+    .status { font-size: 0.8rem; color: #059669; opacity: 0; transition: opacity 0.2s ease; margin-left: 10px; white-space: nowrap; }
+    .status.show { opacity: 1; }
+
+    .meta-row { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+    .footer-hint { margin-top: 14px; font-size: 0.78rem; color: var(--adler-gray-600); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    .chip { border-radius: 999px; padding: 4px 8px; border: 1px solid var(--adler-gray-200); background: var(--adler-gray-100); color: var(--adler-gray-600); display: inline-flex; align-items: center; gap: 4px; font-size: 0.75rem; margin-right: 6px; margin-bottom: 4px; }
+
+    /* Spreadsheet table */
+    .table-wrap { margin-top: 10px; border: 1px solid var(--adler-gray-200); border-radius: var(--radius-lg); overflow: hidden; background: #fff; }
+    table.history-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+
+    .history-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--adler-gray-100);
+      color: var(--adler-gray-600);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 10px;
+      border-bottom: 1px solid var(--adler-gray-200);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .history-table tbody td { padding: 10px; border-bottom: 1px solid var(--adler-gray-200); vertical-align: top; }
+    .history-table tbody tr:nth-child(even) td { background: #fafafa; }
+    .history-table tbody tr:hover td { background: #fff7f7; }
+
+    td.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.82rem; word-break: break-all; }
+    td.small { font-size: 0.82rem; color: var(--adler-gray-600); white-space: nowrap; }
+    td.email { font-size: 0.85rem; color: var(--adler-charcoal); white-space: nowrap; }
+    td.tags { min-width: 260px; }
+    td.actions { white-space: nowrap; width: 1%; }
+
+    button.mini, a.button_mini { padding: 6px 10px; font-size: 0.82rem; border-radius: 9px; }
+    a.button_mini { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+
+    @media (max-width: 900px) {
+      .table-wrap { overflow-x: auto; }
+      table.history-table { min-width: 1020px; }
+    }
   </style>
 </head>
 
@@ -110,7 +252,6 @@
               <button id="refreshBtn" type="button" class="primary">Refresh</button>
               <a href="./index.html" class="button_secondary">Back to UTM Builder</a>
             </div>
-            <div class="hint hide" id="apiHint"></div>
           </div>
         </div>
 
@@ -128,7 +269,6 @@
                 <th>Date</th>
                 <th>Created by</th>
                 <th>Campaign / Source / Medium</th>
-                <th>Medium</th>
                 <th>URL</th>
                 <th>Actions</th>
               </tr>
@@ -155,13 +295,10 @@
     const clearSearchBtn = document.getElementById("clearSearchBtn");
     const errorBoxEl = document.getElementById("errorBox");
     const statusText = document.getElementById("statusText");
-    const apiHintEl = document.getElementById("apiHint");
     const metaLeftEl = document.getElementById("metaLeft");
     const metaRightEl = document.getElementById("metaRight");
 
     let rows = [];
-
-    apiHintEl.textContent = `API: ${API_BASE}/api/links?limit=${LIMIT}`;
 
     function showStatus(label) {
       if (label) statusText.textContent = label;
@@ -203,6 +340,8 @@
       return `<span class="chip">${escapeHtml(v)}</span>`;
     }
 
+    function safeJsonParse(s) { try { return JSON.parse(s); } catch { return null; } }
+
     function pick(obj, keys) {
       for (const k of keys) {
         const v = obj?.[k];
@@ -211,7 +350,9 @@
       return "";
     }
 
-    function safeJsonParse(s) { try { return JSON.parse(s); } catch { return null; } }
+    function getParamFromUrl(urlString, key) {
+      try { return new URL(urlString).searchParams.get(key) || ""; } catch { return ""; }
+    }
 
     function normalizeRow(r) {
       const url = r.url || r.generated_url || r.generatedUrl || "";
@@ -223,13 +364,11 @@
       if (typeof payload === "string") payload = safeJsonParse(payload);
       if (!payload || typeof payload !== "object") payload = {};
 
-      // If the Worker returns utm_* as top-level columns, fold them into payload
+      // Top-level fallbacks (if your Worker ever returns these as columns)
       const fallbacks = {
         utm_campaign: r.utm_campaign || r.campaign,
         utm_source: r.utm_source || r.source,
         utm_medium: r.utm_medium || r.medium,
-        utm_term: r.utm_term || r.term,
-        utm_content: r.utm_content || r.content,
         baseUrl: r.baseUrl || r.base_url
       };
       for (const [k, v] of Object.entries(fallbacks)) {
@@ -237,22 +376,6 @@
       }
 
       return { id: r.id, email, url, createdAt, payload };
-    }
-
-    function ensureParamInUrl(urlString, key, value) {
-      if (!urlString || !value) return urlString || "";
-      try {
-        const u = new URL(urlString);
-        if (!u.searchParams.get(key)) {
-          u.searchParams.set(key, value);
-        }
-        return u.toString();
-      } catch {
-        // Fallback if URL parsing fails
-        if (urlString.includes(`${key}=`)) return urlString;
-        const joiner = urlString.includes("?") ? "&" : "?";
-        return `${urlString}${joiner}${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-      }
     }
 
     function render() {
@@ -267,9 +390,7 @@
           p.utm_campaign, p.campaign,
           p.utm_source, p.source,
           p.utm_medium, p.medium,
-          p.utm_term, p.term,
-          p.utm_content, p.content,
-          p.baseUrl, p.base_url
+          p.baseUrl
         ].filter(Boolean).join(" ").toLowerCase();
         return hay.includes(q);
       });
@@ -280,12 +401,13 @@
         const p = r.payload || {};
         const campaign = pick(p, ["utm_campaign", "campaign"]);
         const source   = pick(p, ["utm_source", "source"]);
-        const medium   = pick(p, ["utm_medium", "medium"]);
 
-        // If URL is missing utm_medium but payload has it, show/copy/open the corrected URL
-        const fixedUrl = ensureParamInUrl(r.url || "", "utm_medium", medium);
+        // Medium: prefer payload, then URL query param
+        let medium = pick(p, ["utm_medium", "medium"]);
+        if (!medium) medium = getParamFromUrl(r.url, "utm_medium");
 
         const tr = document.createElement("tr");
+
         tr.innerHTML = `
           <td class="small">${escapeHtml(formatLocal(r.createdAt))}</td>
           <td class="email">${escapeHtml(r.email || "Unknown")}</td>
@@ -294,12 +416,11 @@
             ${buildChip(source)}
             ${buildChip(medium)}
           </td>
-          <td class="small">${escapeHtml(medium || "")}</td>
-          <td class="mono">${escapeHtml(fixedUrl || "")}</td>
+          <td class="mono">${escapeHtml(r.url || "")}</td>
           <td class="actions">
             <div class="button-row" style="margin:0; gap:6px;">
-              <button type="button" class="secondary mini" data-copy="${escapeHtml(fixedUrl || "")}">Copy</button>
-              <a class="button_primary button_mini" href="${escapeHtml(fixedUrl || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
+              <button type="button" class="secondary mini" data-copy="${escapeHtml(r.url || "")}">Copy</button>
+              <a class="button_primary button_mini" href="${escapeHtml(r.url || "#")}" target="_blank" rel="noopener noreferrer">Open</a>
             </div>
           </td>
         `;
@@ -367,9 +488,7 @@
       const list = (data && (data.rows || data.results)) ? (data.rows || data.results) : null;
 
       if (!Array.isArray(list)) {
-        showError(
-          `Unexpected response format.\n\nExpected JSON with "rows" (array).\n\nBody:\n${text || "(empty)"}`
-        );
+        showError(`Unexpected response format.\n\nBody:\n${text || "(empty)"}`);
         rows = [];
         render();
         return;
@@ -384,11 +503,6 @@
     clearSearchBtn.addEventListener("click", () => { searchEl.value = ""; render(); searchEl.focus(); });
 
     load();
-    function getParamFromUrl(url, key) {
-  try { return new URL(url).searchParams.get(key) || ""; } catch { return ""; }
-}
-let medium = pick(p, ["utm_medium", "medium"]);
-if (!medium) medium = getParamFromUrl(r.url, "utm_medium");
   </script>
 </body>
 </html>
