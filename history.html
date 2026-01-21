@@ -210,6 +210,22 @@
       .table-wrap { overflow-x: auto; }
       table.history-table { min-width: 1020px; }
     }
+    .dt {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.15;
+  }
+  .dt .d {
+    font-size: 0.82rem;
+    color: var(--adler-charcoal);
+    white-space: nowrap;
+  }
+  .dt .t {
+    font-size: 0.78rem;
+    color: var(--adler-gray-600);
+    white-space: nowrap;
+  }
   </style>
 </head>
 
@@ -328,11 +344,15 @@
         .replaceAll("'", "&#39;");
     }
 
-    function formatLocal(iso) {
-      const d = new Date(iso);
-      if (Number.isNaN(d.getTime())) return iso || "";
-      return d.toLocaleString();
-    }
+    function formatDateTimeParts(iso) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return { date: iso || "", time: "" };
+
+  return {
+    date: d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" }),
+    time: d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
+  };
+}
 
     function buildChip(value) {
       const v = String(value || "").trim();
@@ -408,8 +428,15 @@
 
         const tr = document.createElement("tr");
 
+        const dt = formatDateTimeParts(r.createdAt);
+
         tr.innerHTML = `
-          <td class="small">${escapeHtml(formatLocal(r.createdAt))}</td>
+          <td>
+            <div class="dt">
+              <div class="d">${escapeHtml(dt.date)}</div>
+              <div class="t">at ${escapeHtml(dt.time)}</div>
+            </div>
+          </td>
           <td class="email">${escapeHtml(r.email || "Unknown")}</td>
           <td class="tags">
             ${buildChip(campaign)}
