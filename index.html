@@ -1345,25 +1345,28 @@
   }
 
   function renderSelect(selectId, options, placeholderText) {
-    const sel = document.getElementById(selectId);
-    if (!sel) return;
+  const sel = document.getElementById(selectId);
+  if (!sel) return;
 
-    sel.innerHTML = "";
+  sel.innerHTML = "";
 
-    const placeholder = document.createElement("option");
-    placeholder.value = "";
-    placeholder.textContent = placeholderText;
-    placeholder.disabled = true;
-    placeholder.selected = true;
-    sel.appendChild(placeholder);
+  const placeholder = document.createElement("option");
+  placeholder.value = "";
+  placeholder.textContent = placeholderText;
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  sel.appendChild(placeholder);
 
-    options.forEach((opt) => {
-      const o = document.createElement("option");
-      o.value = opt;
-      o.textContent = opt;
-      sel.appendChild(o);
-    });
-  }
+  options.forEach((opt) => {
+    const o = document.createElement("option");
+    o.value = opt;
+    o.textContent = opt;
+    sel.appendChild(o);
+  });
+
+  // NEW: if nothing selected, pick first real option
+  if (!sel.value && options.length) sel.value = options[0];
+}
 
   function normalizeValue(value) {
     if (!value) return "";
