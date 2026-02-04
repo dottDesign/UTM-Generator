@@ -728,6 +728,35 @@
       padding: 8px 10px;
     }
   </style>
+  <script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+
+  // Exit if no gclid
+  if (!params.has('gclid')) return;
+
+  // Read utm_medium
+  const medium = params.get('utm_medium')?.toLowerCase() || '';
+
+  // Define paid media values
+  const paidMedia = ['cpc', 'ppc', 'paidsearch', 'paid'];
+
+  // If this is a paid click, keep gclid
+  if (paidMedia.includes(medium)) return;
+
+  // Remove gclid
+  params.delete('gclid');
+
+  const newQuery = params.toString();
+  const newUrl =
+    window.location.pathname +
+    (newQuery ? `?${newQuery}` : '') +
+    window.location.hash;
+
+  // Update URL without reload
+  window.history.replaceState({}, document.title, newUrl);
+})();
+</script>
 </head>
 
 <body>
