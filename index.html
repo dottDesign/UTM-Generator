@@ -1526,16 +1526,7 @@
     try {
       const urlObj = new URL(base);
       const existing = new URLSearchParams(urlObj.search);
-
-for (const [key, value] of existing.entries()) {
-  // Keep non-UTM params only (or you can make this a skip list)
-  if (key.toLowerCase().startsWith("utm_")) continue;
-
-  // Avoid duplicates of anything we already set
-  if (params.has(key)) continue;
-
-  params.append(key, value);
-}
+      for (const [key, value] of existing.entries()) params.append(key, value);
       urlObj.search = params.toString();
       finalUrl = urlObj.toString();
     } catch {
