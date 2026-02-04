@@ -728,35 +728,6 @@
       padding: 8px 10px;
     }
   </style>
-  <script>
-(function () {
-  const params = new URLSearchParams(window.location.search);
-
-  // Exit if no gclid
-  if (!params.has('gclid')) return;
-
-  // Read utm_medium
-  const medium = params.get('utm_medium')?.toLowerCase() || '';
-
-  // Define paid media values
-  const paidMedia = ['cpc', 'ppc', 'paidsearch', 'paid'];
-
-  // If this is a paid click, keep gclid
-  if (paidMedia.includes(medium)) return;
-
-  // Remove gclid
-  params.delete('gclid');
-
-  const newQuery = params.toString();
-  const newUrl =
-    window.location.pathname +
-    (newQuery ? `?${newQuery}` : '') +
-    window.location.hash;
-
-  // Update URL without reload
-  window.history.replaceState({}, document.title, newUrl);
-})();
-</script>
 </head>
 
 <body>
@@ -1377,15 +1348,19 @@
   const sel = document.getElementById(selectId);
   if (!sel) return;
 
+  // Preserve current selection so rerenders don't reset the user's choice
+  const currentValue = sel.value;
+
   sel.innerHTML = "";
 
+  // Placeholder
   const placeholder = document.createElement("option");
   placeholder.value = "";
   placeholder.textContent = placeholderText;
   placeholder.disabled = true;
-  placeholder.selected = true;
   sel.appendChild(placeholder);
 
+  // Options
   options.forEach((opt) => {
     const o = document.createElement("option");
     o.value = opt;
@@ -1393,11 +1368,14 @@
     sel.appendChild(o);
   });
 
-  // NEW: if nothing selected, pick first real option
-  if (!sel.value && options.length) sel.value = options[0];
-}
-
-  function normalizeValue(value) {
+  // Restore if still valid; otherwise show placeholder (no forced default)
+  if (currentValue && options.includes(currentValue)) {
+    sel.value = currentValue;
+  } else {
+    sel.value = "";
+    placeholder.selected = true;
+  }
+}function normalizeValue(value) {
     if (!value) return "";
     const trimmed = value.trim();
 
@@ -1638,7 +1616,7 @@
   function getCurrentUtmUrlOrBuild() {
     const current = outputBox.classList.contains("empty") ? "" : outputBox.textContent.trim();
     if (current) return current;
-    return buildUtmUrl({ silent: false, rerenderLists: true });
+    return buildUtmUrl({ silent: false, rerenderLists: false });
   }
 
   async function sendTeamsMsg() {
@@ -1774,7 +1752,7 @@ generateBtn.addEventListener("click", async () => {
   }
 
   // Generate URL (this also updates the UI)
-  const utmUrl = buildUtmUrl({ silent: false, rerenderLists: true });
+  const utmUrl = buildUtmUrl({ silent: false, rerenderLists: false });
   if (!utmUrl) return;
 
 const payload = {
@@ -1791,8 +1769,7 @@ if (!payload.utm_source || !payload.utm_medium || !payload.utm_campaign) {
   console.warn("Missing required UTM fields, not saving:", payload);
   return;
 }
-
-saveGeneratedUtmToDb(email, utmUrl, payload);
+  const result = await saveGeneratedUtmToDb(email, utmUrl, payload);
 
   if (result?.ok) {
     showStatus("Saved");
@@ -1832,7 +1809,7 @@ saveGeneratedUtmToDb(email, utmUrl, payload);
     el.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        const url = buildUtmUrl({ silent: false, rerenderLists: true });
+        const url = buildUtmUrl({ silent: false, rerenderLists: false });
         if (url) showStatus("Updated");
       }
     });
